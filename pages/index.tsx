@@ -3,6 +3,11 @@ import type { NextPage } from "next";
 import { useState, useEffect } from "react";
 import { User } from "../models/interfaces/types/User";
 import AutoComplete from "../components/AutoComplete";
+import styles from "../styles/Home.module.css";
+import Head from 'next/head'
+import Image from 'next/image'
+import Link from 'next/Link'
+
 const Home: NextPage = () => {
   const [user, setUser] = useState<User>({
     name: "",
