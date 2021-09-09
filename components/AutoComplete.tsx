@@ -2,6 +2,7 @@ import React from 'react'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 function AutoComplete() {
+  //TODO: connect to a mock db
   const items = [
     {
       id: 0,
