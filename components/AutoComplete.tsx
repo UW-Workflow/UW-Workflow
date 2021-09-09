@@ -1,5 +1,4 @@
 import React from 'react'
-// import './App.css'
 import { ReactSearchAutocomplete } from 'react-search-autocomplete'
 
 function AutoComplete() {
