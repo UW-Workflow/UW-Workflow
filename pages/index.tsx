@@ -2,8 +2,7 @@ import axios from "axios";
 import type { NextPage } from "next";
 import { useState } from "react";
 import { User } from "../models/interfaces/types/User";
-import AutoComplete from '../components/AutoComplete';
-import styles from "../styles/Home.module.css";
+import AutoComplete from "../components/AutoComplete";
 
 const Home: NextPage = () => {
   const [user, setUser] = useState<User>({
@@ -23,7 +22,7 @@ const Home: NextPage = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div>
       <AutoComplete></AutoComplete>
       <button onClick={() => handleClick()}>Random Button to test db</button>
       <div>
