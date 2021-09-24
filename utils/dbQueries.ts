@@ -27,3 +27,12 @@ export const QUERY_USER = gql`
     }
   }
 `;
+
+export const GET_COMPANY_NAMES = gql`
+  query search_companies {
+    companies {
+      id
+      name: company_name
+    }
+  }
+`;
