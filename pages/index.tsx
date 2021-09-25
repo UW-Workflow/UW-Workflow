@@ -11,8 +11,10 @@ const Home: NextPage = () => {
     id: 0,
   });
   const [companies, setCompanies] = useState([])
-  axios.get("/api/companies").then((res)=>{
-    setCompanies(companies.concat(res.data.companies))
+  useEffect(() =>{
+    axios.get("/api/companies").then((res)=>{
+      setCompanies(res.data.companies)
+    })
   })
   const handleClick = async () => {
     const userResponse = await axios.post("/api/user/insertUser", {
