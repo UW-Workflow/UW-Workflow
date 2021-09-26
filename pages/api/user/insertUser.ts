@@ -32,6 +32,6 @@ export default async function handler(
     return res.json(userResponse.insert_users.returning[0]);
   } catch (error) {
     console.error(error);
-    return apiResponse(res, 500, `Erro logging: ${error.message}`, true);
+    return apiResponse(res, 500, `Error logging: ${error.message}`, true);
   }
 }
