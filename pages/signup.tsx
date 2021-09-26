@@ -1,8 +1,11 @@
 import React, {useState} from 'react';
 import Router from 'next/router';
+<<<<<<< HEAD
 import {validateEmail} from '../utils/authUtils'
 import axios from "axios";
 import { User } from "../models/interfaces/types/User";
+=======
+>>>>>>> 2ee3fbcbb9e61709a8d96d65d42f53abeae93da7
 
 const Signup = () => {
     const [signupError, setSignupError] = useState('');
@@ -10,6 +13,7 @@ const Signup = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+<<<<<<< HEAD
     const [confirmPassword, setConfirmPassword] = useState('');
 
     const handleSubmit = async() => {
@@ -32,6 +36,16 @@ const Signup = () => {
     return (
         <form onSubmit={handleSubmit}>
           <p>Sign Up with your uwaterloo.ca email</p>
+=======
+    const [confimPassword, setConfirmPassword] = useState('');
+
+    function handleSubmit() {
+
+    }
+    return (
+        <form onSubmit={handleSubmit}>
+          <p>Sign Up</p>
+>>>>>>> 2ee3fbcbb9e61709a8d96d65d42f53abeae93da7
           <label htmlFor="name">
             name
             <input
@@ -39,7 +53,10 @@ const Signup = () => {
               onChange={(e) => setName(e.target.value)}
               name="name"
               type="name"
+<<<<<<< HEAD
               required
+=======
+>>>>>>> 2ee3fbcbb9e61709a8d96d65d42f53abeae93da7
             />
           </label>
     
@@ -52,8 +69,11 @@ const Signup = () => {
               onChange={(e) => setEmail(e.target.value)}
               name="email"
               type="email"
+<<<<<<< HEAD
               placeholder="me@uwaterloo.ca"
               required
+=======
+>>>>>>> 2ee3fbcbb9e61709a8d96d65d42f53abeae93da7
             />
           </label>
     
@@ -66,6 +86,7 @@ const Signup = () => {
               onChange={(e) => setPassword(e.target.value)}
               name="password"
               type="password"
+<<<<<<< HEAD
               required
             />
           </label>
@@ -80,6 +101,10 @@ const Signup = () => {
               required
             />
           </label> */}
+=======
+            />
+          </label>
+>>>>>>> 2ee3fbcbb9e61709a8d96d65d42f53abeae93da7
     
           <br />
     
@@ -89,4 +114,8 @@ const Signup = () => {
       );
 };
 
+<<<<<<< HEAD
 export default Signup
+=======
+export default Signup;
+>>>>>>> 2ee3fbcbb9e61709a8d96d65d42f53abeae93da7
