@@ -21,7 +21,6 @@ export async function dbQuery(query: any, variables = {}): Promise<any> {
     }
     return response.data.data;
   } catch (error) {
-    console.error(error);
     throw new Error(`Error making db query: ${error.message}`);
   }
 }
