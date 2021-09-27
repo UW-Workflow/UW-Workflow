@@ -33,6 +33,21 @@ export const GET_COMPANY_NAMES = gql`
     companies {
       id
       name: company_name
+      website
+    }
+  }
+`;
+
+export const GET_COMPANY_WITH_ID = gql`
+  query get_company_with_id($id: Int) {
+    companies(where: { id: { _eq: $id } }) {
+      city
+      company_name
+      country
+      id
+      logo
+      rating
+      website
     }
   }
 `;

@@ -1,8 +1,8 @@
 export type Company {
     id: number;
-    companyName: string;
+    company_name: string;
     city: string;
-    coutry: string;
+    country: string;
     logo: string;
     website: string;
     rating: number;

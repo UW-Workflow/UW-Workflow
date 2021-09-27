@@ -12,7 +12,7 @@ const Home: NextPage = () => {
   });
   const [companies, setCompanies] = useState([]);
   useEffect(() => {
-    axios.get("/api/companies").then((res) => {
+    axios.get("/api/company").then((res) => {
       setCompanies(res.data.companies);
     });
   });
