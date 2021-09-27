@@ -36,3 +36,18 @@ export const GET_COMPANY_NAMES = gql`
     }
   }
 `;
+
+export const INSERT_CONTACT_MESSAGE = gql`
+  mutation INSERT_MESSAGE(
+    $email: String = ""
+    $message: String = ""
+  ) {
+    insert_contact_message(objects: { email: $email, message: $message }) {
+      returning {
+        email
+        id
+        message
+      }
+    }
+  }
+`;
