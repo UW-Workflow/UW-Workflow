@@ -5,7 +5,7 @@ import { User } from "../models/interfaces/types/User";
 import AutoComplete from "../components/AutoComplete";
 import Head from 'next/head'
 import Image from 'next/image'
-import Link from 'next/Link'
+import Link from 'next/link'
 import { useAuth } from '../context/AuthUserContext';
 import {Container, Row, Col, Button} from 'reactstrap';
 const Home: NextPage = () => {
