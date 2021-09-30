@@ -75,33 +75,7 @@ const Login = () => {
         </Col>
       </Row>
     </Container>
-        // <form onSubmit={handleSubmit}>
-        //   <p>Login</p>
-        //   <label htmlFor="email">
-        //     email
-        //     <input
-        //         name="email"
-        //         type="email"
-        //         value={email}
-        //         onChange={(e) => setEmail(e.target.value)}
-        //     />
-        //   </label>
-        //   <br/>
-        //   <label htmlFor="password">
-        //     password
-        //     <input
-        //         name="password"
-        //         type="password"
-        //         value={password}
-        //         onChange={(e) => setPassword(e.target.value)}
-        //     />
-        //   </label>
-        //   <br/>
-        //   <input type="submit" value="Submit" />
-        //   {loginError && <p style={{color: 'red'}}>{loginError}</p>}
-        //   {loginError && loginErrorSol && <p style={{color: 'black'}}>{loginErrorSol}</p>}
-        // </form>
-      );
+    );
 };
 
 export default Login;
