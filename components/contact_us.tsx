@@ -2,8 +2,7 @@ import { useState } from "react"
 import axios from "axios";
 import { ContactMessage } from "../models/interfaces/types/ContactMessage";
 
-function ContactUs(props: {show: boolean, setShow: (value: boolean) => void}) {
-    console.log(props.show);
+function ContactUs(props: {setShow: (value: boolean) => void}) {
     const [email, setEmail] = useState<string>("");
     const [message, setMessage] = useState<string>("");
 
@@ -16,7 +15,7 @@ function ContactUs(props: {show: boolean, setShow: (value: boolean) => void}) {
       if (tempUser) console.log("success");
     };
     
-        return <div hidden={!props.show} style={{borderStyle: "solid", borderWidth: 2, margin: 10, padding: 5, width: 300}}>
+        return <div style={{borderStyle: "solid", borderWidth: 2, margin: 10, padding: 5, width: 300}}>
         <div style={{display: "flex", flexDirection: "column"}}>
         <input style={{marginBottom: 5}} title="Email" type="text" placeholder="Please enter your email" value={email} onChange={e => setEmail(e.target.value)}/>
         <textarea style={{marginBottom: 5}} title="Message" placeholder="Please enter your message" value={message} onChange={e => setMessage(e.target.value)}></textarea>
@@ -24,7 +23,7 @@ function ContactUs(props: {show: boolean, setShow: (value: boolean) => void}) {
         <div style={{display: "flex"}}>
         <button className="button success" onClick={handleSubmit}>Send</button>
         <button className="button" onClick={() => {
-          props.setShow(false);
+          // props.setShow(false);
           setEmail("");
           setMessage("");
         }}>Close</button>
