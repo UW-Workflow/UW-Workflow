@@ -1,6 +1,5 @@
 import { MainContainer } from "../components/MainContainer";
 import React from "react";
-import { PlusIcon } from "../components/PlusIcon";
 
 export default function Home() {
   return (
