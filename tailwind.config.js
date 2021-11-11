@@ -8,6 +8,9 @@ module.exports = {
     width: {
       "gradient-2-circle": "408px",
     },
+    // fontSize:{
+    //   xl:['48px','72px']
+    // },
     extend: {
       blur: {
         huge: "128px",
