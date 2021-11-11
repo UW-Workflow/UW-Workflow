@@ -8,7 +8,17 @@ export default function PageNotFound404() {
     <MainContainer>
       <div className="grid grid-cols-3 gap-2 place-content-center">
           <div></div>
-          <img src="illustration.png" />
+          <div>
+              <div>
+
+              </div>
+              <img src="illustration.png" />
+              <h2>Oops!</h2>
+              <p>You weren't supposed to see this page...yeti here you are</p>
+              <div className="bg-button-blue text-white rounded-xl p-3 flex items-center space-x-2">
+                  <span>Go back to the home page</span>
+              </div>
+          </div>
           <div></div>
       </div>
     </MainContainer>
