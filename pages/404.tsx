@@ -9,8 +9,8 @@ export default function PageNotFound404() {
             <div className="flex flex-col flex-grow">
                 <div className="self-center bg-gradient-2 filter rounded-full blur-huge h-gradient-2-circle w-gradient-2-circle -ml-auto"></div>
             </div>
-            <div className="flex flex-col flex-grow items-center">
-                <img src="illustration.png" />
+            <div className="flex flex-col flex-grow items-center m-10 space-y-4">
+                <img src="Illustration.png" />
                 <p className="font-extrabold text-5xl">Oops!</p>
                 <p>You were not supposed to see this page...yeti here you are</p>
                 <NavLink to={ROUTES.HOME}>
