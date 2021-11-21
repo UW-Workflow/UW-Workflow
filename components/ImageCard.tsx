@@ -1,18 +1,35 @@
 export default function ImageCard({
   name,
-  company,
+  role,
   image,
+  linkedin,
+  github,
 }: {
   name: string;
-  company: string;
+  role: string;
   image: string;
+  linkedin: string;
+  github: string;
 }) {
   return (
-    <div className="border-2 border-indigo-200 rounded-md">
-      <img className="m-2 rounded-xl" src={image} width={200} height={200} />
-      <div className="pt-1 border-b " />
-      <h5 className="pt-2 text-sm font-extrabold">{name}</h5>
-      <h6 className="pt-2 text-sm font-extrabold"> {company}</h6>
+    <div className="rounded-md mx-10">
+      <img className="rounded-xl" src={image} width={200} height={200} />
+      <h5 className="font-cabinet-grotesk font-normal text-lg mt-2">{name}</h5>
+      <h6 className="font-cabinet-grotesk font-normal text-md mt-1"> {role}</h6>
+      <h6 className="flex mr-2 mt-4">
+        <a
+          className="font-cabinet-grotesk font-bold text-sm text-blue-600"
+          href={linkedin}
+        >
+          Linkedin
+        </a>
+        <a
+          className="font-cabinet-grotesk font-bold text-sm pl-4"
+          href={github}
+        >
+          Github
+        </a>
+      </h6>
     </div>
   );
 }
