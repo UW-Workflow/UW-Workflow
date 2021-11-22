@@ -24,6 +24,9 @@ module.exports = {
         "light-black": "#23262F",
         "gradient-2": "#C9FFF5",
         "button-blue": "#2772F0",
+        "logout-bg":"#E6521F1A",
+        "logout-text":"#E6521FCC",
+        "blue-active":"rgba(39, 114, 240, 0.8)"
       },
     },
   },
