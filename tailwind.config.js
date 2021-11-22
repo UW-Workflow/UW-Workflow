@@ -13,6 +13,7 @@ module.exports = {
     // },
     extend: {
       blur: {
+        small:"60px",
         huge: "128px",
       },
       fontFamily: {
@@ -23,6 +24,7 @@ module.exports = {
         "divider-color": "#23262F1A",
         "light-black": "#23262F",
         "gradient-2": "#C9FFF5",
+        "gradient-3": "rgba(255, 221, 160, 1)",
         "button-blue": "#2772F0",
         "logout-bg":"#E6521F1A",
         "logout-text":"#E6521FCC",
