@@ -10,33 +10,61 @@ export default function YourAccount(){
                 <div className="mb-20">
                     <div className="flex">
                         <ul className="flex">
-                            <li className="p-4 border-b-2 border-transparent hover:border-blue-active hover:text-gray-500">
-                                <a className="font-medium text-black-500 " href="#">Profile</a>
-                            </li>
-                            <li className="p-4 border-b-2 border-transparent hover:border-blue-active hover:text-gray-500">
-                                <a className="font-medium text-black-500 " href="#">Bookmarks</a>
-                            </li>
-                            <li className="p-4 border-b-2 border-transparent hover:border-blue-active hover:text-gray-500">
-                                <a className="font-medium text-black-500" href="#">Password</a>
-                            </li>
+                        <li className="p-4 border-b-2 border-transparent hover:border-blue-active hover:text-gray-500">
+                            <a className="font-medium text-black-500 " href="#">Profile</a>
+                        </li>
+                        <li className="p-4 border-b-2 border-transparent hover:border-blue-active hover:text-gray-500">
+                            <a className="font-medium text-black-500 " href="#">Bookmarks</a>
+                        </li>
+                        <li className="p-4 border-b-2 border-transparent hover:border-blue-active hover:text-gray-500">
+                            <a className="font-medium text-black-500" href="#">Password</a>
+                        </li>
                         </ul>
                         <div className="bg-logout-bg text-logout-text font-semibold rounded-xl py-2 px-8 flex items-center space-x-2 ml-auto mr-20 mb-4 border-2 border-transparent hover:border-gray-200">
-                            <img src="Logout.svg"></img>
-                            <span>Log out</span>
+                        <img src="Logout.svg"></img>
+                        <span>Log out</span>
                         </div>
                     </div>
                     <hr className="mr-20"/>
                 </div>
                 {/* self-center bg-gradient-2 filter rounded-full blur-huge h-gradient-2-circle w-gradient-2-circle -ml-auto */}
             </div>
-            <div className="flex flex-row">
-                <div className="self-center bg-gradient-2 filter blur-huge px-10 py-16 mt-10 flex-grow"></div>
-                <div className="flex border-2 flex-grow">
-                    <div className="w-1/3 bg-gray-400 h-12"></div>
-                    <div className="w-1/3 bg-gray-500 h-12"></div>
-                    <div className="w-1/3 bg-gray-400 h-12"></div>
+            <div className="flex">
+                <div className="self-center bg-gradient-2 filter blur-huge px-10 py-10 mt-5 flex-grow"></div>
+                <div className="flex flex-grow flex-col rounded-lg bg-white mt-5 shadow">
+                    <div className="flex flex-grow m-10">
+                        <div className="rounded-lg shadow mb-5 flex-grow">
+                        <div className="flex flex-row">
+                            <div className="mr-10 ml-3 my-5">
+                                <img src="default_profile.jpg"/>
+                            </div>
+                            <div className="flex flex-col my-5">
+                                <p>John Doe</p>
+                                <p>PNG or JPG no bigger than 1000px wide and tall.</p>
+                            </div>
+                            <div className="px-10 bg-light-button-blue flex flex-row rounded-lg ml-auto mr-2 my-5 flex-row">
+                                <div className="my-auto mr-4"><img src="upload.svg"></img></div>
+                                <div className="my-auto"><p className="text-blue-text">Upload</p></div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                    <div className="flex flex-grow items-center mt-2">
+                        <p className="mb-8 ml-10 text-base font-bold">Account Information</p>
+                    </div>
+                    <p className="ml-10">First Name</p>
+                    <input type="input" placeholder="John" className="p-3 rounded-lg drop-shadow-md border-2 mx-10 my-5"></input>
+                    <p className="ml-10">Last Name</p>
+                    <input type="input" placeholder="Doe" className="p-3 rounded-lg drop-shadow-md border-2 mx-10 my-5"></input>
+                    <p className="ml-10">Email</p>
+                    <input type="email" placeholder="j_doe@gmail.com" className="p-3 rounded-lg drop-shadow-md border-2 mx-10 my-5"></input>
+                    <div className="flex flex-row-reverse">
+                        <div className="bg-button-blue text-white rounded-xl p-3 flex items-center space-x-2 mx-10 my-4">
+                        <p className="font-bold">Save Changes</p>
+                        </div>
+                    </div>
                 </div>
-                <div className="self-center bg-gradient-3 filter blur-huge px-10 py-16 mt-10 flex-grow"></div>
+                <div className="self-center bg-gradient-3 filter blur-huge px-10 py-10 mt-5 flex-grow"></div>
             </div>
         </MainContainer>
     )

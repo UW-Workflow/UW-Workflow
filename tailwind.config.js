@@ -18,6 +18,7 @@ module.exports = {
       },
       fontFamily: {
         "cabinet-grotesk": ['"Cabinet Grotesk"'],
+        "inter": ['"Inter"']
       },
       colors: {
         "shadow-gray": "#23262F99",
@@ -28,7 +29,9 @@ module.exports = {
         "button-blue": "#2772F0",
         "logout-bg":"#E6521F1A",
         "logout-text":"#E6521FCC",
-        "blue-active":"rgba(39, 114, 240, 0.8)"
+        "blue-active":"rgba(39, 114, 240, 0.8)",
+        "light-button-blue":"rgba(50, 107, 255, 0.1)",
+        "blue-text":"rgba(50, 107, 255, 1)"
       },
     },
   },
