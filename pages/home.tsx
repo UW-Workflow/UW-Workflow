@@ -1,7 +1,28 @@
 import { MainContainer } from "../components/MainContainer";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import AutoComplete from "../components/AutoComplete";
+
+import { Company } from "../models/interfaces/types/Company";
+import axios from "axios";
 
 export default function Home() {
+  let [companies, setCompanies] = useState<Company[]>([]);
+  let [searchedCompanies, setSearchedCompanies] = useState<string[]>([]);
+  // fetches the companies on load
+  useEffect(() => {
+    async function getCompanies() {
+      try {
+        const response = await axios.get(`/api/companies`);
+        if (response.data.companies) {
+          setCompanies(response.data.companies);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getCompanies();
+  }, []);
+
   return (
     <>
       <MainContainer>
@@ -21,11 +42,7 @@ export default function Home() {
             </h2>
 
             <div className="flex items-center space-x-4">
-              <input
-                type="text"
-                className="p-3 rounded-lg drop-shadow-md"
-                placeholder="Search for a company"
-              />
+              <AutoComplete items={companies} />
               <span>or</span>
               <div className="bg-button-blue text-white rounded-xl p-3 flex items-center space-x-2">
                 <div className="bg-white text-button-blue rounded-md">
