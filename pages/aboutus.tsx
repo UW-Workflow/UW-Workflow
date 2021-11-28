@@ -2,9 +2,9 @@ import React from "react";
 import ImageCard from "../components/ImageCard";
 import { MainContainer } from "../components/MainContainer";
 import {
-  AKSHAYA_GITHIB,
+  AKSHAYA_GITHUB,
   AKSHAYA_LINKEDIN,
-  DHVITI_GITHIB,
+  DHVITI_GITHUB,
   DHVITI_LINKEDIN,
   SNEH_GITHUB,
   SNEH_LINKEDIN,
@@ -86,7 +86,7 @@ export default function AboutUs() {
             role="Developer"
             image="/images/dhviti.jpg"
             linkedin={DHVITI_LINKEDIN}
-            github={DHVITI_GITHIB}
+            github={DHVITI_GITHUB}
           ></ImageCard>
           <ImageCard
             name="Sneh Koul"
@@ -100,7 +100,7 @@ export default function AboutUs() {
             role="Developer"
             image="/images/akshaya.jpg"
             linkedin={AKSHAYA_LINKEDIN}
-            github={AKSHAYA_GITHIB}
+            github={AKSHAYA_GITHUB}
           ></ImageCard>
         </div>
       </div>
