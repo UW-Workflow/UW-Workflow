@@ -16,6 +16,9 @@ module.exports = {
         small:"60px",
         huge: "128px",
       },
+      backgroundImage: {
+        "about-us-gradient": "url('/gradientBgAboutUs.png')",
+      },
       fontFamily: {
         "cabinet-grotesk": ['"Cabinet Grotesk"'],
         "inter": ['"Inter"']
@@ -26,6 +29,7 @@ module.exports = {
         "light-black": "#23262F",
         "gradient-2": "#C9FFF5",
         "gradient-3": "rgba(255, 221, 160, 1)",
+        "gradient-pink": "#E6D0F5",
         "button-blue": "#2772F0",
         "logout-bg":"#E6521F1A",
         "logout-text":"#E6521FCC",
