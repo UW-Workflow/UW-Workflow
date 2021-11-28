@@ -13,6 +13,7 @@ module.exports = {
     // },
     extend: {
       blur: {
+        small: "60px",
         huge: "128px",
       },
       backgroundImage: {
@@ -20,16 +21,23 @@ module.exports = {
       },
       fontFamily: {
         "cabinet-grotesk": ['"Cabinet Grotesk"'],
+        inter: ['"Inter"'],
       },
       colors: {
         "shadow-gray": "#23262F99",
         "divider-color": "#23262F1A",
         "light-black": "#23262F",
         "gradient-2": "#C9FFF5",
+        "gradient-3": "rgba(255, 221, 160, 1)",
         "gradient-pink": "#E6D0F5",
         "button-blue": "#2772F0",
         "login-blue": "#326BFF",
         "overlay-grey": "#21262E",
+        "logout-bg": "#E6521F1A",
+        "logout-text": "#E6521FCC",
+        "blue-active": "rgba(39, 114, 240, 0.8)",
+        "light-button-blue": "rgba(50, 107, 255, 0.1)",
+        "blue-text": "rgba(50, 107, 255, 1)",
       },
       margin: {
         105: "30rem",

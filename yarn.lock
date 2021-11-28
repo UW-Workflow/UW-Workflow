@@ -4016,10 +4016,10 @@ react-refresh@0.8.3:
   resolved "https://registry.npmjs.org/react-refresh/-/react-refresh-0.8.3.tgz"
   integrity sha512-X8jZHc7nCMjaCqoU+V2I0cOhNW+QMBwSUkeXnTi8IPe6zaRWfn60ZzvFDZqWPfmSJfjub7dDW1SP0jaHWLu/hg==
 
-react-search-autocomplete@^5.4.2:
-  version "5.4.2"
-  resolved "https://registry.yarnpkg.com/react-search-autocomplete/-/react-search-autocomplete-5.4.2.tgz#b0b35b973fc6eb2a7a6cc238f651198f650f63fa"
-  integrity sha512-yH8L2GdedxI6eA83C4ZaVJ43Q6Z3sFdL3w8eP3wv8ratFbd3NiNmWXYY4BeTlYFMs9eNSmloluC8eq6xUCZLwA==
+react-search-autocomplete@^5.4.4:
+  version "5.4.4"
+  resolved "https://registry.yarnpkg.com/react-search-autocomplete/-/react-search-autocomplete-5.4.4.tgz#bd6b9d19e939045c6230428ad19562fe4c30b1e5"
+  integrity sha512-kNJOjpy/satYYEv7tpQCasjPOb25Xi5ocVL0UUzOAhTBsvbvzI/cllkwZTq3snehrIdL7hgxucbfLTS/Mx26gg==
   dependencies:
     fuse.js "^6.4.4"
     styled-components "^4.4.1"

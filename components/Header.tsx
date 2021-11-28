@@ -1,10 +1,13 @@
 import { ROUTES } from "../constants/routes";
 import Link from "next/link";
-import React from "react";
 import { useAuth } from "../context/AuthUserContext";
 
 import { Button } from "reactstrap";
 const usernameGen = require("username-gen");
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { Company } from "../models/interfaces/types/Company";
+import AutoComplete from "./AutoComplete";
 
 interface NavLinkProps {
   to: string;
@@ -23,10 +26,26 @@ export const Header: React.FC = () => {
   const { authUser, loading, signOut } = useAuth();
 
   console.log(authUser, loading);
+  let [companies, setCompanies] = useState<Company[]>([]);
+  let [searchedCompanies, setSearchedCompanies] = useState<string[]>([]);
+  // fetches the companies on load
+  useEffect(() => {
+    async function getCompanies() {
+      try {
+        const response = await axios.get(`/api/companies`);
+        if (response.data.companies) {
+          setCompanies(response.data.companies);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getCompanies();
+  }, []);
   return (
     <div className="flex items-center my-4 ml-20 space-x-12 text-shadow-gray">
       <NavLink to={ROUTES.HOME}>
-        <img src="logo.png" />
+        <img src="Logo.svg" />
       </NavLink>
 
       <div className="border-r-2 border-divider-color w-1 h-10"></div>
@@ -34,11 +53,7 @@ export const Header: React.FC = () => {
       <NavLink to={ROUTES.HOME}>Home</NavLink>
       <NavLink to={ROUTES.ABOUT_US}>About Us</NavLink>
       <NavLink to={ROUTES.CONTACT_US}>Contact Us</NavLink>
-      <input
-        type="text"
-        className="p-3 rounded-lg drop-shadow-md w-96 mr-3 w-10 border-2"
-        placeholder="Search for a company"
-      />
+      <AutoComplete items={companies} />
       <div className="border-r-2 border-divider-color max-w-xs h-10"></div>
       {authUser ? (
         loading ? (
@@ -102,6 +117,7 @@ export const Header: React.FC = () => {
           </NavLink>
         </div>
       )}
+      
     </div>
   );
 };
