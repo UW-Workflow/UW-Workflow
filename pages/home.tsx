@@ -23,10 +23,11 @@ export default function Home() {
             <div className="flex items-center space-x-4">
               <input
                 type="text"
-                className="p-3 rounded-lg drop-shadow-md"
+                className="pr-40 pl-10 pt-3 pb-3 rounded-lg drop-shadow-md"
                 placeholder="Search for a company"
               />
-              <span>or</span>
+              {/* Removing this flow */}
+              {/* <span>or</span>
               <div className="bg-button-blue text-white rounded-xl p-3 flex items-center space-x-2">
                 <div className="bg-white text-button-blue rounded-md">
                   <svg
@@ -44,8 +45,7 @@ export default function Home() {
                   </svg>
                 </div>
                 <span>Add a company</span>
-              </div>
-              {/* <p>Add a company</p> */}
+              </div> */}
             </div>
           </div>
           <div className="flex flex-col space-y-4">
