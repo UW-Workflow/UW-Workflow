@@ -1,13 +1,13 @@
 import { MainContainer } from "../components/MainContainer";
 import React, { useEffect, useState } from "react";
 import AutoComplete from "../components/AutoComplete";
-
+import { useRouter } from "next/router";
 import { Company } from "../models/interfaces/types/Company";
 import axios from "axios";
 
 export default function Home() {
   let [companies, setCompanies] = useState<Company[]>([]);
-  let [searchedCompanies, setSearchedCompanies] = useState<string[]>([]);
+  const router = useRouter();
   // fetches the companies on load
   useEffect(() => {
     async function getCompanies() {
@@ -23,6 +23,9 @@ export default function Home() {
     getCompanies();
   }, []);
 
+  const addACompany = () => {
+    router.push("/addACompany");
+  };
   return (
     <>
       <MainContainer>
@@ -60,7 +63,7 @@ export default function Home() {
                     />
                   </svg>
                 </div>
-                <span>Add a company</span>
+                <button onClick={addACompany}>Add a company</button>
               </div>
             </div>
           </div>

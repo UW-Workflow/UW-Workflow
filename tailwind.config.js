@@ -17,6 +17,7 @@ module.exports = {
       },
       backgroundImage: {
         "about-us-gradient": "url('/gradientBgAboutUs.png')",
+        "add-a-company-gradient": "url('/addACompanyBg.png')",
       },
       fontFamily: {
         "cabinet-grotesk": ['"Cabinet Grotesk"'],
