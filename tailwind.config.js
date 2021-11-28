@@ -15,6 +15,9 @@ module.exports = {
       blur: {
         huge: "128px",
       },
+      backgroundImage: {
+        "about-us-gradient": "url('/gradientBgAboutUs.png')",
+      },
       fontFamily: {
         "cabinet-grotesk": ['"Cabinet Grotesk"'],
       },
@@ -23,6 +26,7 @@ module.exports = {
         "divider-color": "#23262F1A",
         "light-black": "#23262F",
         "gradient-2": "#C9FFF5",
+        "gradient-pink": "#E6D0F5",
         "button-blue": "#2772F0",
         "login-blue": "#326BFF",
         "overlay-grey": "#21262E",
