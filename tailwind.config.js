@@ -32,20 +32,28 @@ module.exports = {
         "overlay-grey": "#21262E",
       },
       margin: {
-        "105": "30rem"
+        105: "30rem",
       },
       minWidth: {
-        "400": "400px"
+        400: "400px",
+        100: "100px",
+        300: "300px",
+        200: "200px",
+        120: "120px",
+        20: "20px",
       },
       maxWidth: {
-        "400": "400px"
-       }
+        400: "400px",
+        20: "20px",
+      },
+      outline: {
+        gray: "1px solid #23262f",
+      },
     },
   },
   variants: {
     extend: {},
+    display: ["group-hover"],
   },
-  plugins: [
-    require('@tailwindcss/forms')
-  ],
+  plugins: [require("@tailwindcss/forms")],
 };
