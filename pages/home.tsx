@@ -45,7 +45,6 @@ export default function Home() {
                 </div>
                 <span>Add a company</span>
               </div>
-              {/* <p>Add a company</p> */}
             </div>
           </div>
           <div className="flex flex-col space-y-4">
