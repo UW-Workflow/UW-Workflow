@@ -2,7 +2,7 @@ export default function Password() {
   return (
     <div className="flex">
       <div className="self-center bg-gradient-2 filter blur-huge px-20 py-16 mt-5 flex-grow"></div>
-      <div className="flex flex-col flex-grow rounded-lg bg-white mb-5 shadow bg-white">
+      <div className="flex flex-col flex-grow rounded-lg bg-white my-5 shadow bg-white">
         <div className="flex flex-col flex-grow rounded-lg bg-light-grey m-5">
           <div className="flex flex-col flex-grow m-5">
             <div className="flex flex-grow items-center">

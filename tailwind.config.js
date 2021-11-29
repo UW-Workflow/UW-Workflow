@@ -39,6 +39,9 @@ module.exports = {
         "light-grey": "rgba(247, 250, 252, 1)"
       },
     },
+    maxHeight:{
+      '100': "30rem"
+    }
   },
   variants: {
     extend: {},
