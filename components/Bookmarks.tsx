@@ -46,7 +46,7 @@ export default function Bookmarks() {
           );
         })}
         <p className="text-xs mx-auto my-2 text-gray-300">
-          You've reached the end of the list
+          You have reached the end of the list
         </p>
       </div>
       <div className="self-center bg-gradient-3 filter blur-huge px-20 py-10 mt-5 flex-grow"></div>

@@ -96,7 +96,7 @@ export default function Reviews() {
           );
         })}
         <p className="text-xs mx-auto my-2 text-gray-300">
-          You've reached the end of the list
+          You have reached the end of the list
         </p>
       </div>
     </div>
