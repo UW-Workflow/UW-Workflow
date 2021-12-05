@@ -1,6 +1,6 @@
 import { useState } from "react";
-export default function Bookmarks() {
-  const [bookmarks, setBookmarks] = useState([
+export default function CompanyRoles() {
+  const [companyRoles, setcompanyRoles] = useState([
     { role_name: "Boeing SDE", reviews: 4 },
     { role_name: "Google SDE", reviews: 4 },
     { role_name: "Boeing SDE", reviews: 4 },
@@ -14,9 +14,8 @@ export default function Bookmarks() {
 
   return (
     <div className="flex">
-      <div className="self-center bg-gradient-2 filter blur-huge px-20 py-16 mt-5 flex-grow"></div>
       <div className="flex flex-col flex-grow rounded-lg bg-white my-5 shadow bg-white overflow-auto max-h-100">
-        {bookmarks.map((value, index) => {
+        {companyRoles.map((value, index) => {
           return (
             <div
               key={index}
@@ -49,7 +48,6 @@ export default function Bookmarks() {
           You've reached the end of the list
         </p>
       </div>
-      <div className="self-center bg-gradient-3 filter blur-huge px-20 py-10 mt-5 flex-grow"></div>
     </div>
   );
 }
