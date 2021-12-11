@@ -305,6 +305,7 @@ export default function AddCompany() {
                       href={"https://" + company.website}
                       className=" font-cabinet-grotesk mt-2 ml-10 text-md"
                       target="_blank"
+                      rel="noreferrer"
                     >
                       Website
                     </a>

@@ -21,6 +21,7 @@ export default function ImageCard({
           className="font-cabinet-grotesk font-bold text-sm text-blue-600"
           href={linkedin}
           target="_blank"
+          rel="noreferrer"
         >
           Linkedin
         </a>
@@ -28,6 +29,7 @@ export default function ImageCard({
           className="font-cabinet-grotesk font-bold text-sm pl-4"
           href={github}
           target="_blank"
+          rel="noreferrer"
         >
           Github
         </a>
