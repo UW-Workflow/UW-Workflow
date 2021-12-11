@@ -1,5 +1,4 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { IUserRequest } from "../../../models/interfaces/IUserRequest";
 import { Company } from "../../../models/interfaces/types/Company";
 import { apiResponse } from "../../../utils/apiResponse";
 import { INSERT_COMPANY } from "../../../utils/dbQueries";

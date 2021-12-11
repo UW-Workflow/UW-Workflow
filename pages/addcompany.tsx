@@ -6,11 +6,13 @@ import { useDropzone } from "react-dropzone";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import { ReactSearchAutocomplete } from "react-search-autocomplete";
 
 export default function AddCompany() {
   const [modelStage, setModelStage] = useState<number>(0);
   const router = useRouter();
   const [error, setError] = useState<boolean>(false);
+  const [companies, setCompanies] = useState<any>({});
   const [company, setCompany] = useState<Company>({
     id: 0,
     name: "",
@@ -24,7 +26,6 @@ export default function AddCompany() {
 
   const addCompany = async () => {
     try {
-      console.log(company);
       await axios.post("/api/company/addCompany", {
         name: company.name,
         city: company.city,
@@ -102,10 +103,33 @@ export default function AddCompany() {
   };
 
   const cancel = () => {
-    setModelStage(0);
-    router.push("/");
+    if (modelStage === 1) {
+      setModelStage(0);
+    } else {
+      router.push("/");
+    }
+  };
+  const handleOnSelect = (item: any) => {
+    console.log(item);
+    company.name = item.name;
+    company.logo = item.logo;
+    company.website = item.domain;
+    setCompany(company);
+    forceUpdate();
   };
 
+  const findCompany = async (name) => {
+    try {
+      const companies = await axios.get(
+        `https://autocomplete.clearbit.com/v1/companies/suggest?query=${name}`,
+        { headers: { Authorization: `Bearer ${process.env.CLEARBIT_API_KEY}` } }
+      );
+      console.log(companies.data);
+      setCompanies(companies.data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <MainContainer>
       <div className="flex flex-col items-center bg-add-a-company-gradient rounded-b-3xl bg-cover p-16 mb-1 mx-auto">
@@ -177,16 +201,15 @@ export default function AddCompany() {
                   <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
                     Company Name
                   </label>
-                  <input
-                    placeholder="Please enter a company name"
-                    type="text"
-                    required
-                    onChange={(e) => {
-                      company.name = e.target.value;
-                      setCompany(company);
-                    }}
-                    className="rounded-lg placeholder-gray-300"
-                  />
+                  <div style={{ width: 450 }}>
+                    <ReactSearchAutocomplete
+                      items={companies}
+                      onSelect={handleOnSelect}
+                      autoFocus
+                      onSearch={(value) => findCompany(value)}
+                      placeholder={"Search for companies"}
+                    />
+                  </div>
                 </div>
                 <div className="flex flex-col mt-4 space-y-1">
                   <div className="flex justify-between">
@@ -197,6 +220,7 @@ export default function AddCompany() {
 
                   <input
                     placeholder="Please enter company website url"
+                    value={company.website}
                     type="text"
                     onChange={(e) => {
                       company.website = e.target.value;
@@ -278,9 +302,9 @@ export default function AddCompany() {
                         : company.description}
                     </h1>
                     <a
-                      href={company.website}
-                      target="_blank"
+                      href={"https://" + company.website}
                       className=" font-cabinet-grotesk mt-2 ml-10 text-md"
+                      target="_blank"
                     >
                       Website
                     </a>
@@ -311,7 +335,7 @@ export default function AddCompany() {
               className="rounded-xl p-2  mx-10 mt-0 mb-4 border-2 border-gray-300"
               onClick={cancel}
             >
-              {modelStage === 1 ? <b>Cancel</b> : <b>Previous Page</b>}
+              {modelStage === 1 ? <b>Previous Page</b> : <b>Cancel</b>}
             </button>
           </div>
         </div>
