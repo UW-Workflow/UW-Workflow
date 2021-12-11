@@ -6,5 +6,7 @@ export const ROUTES = Object.freeze({
   LOG_IN: "/login",
   PRIVACY_POLICY: "/privacypolicy",
   FOUR_ZERO_FOUR:"/404",
-  YOUR_ACCOUNT:"/account"
+  YOUR_ACCOUNT:"/account",
+  COMPANIES:"/companies",
+  ROLES: "/roles"
 });

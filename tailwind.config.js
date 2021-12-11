@@ -40,6 +40,7 @@ module.exports = {
         "blue-active": "rgba(39, 114, 240, 0.8)",
         "light-button-blue": "rgba(50, 107, 255, 0.1)",
         "blue-text": "rgba(50, 107, 255, 1)",
+        "light-grey": "rgba(247, 250, 252, 1)"
       },
       margin: {
         105: "30rem",
@@ -60,6 +61,9 @@ module.exports = {
         gray: "1px solid #23262f",
       },
     },
+    maxHeight:{
+      '100': "30rem"
+    }
   },
   variants: {
     extend: {},
