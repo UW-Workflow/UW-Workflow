@@ -20,12 +20,14 @@ export default function ImageCard({
         <a
           className="font-cabinet-grotesk font-bold text-sm text-blue-600"
           href={linkedin}
+          target="_blank"
         >
           Linkedin
         </a>
         <a
           className="font-cabinet-grotesk font-bold text-sm pl-4"
           href={github}
+          target="_blank"
         >
           Github
         </a>

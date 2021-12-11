@@ -5,8 +5,9 @@ import { Company } from "../models/interfaces/types/Company";
 import { useDropzone } from "react-dropzone";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 
-export default function AddACompany() {
+export default function AddCompany() {
   const [modelStage, setModelStage] = useState<number>(0);
   const router = useRouter();
   const [error, setError] = useState<boolean>(false);
@@ -21,11 +22,27 @@ export default function AddACompany() {
   });
   const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void;
 
+  const addCompany = async () => {
+    try {
+      console.log(company);
+      await axios.post("/api/company/addCompany", {
+        name: company.name,
+        city: company.city,
+        country: company.country,
+        website: company.website,
+        description: company.description,
+        logo: company.logo,
+      });
+      setModelStage(modelStage + 1);
+    } catch (err) {
+      toast("Error in adding the company. " + err);
+    }
+  };
+
   const onDrop = useCallback((acceptedFiles) => {
-    // Do something with the files
-    console.log("wohoo");
-    console.log(getBase64(acceptedFiles[0]));
+    getBase64(acceptedFiles[0]);
   }, []);
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const validURL = (str) => {
@@ -71,12 +88,15 @@ export default function AddACompany() {
       toast("Company description is incorrect");
     } else {
       setModelStage(modelStage + 1);
+      forceUpdate();
     }
   };
 
   const addModelStage = () => {
-    if (modelStage == 0) {
+    if (modelStage === 0) {
       checkError();
+    } else if (modelStage === 1) {
+      addCompany();
     }
     setError(false);
   };
@@ -149,7 +169,7 @@ export default function AddACompany() {
                   ) : (
                     <img
                       src={company.logo ? company.logo : "ImageUpload.svg"}
-                      className="max-h-50 max-w-50"
+                      className="max-h-40 max-w-xl"
                     />
                   )}
                 </button>
@@ -190,7 +210,7 @@ export default function AddACompany() {
                     Company Description
                   </label>
                   <textarea
-                    rows={1}
+                    rows={3}
                     required
                     onChange={(e) => {
                       company.description = e.target.value;
@@ -220,7 +240,7 @@ export default function AddACompany() {
                       Country
                     </label>
                     <input
-                      placeholder="Please enter a region"
+                      placeholder="Please enter a country"
                       type="text"
                       onChange={(e) => {
                         company.country = e.target.value;
@@ -244,19 +264,25 @@ export default function AddACompany() {
                   <label className="mt-1 text-gray-500">Preview </label>
                 </div>
                 <div className="flex">
-                  <img src="sampleCompany.png" className="mt-4" />
+                  <img
+                    src={company.logo ? company.logo : "samplecompany.png"}
+                    className="mt-4 max-h-20 max-w-lg"
+                  />
                   <div className="flex flex-col">
                     <h1 className="text-xl font-cabinet-grotesk mt-5 ml-10">
                       {company.name}
                     </h1>
                     <h1 className="text-sm text-gray-600 font-cabinet-grotesk mt-2 ml-10">
-                      {company.description}
+                      {company.description.length > 20
+                        ? company.description.substring(0, 20) + "..."
+                        : company.description}
                     </h1>
                     <a
-                      href="https://www.airbnb.ca/"
-                      className="text-sm text-gray-600 font-cabinet-grotesk mt-2 ml-10"
+                      href={company.website}
+                      target="_blank"
+                      className=" font-cabinet-grotesk mt-2 ml-10 text-md"
                     >
-                      {company.website}
+                      Website
                     </a>
                   </div>
                 </div>
@@ -264,6 +290,7 @@ export default function AddACompany() {
                   <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
                     Location
                   </label>
+                  {console.log(company.city)}
                   <input
                     placeholder={company.city + "," + company.country}
                     type="text"
@@ -273,6 +300,7 @@ export default function AddACompany() {
                 </div>
               </div>
             ) : null}
+
             <button
               className="bg-button-blue text-white rounded-xl p-3  mx-10 my-4"
               onClick={addModelStage}
@@ -283,7 +311,7 @@ export default function AddACompany() {
               className="rounded-xl p-2  mx-10 mt-0 mb-4 border-2 border-gray-300"
               onClick={cancel}
             >
-              <b>Close</b>
+              {modelStage === 1 ? <b>Cancel</b> : <b>Previous Page</b>}
             </button>
           </div>
         </div>

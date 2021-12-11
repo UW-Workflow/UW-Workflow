@@ -12,7 +12,7 @@ export default function Home() {
   useEffect(() => {
     async function getCompanies() {
       try {
-        const response = await axios.get(`/api/companies`);
+        const response = await axios.get(`/api/company`);
         if (response.data.companies) {
           setCompanies(response.data.companies);
         }
@@ -24,7 +24,7 @@ export default function Home() {
   }, []);
 
   const addACompany = () => {
-    router.push("/addACompany");
+    router.push("/addcompany");
   };
   return (
     <>

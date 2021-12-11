@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-import { useAuth } from "../context/AuthUserContext";
+import { useAuth } from "../utils/AuthUserContext";
 import { validateEmail } from "../utils/authUtils";
 import { Modal } from "../components/Modal";
 import { MainContainer } from "../components/MainContainer";

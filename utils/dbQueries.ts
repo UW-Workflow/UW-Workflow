@@ -32,7 +32,31 @@ export const GET_COMPANY_NAMES = gql`
   query get_company_names {
     companies {
       id
-      name: company_name
+      name: name
+    }
+  }
+`;
+
+export const INSERT_COMPANY = gql`
+  mutation INSERT_COMPANY(
+    $name: String
+    $website: String
+    $city: String
+    $country: String
+    $description: String
+    $logo: String
+  ) {
+    insert_companies(
+      objects: {
+        city: $city
+        country: $country
+        description: $description
+        logo: $logo
+        name: $name
+        website: $website
+      }
+    ) {
+      affected_rows
     }
   }
 `;

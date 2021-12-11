@@ -1,6 +1,6 @@
 import { ROUTES } from "../constants/routes";
 import Link from "next/link";
-import { useAuth } from "../context/AuthUserContext";
+import { useAuth } from "../utils/AuthUserContext";
 
 import { Button } from "reactstrap";
 const usernameGen = require("username-gen");
@@ -32,7 +32,7 @@ export const Header: React.FC = () => {
   useEffect(() => {
     async function getCompanies() {
       try {
-        const response = await axios.get(`/api/companies`);
+        const response = await axios.get(`/api/company`);
         if (response.data.companies) {
           setCompanies(response.data.companies);
         }
@@ -117,7 +117,6 @@ export const Header: React.FC = () => {
           </NavLink>
         </div>
       )}
-      
     </div>
   );
 };
