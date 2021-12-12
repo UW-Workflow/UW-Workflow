@@ -12,6 +12,8 @@ const authUserContext = createContext({
     email: any,
     password: any
   ): Promise<any> => {},
+  sendVerificationEmail: () => {},
+  sendPasswordResetEmail: async (email): Promise<void> => {},
   signOut: async () => {},
 });
 

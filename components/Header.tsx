@@ -55,7 +55,7 @@ export const Header: React.FC = () => {
       <NavLink to={ROUTES.CONTACT_US}>Contact Us</NavLink>
       <AutoComplete items={companies} />
       <div className="border-r-2 border-divider-color max-w-xs h-10"></div>
-      {authUser ? (
+      {authUser && authUser.verified ? (
         loading ? (
           <span>Loading..</span>
         ) : (
@@ -89,7 +89,7 @@ export const Header: React.FC = () => {
                 <li className="">
                   <a
                     className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap  min-w-200"
-                    href={ROUTES.FOUR_ZERO_FOUR}
+                    href={ROUTES.PROFILE}
                   >
                     Profile
                   </a>

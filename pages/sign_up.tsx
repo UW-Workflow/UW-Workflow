@@ -17,7 +17,7 @@ const SignUp = () => {
   const router = useRouter();
   const [error, setError] = useState(null);
 
-  const { createUserWithEmailAndPassword } = useAuth();
+  const { createUserWithEmailAndPassword, sendVerificationEmail} = useAuth();
 
   const onSubmit = (event) => {
     setError(null);
@@ -30,7 +30,8 @@ const SignUp = () => {
         createUserWithEmailAndPassword(email, passwordOne)
           .then((authUser) => {
             console.log("Success. The user is created in Firebase");
-            router.push("/logged_in");
+            sendVerificationEmail()
+            router.push("/loggedIn");
           })
           .catch((error) => {
             // An error occurred. Set error message to be displayed to user
@@ -40,8 +41,7 @@ const SignUp = () => {
     }
     event.preventDefault();
   };
-  const onClick = (event) => {
-    console.log("Success. The user is created in firebase");
+  const onClose = (event) => {
     router.push("/");
     event.preventDefault();
   };
@@ -52,7 +52,7 @@ const SignUp = () => {
         <Form className="custom-form" onSubmit={onSubmit}>
           {error && <Alert color="danger">{error}</Alert>}
           <div className="min-w-400 max-w-400">
-            <button onClick={onClick} className="float-right">
+            <button onClick={onClose} className="float-right">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="min-w-20"
