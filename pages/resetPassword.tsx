@@ -8,37 +8,27 @@ import { MainContainer } from "../components/MainContainer";
 import { ROUTES } from "../constants/routes";
 import { CODES } from "../constants/codes";
 
-import { Form, Alert } from "reactstrap";
-
-const Login = () => {
-  const [loginError, setLoginError] = useState("");
+const ResetPassword = () => {
+  const [resetPasswordError, setResetPasswordError] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const router = useRouter();
-  const { signInWithEmailAndPassword, authUser, loading } = useAuth();
+  const { sendPasswordResetEmail } = useAuth();
 
   const onSubmit = (event) => {
-    setLoginError(null);
-    signInWithEmailAndPassword(email, password)
+    setResetPasswordError(null);
+    sendPasswordResetEmail(email)
       .then(() => {
-        if (!loading) {
-          if (authUser.verified) {
-            console.log("Success. Verified user logged in.");
-            router.push("/");
-          } else {
-            setLoginError("Please verify your email address!");
-          }
-        }
+        console.log("Password Reset Email Sent");
+        router.push("/resetPasswordCheckEmail");
+        event.preventDefault();
       })
       .catch((error) => {
         console.log(error.message);
         if (error.code == CODES.USER_NOT_FOUND) {
-          setLoginError(
-            "No account witht he given credentials is found, please Sign Up!"
+          setResetPasswordError(
+            "No account with the given credentials is found, please Sign Up!"
           );
-        } else if (error.code == CODES.WRONG_PASSWORD) {
-          setLoginError("Wrong Password!");
-        } else setLoginError(error.message);
+        }
       });
   };
 
@@ -67,10 +57,11 @@ const Login = () => {
               </svg>
             </button>
             <h2 className="text-xl font-bold text-center text-black">
-              Let&apos;s get you signed in
+              Reset Password
             </h2>
             <p className="mt-2 text-xs text-gray-600 text-center">
-              Please make sure you use your uwaterloo email id to sign up.
+              Enter the email address associated with your account to reset your
+              password
             </p>
             <div className="mt-3 grid grid-cols-1 gap-2">
               <label className="block">
@@ -93,55 +84,29 @@ const Login = () => {
                   "
                 />
               </label>
-              <label className="block">
-                <span className="text-black">Password</span>
-                <input
-                  type="password"
-                  name="password"
-                  value={password}
-                  onChange={(event) => setPassword(event.target.value)}
-                  id="loginPassword"
-                  placeholder="Password"
-                  className="
-                    mt-1
-                    block
-                    min-w-full
-                    rounded-md
-                    border-gray-300
-                    shadow-sm
-                    focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50
-                  "
-                />
-              </label>
-              <Link href={ROUTES.RESET_PASSWORD}>
-                <p className="hover:text-light-black hover:font-bold font-medium text-login-blue ml-2 font-cabinet-grotesk text-sm text-right">
-                  {" "}
-                  Forgot Password?
-                </p>
-              </Link>
               <div className="block">
-                {loginError && (
-                  <div className="items-left mt-2">
-                    <p className="ml-2 font-cabinet-grotesk text-sm font-semibold text-red-700">
-                      {loginError}
-                    </p>
-                  </div>
-                )}
                 <div className="mt-2">
                   <div>
                     <button
                       onClick={onSubmit}
                       className="bg-login-blue text-white py-2 px-4  pl-10 pr-10 rounded-2xl min-w-full"
                     >
-                      Log In
+                      Submit
                     </button>
                   </div>
+                  {resetPasswordError && (
+                    <div className="items-left mt-2">
+                      <p className="ml-2 font-cabinet-grotesk text-sm font-semibold text-red-700">
+                        {resetPasswordError}
+                      </p>
+                    </div>
+                  )}
                   <p className="ml-2 font-cabinet-grotesk text-sm text-center self-center">
-                    Don&apos;t have an account?
-                    <Link href={ROUTES.SIGN_UP}>
+                    Remembered your password?
+                    <Link href={ROUTES.LOG_IN}>
                       <span className="hover:text-light-black hover:font-bold font-medium text-login-blue">
                         {" "}
-                        Sign up
+                        Go Back
                       </span>
                     </Link>
                   </p>
@@ -155,4 +120,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default ResetPassword;
