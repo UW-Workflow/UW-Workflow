@@ -8,16 +8,18 @@ import { MainContainer } from "../components/MainContainer";
 import { ROUTES } from "../constants/routes";
 import Link from "next/link";
 
-import { Form, Alert } from "reactstrap";
+import axios from "axios";
+const usernameGen = require("username-gen");
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [passwordOne, setPasswordOne] = useState("");
   const [passwordTwo, setPasswordTwo] = useState("");
-  const router = useRouter();
+  const [termsConditions, setTermsCondition] = useState(false);
   const [error, setError] = useState(null);
+  const router = useRouter();
 
-  const { createUserWithEmailAndPassword, sendVerificationEmail} = useAuth();
+  const { createUserWithEmailAndPassword, sendVerificationEmail } = useAuth();
 
   const onSubmit = (event) => {
     setError(null);
@@ -26,18 +28,35 @@ const SignUp = () => {
     if (!validateEmail(email)) {
       setError("Please sign up with your uwaterloo email");
     } else {
-      if (passwordOne === passwordTwo)
-        createUserWithEmailAndPassword(email, passwordOne)
-          .then((authUser) => {
-            console.log("Success. The user is created in Firebase");
-            sendVerificationEmail()
-            router.push("/loggedIn");
-          })
-          .catch((error) => {
-            // An error occurred. Set error message to be displayed to user
-            setError(error.message);
-          });
-      else setError("Password do not match");
+      if (termsConditions == true) {
+        if (passwordOne === passwordTwo)
+          createUserWithEmailAndPassword(email, passwordOne)
+            .then(async (authUser) => {
+              console.log("Success. The user is created in Firebase");
+              const userResponse = await axios.post("/api/user/insertUser", {
+                email: email,
+                is_verified: false,
+                username: usernameGen.generateUsername(8, false),
+              });
+              console.log(userResponse);
+              sendVerificationEmail()
+                .then(() => {
+                  console.log("Email Verification sent!");
+                  router.push("/loggedIn");
+                })
+                .catch((error) => {
+                  setError(error.message);
+                  console.log(error.message);
+                });
+            })
+            .catch((error) => {
+              // An error occurred. Set error message to be displayed to user
+              setError(error.message);
+            });
+        else setError("Passwords do not match");
+      } else {
+        setError("You must agree to the terms and conditions");
+      }
     }
     event.preventDefault();
   };
@@ -49,8 +68,7 @@ const SignUp = () => {
   return (
     <MainContainer>
       <Modal>
-        <Form className="custom-form" onSubmit={onSubmit}>
-          {error && <Alert color="danger">{error}</Alert>}
+        <div>
           <div className="min-w-400 max-w-400">
             <button onClick={onClose} className="float-right">
               <svg
@@ -150,7 +168,9 @@ const SignUp = () => {
                           focus:ring-indigo-200
                           focus:ring-opacity-50
                         "
-                        checked
+                        onChange={(event) =>
+                          setTermsCondition(event.target.checked)
+                        }
                       />
                       <span className="ml-2">
                         By signing up, you agree to our Terms and Conditions
@@ -160,9 +180,19 @@ const SignUp = () => {
                 </div>
               </div>
               <div className="block">
+                {error && (
+                  <div className="items-left mt-2">
+                    <p className="ml-2 font-cabinet-grotesk text-sm font-semibold text-red-700">
+                      {error}
+                    </p>
+                  </div>
+                )}
                 <div className="mt-2">
                   <div>
-                    <button className="bg-login-blue text-white py-2 px-4  pl-10 pr-10 rounded-2xl min-w-full">
+                    <button
+                      onClick={onSubmit}
+                      className="bg-login-blue text-white py-2 px-4  pl-10 pr-10 rounded-2xl min-w-full"
+                    >
                       Sign Up
                     </button>
                   </div>
@@ -181,7 +211,7 @@ const SignUp = () => {
               </div>
             </div>
           </div>
-        </Form>
+        </div>
       </Modal>
     </MainContainer>
   );

@@ -2,12 +2,12 @@ import { ROUTES } from "../constants/routes";
 import Link from "next/link";
 import { useAuth } from "../context/AuthUserContext";
 
-import { Button } from "reactstrap";
-const usernameGen = require("username-gen");
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Company } from "../models/interfaces/types/Company";
 import AutoComplete from "./AutoComplete";
+import { User } from "../models/interfaces/types/User";
+import router from "next/router";
 
 interface NavLinkProps {
   to: string;
@@ -24,8 +24,29 @@ export const NavLink: React.FC<NavLinkProps> = ({ to, children }) => {
 
 export const Header: React.FC = () => {
   const { authUser, loading, signOut } = useAuth();
-
+  const [dbUser, setDbUser] = useState(null);
+  async function getUser() {
+    try {
+      const response = await axios.get(`/api/user/getUser`);
+      if (response.data.users) {
+        setDbUser(response.data.users[0]);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
   console.log(authUser, loading);
+  if (authUser && !loading && !dbUser) {
+    getUser();
+    console.log("DB User: ", dbUser);
+  }
+
+  const onSignOut = (event) => {
+    signOut();
+    router.push("/");
+    event.preventDefault();
+  };
+
   let [companies, setCompanies] = useState<Company[]>([]);
   let [searchedCompanies, setSearchedCompanies] = useState<string[]>([]);
   // fetches the companies on load
@@ -74,11 +95,15 @@ export const Header: React.FC = () => {
                     clipRule="evenodd"
                   />
                 </svg>
-                <span className="mr-1 ml-2 min-w-max">
-                  Hello {usernameGen.generateUsername(8, false)}!
-                </span>
+                {dbUser ? (
+                  <span className="mr-1 ml-2 min-w-max">
+                    Hello {dbUser.username}!
+                  </span>
+                ) : (
+                  <span className="mr-1 ml-2 min-w-max">Hello!</span>
+                )}
                 <svg
-                  className="fill-current max-h-4 w-4"
+                  className=" max-h-4 w-4"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                 >
@@ -96,7 +121,7 @@ export const Header: React.FC = () => {
                 </li>
                 <li className="min-w-200">
                   <a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap ">
-                    <button onClick={signOut}>Sign Out</button>
+                    <button onClick={onSignOut}>Sign Out</button>
                   </a>
                 </li>
               </ul>
@@ -117,7 +142,6 @@ export const Header: React.FC = () => {
           </NavLink>
         </div>
       )}
-      
     </div>
   );
 };

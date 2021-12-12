@@ -8,35 +8,29 @@ import { MainContainer } from "../components/MainContainer";
 import { ROUTES } from "../constants/routes";
 import { CODES } from "../constants/codes";
 
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Alert,
-} from "reactstrap";
-
-export const ResetPassword = () => {
+const ResetPassword = () => {
   const [resetPasswordError, setResetPasswordError] = useState("");
   const [email, setEmail] = useState("");
   const router = useRouter();
-  const { sendPasswordResetEmail} = useAuth();
+  const { sendPasswordResetEmail } = useAuth();
 
   const onSubmit = (event) => {
     setResetPasswordError(null);
-    sendPasswordResetEmail(email).then(() => {
-        console.log("Password Reset Email Sent")
+    sendPasswordResetEmail(email)
+      .then(() => {
+        console.log("Password Reset Email Sent");
         router.push("/resetPasswordCheckEmail");
-    }).catch((error) => {
-        console.error(error);
-        if(error.code == CODES.USER_NOT_FOUND) {
-            setResetPasswordError("No account witht he given credentials is found, please Sign Up!");
+        event.preventDefault();
+      })
+      .catch((error) => {
+        console.log(error.message);
+        if (error.code == CODES.USER_NOT_FOUND) {
+          setResetPasswordError(
+            "No account with the given credentials is found, please Sign Up!"
+          );
         }
-    })};
+      });
+  };
 
   const onClose = (event) => {
     router.push("/");
@@ -46,8 +40,7 @@ export const ResetPassword = () => {
   return (
     <MainContainer>
       <Modal>
-        <Form onSubmit={onSubmit}>
-          {resetPasswordError && <Alert color="danger">{resetPasswordError}</Alert>}
+        <div>
           <div className="min-w-400 max-w-400">
             <button onClick={onClose} className="float-right">
               <svg
@@ -67,7 +60,8 @@ export const ResetPassword = () => {
               Reset Password
             </h2>
             <p className="mt-2 text-xs text-gray-600 text-center">
-              Enter the email address associated with your account to reset your password
+              Enter the email address associated with your account to reset your
+              password
             </p>
             <div className="mt-3 grid grid-cols-1 gap-2">
               <label className="block">
@@ -93,10 +87,20 @@ export const ResetPassword = () => {
               <div className="block">
                 <div className="mt-2">
                   <div>
-                    <button className="bg-login-blue text-white py-2 px-4  pl-10 pr-10 rounded-2xl min-w-full">
+                    <button
+                      onClick={onSubmit}
+                      className="bg-login-blue text-white py-2 px-4  pl-10 pr-10 rounded-2xl min-w-full"
+                    >
                       Submit
                     </button>
                   </div>
+                  {resetPasswordError && (
+                    <div className="items-left mt-2">
+                      <p className="ml-2 font-cabinet-grotesk text-sm font-semibold text-red-700">
+                        {resetPasswordError}
+                      </p>
+                    </div>
+                  )}
                   <p className="ml-2 font-cabinet-grotesk text-sm text-center self-center">
                     Remembered your password?
                     <Link href={ROUTES.LOG_IN}>
@@ -110,8 +114,10 @@ export const ResetPassword = () => {
               </div>
             </div>
           </div>
-        </Form>
+        </div>
       </Modal>
     </MainContainer>
   );
 };
+
+export default ResetPassword;

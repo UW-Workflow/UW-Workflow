@@ -1,19 +1,9 @@
-import { useEffect } from "react";
 import { useRouter } from "next/router";
-import { useAuth } from "../context/AuthUserContext";
 import { Modal } from "../components/Modal";
 import { MainContainer } from "../components/MainContainer";
 
-import { Container, Row, Col, Button } from "reactstrap";
-
-export const ResetPassWordCheckEmail = () => {
-  const { authUser, loading, } = useAuth();
+const ResetPasswordCheckEmail = () => {
   const router = useRouter();
-
-  // Listen for changes on loading and authUser, redirect if needed
-  useEffect(() => {
-    if (!loading && !authUser) router.push("/");
-  }, [authUser, loading]);
 
   const onClose = (event) => {
     router.push("/");
@@ -31,7 +21,9 @@ export const ResetPassWordCheckEmail = () => {
               Check your mail!
             </h2>
             <p className="mt-2 text-xs text-gray-600 text-center">
-            Email with instructions to reset your password sent successfully. Please check your spam account in case you don’t see the account recovery email.
+              Email with instructions to reset your password sent successfully.
+              Please check your spam account in case you don’t see the account
+              recovery email.
             </p>
             <div className="block ">
               <div className="mt-2 min-w-full">
@@ -51,3 +43,5 @@ export const ResetPassWordCheckEmail = () => {
     </MainContainer>
   );
 };
+
+export default ResetPasswordCheckEmail;

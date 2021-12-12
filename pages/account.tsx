@@ -3,7 +3,6 @@ import { useState } from "react";
 import Profile from "../components/Profile";
 import Bookmarks from "../components/Bookmarks";
 import Password from "../components/Password";
-import { useAuth } from "../context/AuthUserContext";
 
 export default function YourAccount() {
   const [chosenWindow, setChosenWindow] = useState("profile");
@@ -58,7 +57,7 @@ export default function YourAccount() {
                 }}
               >
                 <a className="font-medium text-black-500" href="#">
-                  Password
+                  Change Password
                 </a>
               </li>
             </ul>

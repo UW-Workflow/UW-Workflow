@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import firebase from "./firebase";
-import { CODES } from "../constants/codes";
 
 const formatAuthUser = (user) => ({
   uid: user.uid,
@@ -14,7 +13,7 @@ export default function useFirebaseAuth() {
 
   const authStateChanged = async (authState) => {
     console.log("user: ", firebase.auth().currentUser);
-    console.log(authState);
+    console.log("auth State", authState);
     if (!authState) {
       setAuthUser(null);
       setLoading(false);
@@ -42,15 +41,15 @@ export default function useFirebaseAuth() {
   const createUserWithEmailAndPassword = (email, password) =>
     firebase.auth().createUserWithEmailAndPassword(email, password);
 
-  const sendVerificationEmail = () => {
-    const user = firebase.auth().currentUser
-    if(user) {
-      firebase.auth().currentUser.sendEmailVerification();
-    }
-  }
+  const sendVerificationEmail = () => 
+    firebase.auth().currentUser.sendEmailVerification();
+  
   const  sendPasswordResetEmail = (email) => 
-    firebase.auth().sendPasswordResetEmail(email)
-
+    firebase.auth().sendPasswordResetEmail(email);
+  
+  const  updatePassword = (newPassword) =>
+    firebase.auth().currentUser.updatePassword(newPassword);
+    
   const signOut = () => firebase.auth().signOut().then(clear);
 
   useEffect(() => {
@@ -64,6 +63,7 @@ export default function useFirebaseAuth() {
     createUserWithEmailAndPassword,
     sendVerificationEmail,
     sendPasswordResetEmail,
+    updatePassword,
     signOut,
   };
 }
