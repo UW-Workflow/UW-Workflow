@@ -16,7 +16,6 @@ const LoggedIn = () => {
   }, [authUser, loading]);
 
   const onClick = (event) => {
-    console.log("Success. The user is created in firebase");
     router.push("/");
     event.preventDefault();
   };
