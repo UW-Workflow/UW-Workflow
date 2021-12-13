@@ -25,7 +25,6 @@ export const NavLink: React.FC<NavLinkProps> = ({ to, children }) => {
 export const Header: React.FC = () => {
   const { authUser, loading, signOut } = useAuth();
 
-  console.log(authUser, loading);
   let [companies, setCompanies] = useState<Company[]>([]);
   let [searchedCompanies, setSearchedCompanies] = useState<string[]>([]);
   // fetches the companies on load
@@ -37,7 +36,7 @@ export const Header: React.FC = () => {
           setCompanies(response.data.companies);
         }
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     }
     getCompanies();

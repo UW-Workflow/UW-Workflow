@@ -31,7 +31,6 @@ const Login = () => {
     setLoginError(null);
     signInWithEmailAndPassword(email, password)
       .then((authUser) => {
-        console.log("Success. The user is created in firebase");
         router.push("/");
       })
       .catch((error) => {
@@ -41,7 +40,6 @@ const Login = () => {
   };
 
   const onClick = (event) => {
-    console.log("Success. The user is created in firebase");
     router.push("/");
     event.preventDefault();
   };

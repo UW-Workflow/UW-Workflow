@@ -29,7 +29,6 @@ const SignUp = () => {
       if (passwordOne === passwordTwo)
         createUserWithEmailAndPassword(email, passwordOne)
           .then((authUser) => {
-            console.log("Success. The user is created in Firebase");
             router.push("/logged_in");
           })
           .catch((error) => {
@@ -41,7 +40,6 @@ const SignUp = () => {
     event.preventDefault();
   };
   const onClick = (event) => {
-    console.log("Success. The user is created in firebase");
     router.push("/");
     event.preventDefault();
   };
