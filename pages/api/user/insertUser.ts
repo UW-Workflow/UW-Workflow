@@ -13,21 +13,18 @@ export default async function handler(
   }
   const user: IUserRequest = req.body;
 
-  if (!user.name) {
-    return apiResponse(res, 400, "Missing user's name", true);
-  }
-  if (!user.password) {
-    return apiResponse(res, 400, " Missing user's password", true);
-  }
   if (!user.email) {
     return apiResponse(res, 400, "Missing user' email", true);
+  }
+  if (!user.username) {
+    return apiResponse(res, 400, "Missing user's username", true);
   }
 
   try {
     const userResponse = await dbQuery(INSERT_USER, {
-      name: user.name,
-      password: user.password,
       email: user.email,
+      is_verified: user.is_verified,
+      username: user.username
     });
     return res.json(userResponse.insert_users.returning[0]);
   } catch (error) {

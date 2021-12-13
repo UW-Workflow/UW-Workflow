@@ -1,6 +1,6 @@
 import { MainContainer } from "../components/MainContainer";
 import { useState } from "react";
-import CompanyRoles from "../components/CompanyRoles"
+import CompanyRoles from "../components/CompanyRoles";
 export default function Companies() {
   const [company, setCompany] = useState({
     company_name: "MyCompany",
@@ -55,7 +55,7 @@ export default function Companies() {
           </div>
         </div>
         <div className="mx-20">
-            <CompanyRoles/>
+          <CompanyRoles />
         </div>
       </div>
     </MainContainer>

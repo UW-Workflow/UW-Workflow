@@ -1,6 +1,6 @@
 export type User = {
   id: number;
-  name: string;
-  password: string;
   email: string;
+  is_verified: boolean;
+  username: string;
 };

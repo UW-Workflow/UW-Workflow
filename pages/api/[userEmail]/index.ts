@@ -11,10 +11,10 @@ export default async function handler(
     return apiResponse(res, 405, "This method is  not supported", true);
   }
 
-  const userId: number = Number(req.query.userId);
+  const userEmail: string = String(req.query.userEmail);
   try {
     const user = await dbQuery(QUERY_USER, {
-      id: userId,
+      email: userEmail,
     });
     return res.json(user);
   } catch (error) {
