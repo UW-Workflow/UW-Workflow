@@ -16,8 +16,12 @@ module.exports = {
         small: "60px",
         huge: "128px",
       },
+      transform: {
+        "contact-us": "matrix(1, 0, 0, -1, 0, 0)",
+      },
       backgroundImage: {
         "about-us-gradient": "url('/gradientBgAboutUs.png')",
+        "contact-us-gradient": "linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6)), url('/contact-us-gradient.svg')",
       },
       fontFamily: {
         "cabinet-grotesk": ['"Cabinet Grotesk"'],
