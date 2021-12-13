@@ -9,5 +9,6 @@ export const ROUTES = Object.freeze({
   COMPANIES:"/companies",
   ROLES: "/roles",
   PROFILE:"/account",
-  RESET_PASSWORD: "/resetPassword"
+  RESET_PASSWORD: "/resetPassword",
+  ADD_REVIEW: "/reviews/add"
 });

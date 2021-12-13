@@ -66,7 +66,7 @@ export const Header: React.FC = () => {
   return (
     <div className="flex items-center my-4 ml-20 space-x-12 text-shadow-gray">
       <NavLink to={ROUTES.HOME}>
-        <img src="Logo.svg" />
+        <img src="/Logo.svg" />
       </NavLink>
 
       <div className="border-r-2 border-divider-color w-1 h-10"></div>
