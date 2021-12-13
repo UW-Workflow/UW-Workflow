@@ -44,7 +44,7 @@ export default function ConatctUs() {
 
   return (
     <MainContainer>
-      <div className="flex flex-col z-10 mx-16 mt-7 items-center">
+      <div className="flex flex-col z-10 mx-16 mt-7 items-center mb-2">
         <div
           style={{
             width: "85%",
@@ -74,7 +74,7 @@ export default function ConatctUs() {
         </div>
         <div className="flex items-center -mt-20 bg-white rounded-3xl shadow-lg">
           <img
-            width="40%"
+            width={!authUser && !afterSuceess ? "45%" : "40%"}
             height="auto"
             src={
               afterSuceess
@@ -85,7 +85,10 @@ export default function ConatctUs() {
           {afterSuceess ? (
             <div
               style={{ width: "280px" }}
-              className="flex flex-col text-center items-center ml-14 -mr-14"
+              className={
+                "flex flex-col text-center items-center " +
+                (!authUser && !afterSuceess ? "ml-12 -mr-12" : "ml-14 -mr-14")
+              }
             >
               <img width="150px" className="mb-2" src="email-sent-image.svg" />
               <p className="font-extrabold text-base mb-1">
