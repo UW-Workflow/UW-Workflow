@@ -193,7 +193,7 @@ export default function AddCompany() {
                   ) : (
                     <img
                       src={company.logo ? company.logo : "ImageUpload.svg"}
-                      className="max-h-40 max-w-xl"
+                      className="max-h-40 max-w-l"
                     />
                   )}
                 </button>
@@ -201,7 +201,13 @@ export default function AddCompany() {
                   <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
                     Company Name
                   </label>
-                  <div style={{ width: 450 }}>
+                  <div
+                    style={{ width: 450 }}
+                    onChange={(e) => {
+                      company.name = e.currentTarget.nodeValue;
+                      setCompany(company);
+                    }}
+                  >
                     <ReactSearchAutocomplete
                       items={companies}
                       onSelect={handleOnSelect}
@@ -220,7 +226,6 @@ export default function AddCompany() {
 
                   <input
                     placeholder="Please enter company website url"
-                    value={company.website}
                     type="text"
                     onChange={(e) => {
                       company.website = e.target.value;
