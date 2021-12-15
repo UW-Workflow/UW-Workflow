@@ -1,4 +1,4 @@
-import { useAuth } from "../context/AuthUserContext";
+import { useAuth } from "../utils/AuthUserContext";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { CODES } from "../constants/codes";

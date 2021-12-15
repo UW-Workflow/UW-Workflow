@@ -1,4 +1,4 @@
-import { useAuth } from "../context/AuthUserContext";
+import { useAuth } from "../utils/AuthUserContext";
 
 export default function Profile() {
   const { authUser, signOut } = useAuth();
