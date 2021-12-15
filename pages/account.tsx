@@ -3,6 +3,7 @@ import { useState } from "react";
 import Profile from "../components/Profile";
 import Bookmarks from "../components/Bookmarks";
 import Password from "../components/Password";
+
 export default function YourAccount() {
   const [chosenWindow, setChosenWindow] = useState("profile");
   function handleClick(tab) {
@@ -56,14 +57,14 @@ export default function YourAccount() {
                 }}
               >
                 <a className="font-medium text-black-500" href="#">
-                  Password
+                  Change Password
                 </a>
               </li>
             </ul>
-            <div className="bg-logout-bg text-logout-text font-semibold rounded-xl py-2 px-8 flex items-center space-x-2 ml-auto mr-20 mb-4 border-2 border-transparent hover:border-gray-200">
+            {/* <div className="bg-logout-bg text-logout-text font-semibold rounded-xl py-2 px-8 flex items-center space-x-2 ml-auto mr-20 mb-4 border-2 border-transparent hover:border-gray-200">
               <img src="Logout.svg"></img>
-              <span>Log out</span>
-            </div>
+              <button onClick={signOut}>Log out</button>
+            </div> */}
           </div>
           <hr className="mr-20" />
         </div>

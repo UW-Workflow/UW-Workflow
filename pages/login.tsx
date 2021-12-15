@@ -6,42 +6,43 @@ import { useAuth } from "../utils/AuthUserContext";
 import { Modal } from "../components/Modal";
 import { MainContainer } from "../components/MainContainer";
 import { ROUTES } from "../constants/routes";
+import { CODES } from "../constants/codes";
 
-import {
-  Container,
-  Row,
-  Col,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-  Input,
-  Alert,
-} from "reactstrap";
+import { Form, Alert } from "reactstrap";
 
 const Login = () => {
   const [loginError, setLoginError] = useState("");
-  const [loginErrorSol, setLoginErrorSol] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const { signInWithEmailAndPassword } = useAuth();
+  const { signInWithEmailAndPassword, authUser, loading } = useAuth();
 
   const onSubmit = (event) => {
     setLoginError(null);
     signInWithEmailAndPassword(email, password)
-      .then((authUser) => {
-        console.log("Success. The user is created in firebase");
-        router.push("/");
+      .then(() => {
+        if (!loading) {
+          if (authUser.verified) {
+            console.log("Success. Verified user logged in.");
+            router.push("/");
+          } else {
+            setLoginError("Please verify your email address!");
+          }
+        }
       })
       .catch((error) => {
-        setLoginError(error.message);
+        console.log(error.message);
+        if (error.code == CODES.USER_NOT_FOUND) {
+          setLoginError(
+            "No account witht he given credentials is found, please Sign Up!"
+          );
+        } else if (error.code == CODES.WRONG_PASSWORD) {
+          setLoginError("Wrong Password!");
+        } else setLoginError(error.message);
       });
-    event.preventDefault();
   };
 
-  const onClick = (event) => {
-    console.log("Success. The user is created in firebase");
+  const onClose = (event) => {
     router.push("/");
     event.preventDefault();
   };
@@ -49,10 +50,9 @@ const Login = () => {
   return (
     <MainContainer>
       <Modal>
-        <Form onSubmit={onSubmit}>
-          {loginError && <Alert color="danger">{loginError}</Alert>}
+        <div>
           <div className="min-w-400 max-w-400">
-            <button onClick={onClick} className="float-right">
+            <button onClick={onClose} className="float-right">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="min-w-20"
@@ -113,17 +113,26 @@ const Login = () => {
                   "
                 />
               </label>
-              {/* TODO: link to Forgot password */}
-              <Link href={ROUTES.FOUR_ZERO_FOUR}>
+              <Link href={ROUTES.RESET_PASSWORD}>
                 <p className="hover:text-light-black hover:font-bold font-medium text-login-blue ml-2 font-cabinet-grotesk text-sm text-right">
                   {" "}
                   Forgot Password?
                 </p>
               </Link>
               <div className="block">
+                {loginError && (
+                  <div className="items-left mt-2">
+                    <p className="ml-2 font-cabinet-grotesk text-sm font-semibold text-red-700">
+                      {loginError}
+                    </p>
+                  </div>
+                )}
                 <div className="mt-2">
                   <div>
-                    <button className="bg-login-blue text-white py-2 px-4  pl-10 pr-10 rounded-2xl min-w-full">
+                    <button
+                      onClick={onSubmit}
+                      className="bg-login-blue text-white py-2 px-4  pl-10 pr-10 rounded-2xl min-w-full"
+                    >
                       Log In
                     </button>
                   </div>
@@ -140,7 +149,7 @@ const Login = () => {
               </div>
             </div>
           </div>
-        </Form>
+        </div>
       </Modal>
     </MainContainer>
   );
