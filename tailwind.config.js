@@ -21,7 +21,10 @@ module.exports = {
       },
       backgroundImage: {
         "about-us-gradient": "url('/gradientBgAboutUs.png')",
-        "contact-us-gradient": "linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6)), url('/contact-us-gradient.svg')",
+        "add-a-company-gradient": "url('/addACompanyBg.png')",
+        "company-added": "url('/companyadded.png')",
+        "contact-us-gradient":
+          "linear-gradient(rgba(255,255,255,.6), rgba(255,255,255,.6)), url('/contact-us-gradient.svg')",
       },
       fontFamily: {
         "cabinet-grotesk": ['"Cabinet Grotesk"'],
@@ -42,7 +45,7 @@ module.exports = {
         "blue-active": "rgba(39, 114, 240, 0.8)",
         "light-button-blue": "rgba(50, 107, 255, 0.1)",
         "blue-text": "rgba(50, 107, 255, 1)",
-        "light-grey": "rgba(247, 250, 252, 1)"
+        "light-grey": "rgba(247, 250, 252, 1)",
       },
       margin: {
         105: "30rem",
@@ -63,9 +66,9 @@ module.exports = {
         gray: "1px solid #23262f",
       },
     },
-    maxHeight:{
-      '100': "30rem"
-    }
+    maxHeight: {
+      100: "30rem",
+    },
   },
   variants: {
     extend: {},

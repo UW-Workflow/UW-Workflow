@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Button } from "reactstrap";
 import ImageCard from "../components/ImageCard";
 import { MainContainer } from "../components/MainContainer";
-import { useAuth } from "../context/AuthUserContext";
+import { useAuth } from "../utils/AuthUserContext";
 import { send, init } from "emailjs-com";
 import {
   EMAILJS_SERVICE_ID,

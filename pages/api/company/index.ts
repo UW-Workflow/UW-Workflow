@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { apiResponse } from "../../utils/apiResponse";
-import { GET_COMPANY_NAMES } from "../../utils/dbQueries";
-import { dbQuery } from "../../utils/dbQuery";
+import { apiResponse } from "../../../utils/apiResponse";
+import { GET_COMPANY_NAMES } from "../../../utils/dbQueries";
+import { dbQuery } from "../../../utils/dbQuery";
 
 export default async function handler(
   req: NextApiRequest,
