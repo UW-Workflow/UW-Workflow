@@ -2,6 +2,7 @@ import { MainContainer } from "../components/MainContainer";
 import { useState } from "react";
 import CompanyRoles from "../components/CompanyRoles";
 import Reviews from "../components/Reviews";
+import Comments from "../components/Comments";
 export default function Roles() {
   const [chosenWindow, setChosenWindow] = useState("reviews");
   function handleClick(tab) {
@@ -85,6 +86,7 @@ export default function Roles() {
         </div>
         <div className="mx-20">
             {chosenWindow == "reviews" && <Reviews/>}
+            {chosenWindow == "comments" && <Comments/>}
         </div>
       </div>
     </MainContainer>

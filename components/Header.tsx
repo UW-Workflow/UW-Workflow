@@ -58,7 +58,7 @@ export const Header: React.FC = () => {
           setCompanies(response.data.companies);
         }
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     }
     getCompanies();

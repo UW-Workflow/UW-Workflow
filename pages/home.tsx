@@ -1,6 +1,7 @@
 import { MainContainer } from "../components/MainContainer";
 import React, { useEffect, useState } from "react";
 import AutoComplete from "../components/AutoComplete";
+import Image from 'next/image'
 import { useRouter } from "next/router";
 import { Company } from "../models/interfaces/types/Company";
 import axios from "axios";
@@ -49,14 +50,15 @@ export default function Home() {
               <span>or</span>
               <div className="bg-button-blue text-white rounded-xl p-3 flex items-center space-x-2">
                 <div className="bg-white text-button-blue rounded-md">
-                  <img src="plus.svg"></img>
+                  <img src="plus.svg" loading="lazy"></img>
                 </div>
                 <button onClick={addACompany}>Add a company</button>
               </div>
             </div>
           </div>
           <div className="flex flex-col space-y-4">
-            <img src="companies.svg" />
+            <img src="companies.svg" loading="lazy"/>
+            {/* <Image src="/companies.svg" layout="fill"></Image> */}
           </div>
         </div>
       </MainContainer>
