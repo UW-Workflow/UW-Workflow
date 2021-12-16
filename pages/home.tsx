@@ -2,17 +2,18 @@ import { MainContainer } from "../components/MainContainer";
 import React, { useEffect, useState } from "react";
 import AutoComplete from "../components/AutoComplete";
 import Image from 'next/image'
+import { useRouter } from "next/router";
 import { Company } from "../models/interfaces/types/Company";
 import axios from "axios";
 
 export default function Home() {
   let [companies, setCompanies] = useState<Company[]>([]);
-  let [searchedCompanies, setSearchedCompanies] = useState<string[]>([]);
+  const router = useRouter();
   // fetches the companies on load
   useEffect(() => {
     async function getCompanies() {
       try {
-        const response = await axios.get(`/api/companies`);
+        const response = await axios.get(`/api/company`);
         if (response.data.companies) {
           setCompanies(response.data.companies);
         }
@@ -23,6 +24,9 @@ export default function Home() {
     getCompanies();
   }, []);
 
+  const addACompany = () => {
+    router.push("/addcompany");
+  };
   return (
     <>
       <MainContainer>
@@ -48,7 +52,7 @@ export default function Home() {
                 <div className="bg-white text-button-blue rounded-md">
                   <img src="plus.svg" loading="lazy"></img>
                 </div>
-                <span>Add a company</span>
+                <button onClick={addACompany}>Add a company</button>
               </div>
             </div>
           </div>
