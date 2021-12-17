@@ -44,7 +44,7 @@ export default function Password() {
         <div className="flex flex-col flex-grow rounded-lg bg-light-grey m-5">
           <div className="flex flex-col flex-grow m-5">
             {passwordChanged ? (
-              <div className="flex flex-grow items-center">
+              <div className="flex flex-grow items-center place-self-center">
                 <div className="mt-3 grid grid-cols-1 gap-2 justify-items-center">
                   <img src="Vector.svg" className="self-center" />
                   <h2 className="text-xl font-bold text-center text-black">
@@ -76,13 +76,13 @@ export default function Password() {
                 <input
                   type="password"
                   onChange={(event) => setNewPasswordOne(event.target.value)}
-                  className="p-2 rounded-lg drop-shadow-md border-2"
+                  className="p-2 rounded-lg drop-shadow-md min-w-full"
                 ></input>
                 <p className="my-2 text-gray-700">Confirm New Password</p>
                 <input
                   type="password"
                   onChange={(event) => setNewPasswordTwo(event.target.value)}
-                  className="p-2 rounded-lg drop-shadow-md border-2"
+                  className="p-2 rounded-lg drop-shadow-md min-w-full"
                 ></input>
                 {error && (
                   <div className="flex">
