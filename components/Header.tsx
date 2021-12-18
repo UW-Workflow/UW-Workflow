@@ -1,6 +1,6 @@
 import { ROUTES } from "../constants/routes";
 import Link from "next/link";
-import { useAuth } from "../context/AuthUserContext";
+import { useAuth } from "../utils/AuthUserContext";
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
@@ -53,12 +53,12 @@ export const Header: React.FC = () => {
   useEffect(() => {
     async function getCompanies() {
       try {
-        const response = await axios.get(`/api/companies`);
+        const response = await axios.get(`/api/company`);
         if (response.data.companies) {
           setCompanies(response.data.companies);
         }
       } catch (error) {
-        console.error(error);
+        // console.error(error);
       }
     }
     getCompanies();

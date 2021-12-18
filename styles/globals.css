@@ -12,3 +12,7 @@ body {
   font-size: 14px;
   line-height: 24px;
 }
+
+input.full-input{
+  width: 100%;
+}
