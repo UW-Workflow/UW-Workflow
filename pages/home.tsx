@@ -1,18 +1,19 @@
 import { MainContainer } from "../components/MainContainer";
 import React, { useEffect, useState } from "react";
 import AutoComplete from "../components/AutoComplete";
-
+import Image from 'next/image'
+import { useRouter } from "next/router";
 import { Company } from "../models/interfaces/types/Company";
 import axios from "axios";
 
 export default function Home() {
   let [companies, setCompanies] = useState<Company[]>([]);
-  let [searchedCompanies, setSearchedCompanies] = useState<string[]>([]);
+  const router = useRouter();
   // fetches the companies on load
   useEffect(() => {
     async function getCompanies() {
       try {
-        const response = await axios.get(`/api/companies`);
+        const response = await axios.get(`/api/company`);
         if (response.data.companies) {
           setCompanies(response.data.companies);
         }
@@ -23,6 +24,9 @@ export default function Home() {
     getCompanies();
   }, []);
 
+  const addACompany = () => {
+    router.push("/addcompany");
+  };
   return (
     <>
       <MainContainer>
@@ -46,26 +50,15 @@ export default function Home() {
               <span>or</span>
               <div className="bg-button-blue text-white rounded-xl p-3 flex items-center space-x-2">
                 <div className="bg-white text-button-blue rounded-md">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="1rem"
-                    height="1rem"
-                    viewBox="0 0 20 20"
-                    fill="currentColor"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
+                  <img src="plus.svg" loading="lazy"></img>
                 </div>
-                <span>Add a company</span>
+                <button onClick={addACompany}>Add a company</button>
               </div>
             </div>
           </div>
           <div className="flex flex-col space-y-4">
-            <img src="companies.png" />
+            <img src="companies.svg" loading="lazy"/>
+            {/* <Image src="/companies.svg" layout="fill"></Image> */}
           </div>
         </div>
       </MainContainer>

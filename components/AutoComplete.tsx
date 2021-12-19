@@ -10,8 +10,7 @@ export const AutoComplete: React.FC<AutoCompleteProps> = ({ items }) => {
   const router = useRouter();
   const handleOnSelect = (item: Company) => {
     // TODO: Take them to the company page
-    console.log(item);
-    router.push(`/${item.id}`);
+    router.push(`companies/${item.id}`);
   };
 
   return (

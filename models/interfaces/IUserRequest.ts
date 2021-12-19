@@ -1,5 +1,5 @@
 export interface IUserRequest {
-  name: string;
-  password: string;
   email: string;
+  is_verified: boolean;
+  username: string;
 }
