@@ -6,7 +6,9 @@ export const INSERT_USER = gql`
     $is_verified: Boolean = false
     $username: String = ""
   ) {
-    insert_users(objects: { email: $email, is_verified: $is_verified, username: $username}) {
+    insert_users(
+      objects: { email: $email, is_verified: $is_verified, username: $username }
+    ) {
       returning {
         email
         id
@@ -19,10 +21,21 @@ export const INSERT_USER = gql`
 
 export const QUERY_USER = gql`
   query query_user($email: String) {
-    users(where: {email: {_eq: "dj6patel@uwaterloo.ca"}}) {
+    users(where: { email: { _eq: $email } }) {
       email
       is_verified
       username
+    }
+  }
+`;
+
+export const UPDATE_USER_VERIFIED = gql`
+  mutation UPDATE_USER_VERIFIED($email: String, $is_verified: Boolean) {
+    update_users(
+      where: { email: { _eq: $email } }
+      _set: { is_verified: $is_verified }
+    ) {
+      affected_rows
     }
   }
 `;
