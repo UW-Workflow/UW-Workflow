@@ -30,12 +30,24 @@ export const Header: React.FC = () => {
   const [state, setState] = useState("home");
   async function getUser() {
     try {
-      const response = await axios.get(`/api/user/getUser`);
-      if (response.data.users) {
-        setDbUsername(response.data.users[0].username);
-        // if (response.data.users[0].is_verified != authUser.verified) {
-
-        // }
+      const userResponse = await axios.get("/api/user/getUser", {
+        params: {
+          email: authUser.email,
+        },
+      });
+      if (userResponse.data.users) {
+        setDbUsername(userResponse.data.users[0].username);
+        if (userResponse.data.users[0].is_verified != authUser.verified) {
+          try {
+            const response = await axios.post(`/api/user/updateUserVerified`, {
+              email: userResponse.data.users[0].email,
+              is_verified: authUser.verified,
+            });
+            console.log("Updtaed user verified: ", response);
+          } catch (error) {
+            console.error(error);
+          }
+        }
       }
     } catch (error) {
       console.error(error);
