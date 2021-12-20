@@ -59,3 +59,33 @@ export const INSERT_COMPANY = gql`
     }
   }
 `;
+
+export const INSERT_REVIEW= gql`
+  mutation INSERT_REVIEW(
+    $title_name: String;
+    $year_worked: Int;
+    $company_id: Int;
+    $user_id: Int;
+    $salary: Float;
+    $interview_experience: String;
+    $interview_experience_rating: Int;
+    $work_experience: String;
+    $work_experience_rating: Int;
+  ) {
+    insert_review(
+      objects: {
+        title_name: $title_name;
+        year_worked: $year_worked;
+        company_id: $company_id;
+        user_id: $user_id;
+        salary: $salary;
+        interview_experience: $interview_experience;
+        interview_experience_rating: $interview_experience_rating;
+        work_experience: $work_experience;
+        work_experience_rating: $work_experience_rating;
+      }
+    ) {
+      affected_rows
+    }
+  }
+`;
