@@ -20,15 +20,13 @@ export default function Password() {
     if (authUser && newPasswordOne === newPasswordTwo) {
       updatePassword(newPasswordOne)
         .then(() => {
-          console.log("Success. User password successfully updated");
           setPasswordChanged(true);
         })
         .catch((error) => {
           // An error occurred. Set error message to be displayed to user
-          console.log(error.message);
           if (error.code == CODES.REQUIRES_LOGIN) {
             setError(
-              "This action requires you to be loggen in recently. Please Sign out and Log In again"
+              "This action requires you to be logged in recently. Please Sign out and Log In again"
             );
           } else if (error.code == CODES.WEAK_PASSWORD) {
             setError("Password should be atleast 6 characters long.");
@@ -64,7 +62,7 @@ export default function Password() {
                   </p>
                 </div>
                 <p className="ml-2 font-cabinet-grotesk text-sm text-center self-center">
-                  This action requires you to be loggen in recently.
+                  This action requires you to be logged in recently,
                   <Link href={ROUTES.LOG_IN}>
                     <span className="hover:text-light-black hover:font-bold font-medium text-login-blue">
                       {" "}

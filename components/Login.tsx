@@ -3,41 +3,36 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 
 import { useAuth } from "../utils/AuthUserContext";
-import { ROUTES } from "../constants/routes";
 import { CODES } from "../constants/codes";
+import { getAuthErrorMessage } from "../constants/errorMessages";
 import SignUp from "./SignUp";
 import ResetPassword from "./ResetPassword";
+import { updateDBIsVerified } from "../utils/authUtils";
+import { ToastContainer, toast } from "react-toastify";
 
-const Login = () => {
+const Login = (props) => {
   const [loginError, setLoginError] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
-  const { signInWithEmailAndPassword, authUser, loading } = useAuth();
+  const { signInWithEmailAndPassword, authUser, loading, signOut } = useAuth();
   const [state, setState] = useState("login");
 
   const onSubmit = (event) => {
     setLoginError(null);
     signInWithEmailAndPassword(email, password)
-      .then(() => {
-        if (!loading && authUser) {
-          if (authUser.verified) {
-            console.log("Success. Verified user logged in.");
-            router.back();
-          } else {
-            setLoginError("Please verify your email address!");
-          }
+      .then((result) => {
+        if (result.user.emailVerified) {
+          props.setHomeState();
+          updateDBIsVerified(result.user);
+          return;
+        } else {
+          signOut();
+          setLoginError("Please verify your email address!");
         }
       })
       .catch((error) => {
-        console.log(error.message);
-        if (error.code == CODES.USER_NOT_FOUND) {
-          setLoginError(
-            "No account with the given credentials is found, please Sign Up!"
-          );
-        } else if (error.code == CODES.WRONG_PASSWORD) {
-          setLoginError("Wrong Password!");
-        } else setLoginError(error.message);
+        setLoginError(getAuthErrorMessage(error.code));
       });
   };
 
@@ -129,7 +124,7 @@ const Login = () => {
           </div>
         </div>
       )}
-      {state === "signup" && <SignUp />}
+      {state === "signup" && <SignUp setHomeState={props.setHomeState} />}
       {state === "resetPassword" && <ResetPassword />}
     </div>
   );

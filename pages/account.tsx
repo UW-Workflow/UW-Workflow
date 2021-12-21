@@ -18,7 +18,7 @@ export default function YourAccount() {
         <div className="mb-4">
           <div className="flex">
             <ul className="flex">
-              <li
+              {/* <li
                 className={
                   chosenWindow === "profile"
                     ? "p-4 border-b-2 border-transparent border-blue-active text-gray-500"
@@ -31,7 +31,7 @@ export default function YourAccount() {
                 <a className="font-medium text-black-500 " href="#">
                   Profile
                 </a>
-              </li>
+              </li> */}
               <li
                 className={
                   chosenWindow === "bookmarks"
@@ -69,7 +69,7 @@ export default function YourAccount() {
           <hr className="mr-20" />
         </div>
       </div>
-      {chosenWindow === "profile" && <Profile />}
+      {/* {chosenWindow === "profile" && <Profile />} */}
       {chosenWindow === "bookmarks" && <Bookmarks />}
       {chosenWindow === "password" && <Password />}
     </MainContainer>

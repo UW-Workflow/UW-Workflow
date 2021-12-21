@@ -26,37 +26,9 @@ export const NavLink: React.FC<NavLinkProps> = ({ to, children }) => {
 
 export const Header: React.FC = () => {
   const { authUser, loading, signOut } = useAuth();
-  const [dbUsername, setDbUsername] = useState(null);
   const [state, setState] = useState("home");
-  async function getUser() {
-    try {
-      const userResponse = await axios.get("/api/user/getUser", {
-        params: {
-          email: authUser.email,
-        },
-      });
-      if (userResponse.data.users) {
-        setDbUsername(userResponse.data.users[0].username);
-        if (userResponse.data.users[0].is_verified != authUser.verified) {
-          try {
-            const response = await axios.post(`/api/user/updateUserVerified`, {
-              email: userResponse.data.users[0].email,
-              is_verified: authUser.verified,
-            });
-            console.log("Updtaed user verified: ", response);
-          } catch (error) {
-            console.error(error);
-          }
-        }
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }
-  console.log(authUser, loading);
-  if (authUser && !loading && !dbUsername) {
-    getUser();
-    console.log("DB User: ", dbUsername);
+  function setHomeState() {
+    setState("home");
   }
 
   const onSignOut = (event) => {
@@ -114,13 +86,9 @@ export const Header: React.FC = () => {
                       clipRule="evenodd"
                     />
                   </svg>
-                  {dbUsername ? (
-                    <span className="mr-1 ml-2 min-w-max">
-                      Hello {dbUsername}!
-                    </span>
-                  ) : (
-                    <span className="mr-1 ml-2 min-w-max">Hello!</span>
-                  )}
+                  <span className="mr-1 ml-2 min-w-max">
+                    Hello {authUser.username}!
+                  </span>
                   <svg
                     className=" max-h-4 w-4"
                     xmlns="http://www.w3.org/2000/svg"
@@ -183,7 +151,7 @@ export const Header: React.FC = () => {
                 </svg>
               </button>
             </div>
-            <Login />
+            <Login setHomeState={setHomeState} />
           </div>
         </Modal>
       )}
@@ -206,7 +174,7 @@ export const Header: React.FC = () => {
                 </svg>
               </button>
             </div>
-            <SignUp />
+            <SignUp setHomeState={setHomeState} />
           </div>
         </Modal>
       )}

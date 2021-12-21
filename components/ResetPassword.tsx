@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import { useAuth } from "../utils/AuthUserContext";
 import { CODES } from "../constants/codes";
+import { getAuthErrorMessage } from "../constants/errorMessages";
 import Login from "./Login";
 import Successful from "./Successful";
 
@@ -17,17 +18,11 @@ const ResetPassword = () => {
     setResetPasswordError(null);
     sendPasswordResetEmail(email)
       .then(() => {
-        console.log("Password Reset Email Sent");
         setState("successful");
         event.preventDefault();
       })
       .catch((error) => {
-        console.log(error.message);
-        if (error.code == CODES.USER_NOT_FOUND) {
-          setResetPasswordError(
-            "No account with the given credentials is found, please Sign Up!"
-          );
-        }
+        setResetPasswordError(getAuthErrorMessage(error.code));
       });
   };
 

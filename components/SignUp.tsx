@@ -7,9 +7,10 @@ import { validateEmail } from "../utils/authUtils";
 import axios from "axios";
 import Login from "./Login";
 import Successful from "./Successful";
+import { toast } from "react-toastify";
 const usernameGen = require("username-gen");
 
-const SignUp = () => {
+const SignUp = (props) => {
   const [email, setEmail] = useState("");
   const [passwordOne, setPasswordOne] = useState("");
   const [passwordTwo, setPasswordTwo] = useState("");
@@ -18,7 +19,12 @@ const SignUp = () => {
   const router = useRouter();
   const [state, setState] = useState("signup");
 
-  const { createUserWithEmailAndPassword, sendVerificationEmail } = useAuth();
+  const {
+    createUserWithEmailAndPassword,
+    sendVerificationEmail,
+    updateDisplayName,
+    signOut,
+  } = useAuth();
 
   const onSubmit = (event) => {
     setError(null);
@@ -30,23 +36,29 @@ const SignUp = () => {
       if (termsConditions == true) {
         if (passwordOne === passwordTwo)
           createUserWithEmailAndPassword(email, passwordOne)
-            .then(async (authUser) => {
-              console.log("Success. The user is created in Firebase");
-              const userResponse = await axios.post("/api/user/insertUser", {
-                email: email,
-                is_verified: false,
-                username: usernameGen.generateUsername(8, false),
+            .then(async () => {
+              const username = usernameGen.generateUsername(8, false);
+              updateDisplayName(username).catch((error) => {
+                setError(error);
               });
-              console.log(userResponse);
               sendVerificationEmail()
                 .then(() => {
-                  console.log("Email Verification sent!");
                   setState("successful");
                 })
                 .catch((error) => {
                   setError(error.message);
-                  console.log(error.message);
                 });
+              signOut();
+              await axios
+                .post("/api/user/insertUser", {
+                  email: email,
+                  is_verified: false,
+                  username: username,
+                })
+                .catch((error) => {
+                  setError(error.message);
+                });
+              return;
             })
             .catch((error) => {
               // An error occurred. Set error message to be displayed to user
@@ -192,7 +204,7 @@ const SignUp = () => {
           </div>
         </div>
       )}
-      {state === "login" && <Login />}
+      {state === "login" && <Login setHomeState={props.setHomeState} />}
       {state === "successful" && (
         <Successful
           header="Check your mail!"
