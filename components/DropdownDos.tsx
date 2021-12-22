@@ -26,7 +26,7 @@ export const DropdownDos: React.FC<Props> = ({ children, menu }) => {
 
   return (
     <div
-      className="right-0 rounded-md "
+      className="left-0 rounded-md "
       onMouseEnter={() => setShow(true)}
       onMouseLeave={() => setShow(false)}
     >

@@ -66,14 +66,15 @@ module.exports = {
         gray: "1px solid #23262f",
       },
     },
-    maxHeight:{
-      '90':'25rem',
-      '100': "30rem"
-    }
+    maxHeight: {
+      90: "25rem",
+      100: "30rem",
+    },
   },
   variants: {
-    extend: {},
-    display: ["group-hover"],
+    extend: {
+      display: ["group-hover"],
+    },
   },
   plugins: [require("@tailwindcss/forms")],
 };

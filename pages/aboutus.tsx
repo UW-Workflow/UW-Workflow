@@ -61,7 +61,7 @@ export default function AboutUs() {
             The team @UWwork
           </h4>
         </div>
-        <div className="mt-60 min-w-100">
+        <div className="hidden md:flex mt-60 min-w-100">
           <img src="swiglylines.png" />
         </div>
       </div>

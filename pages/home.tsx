@@ -30,7 +30,7 @@ export default function Home() {
   return (
     <>
       <MainContainer>
-        <div className="flex flex-col lg:flex-row  items-center justify-between mx-auto">
+        <div className="flex flex-col lg:flex-row my-10 md:items-center justify-between mx-10 md:mx-auto">
           <div className="flex md:flex-col space-y-4 absolute">
             <div className="self-center bg-gradient-2 filter rounded-full blur-huge h-gradient-2-circle w-gradient-2-circle -ml-48"></div>
           </div>
@@ -58,6 +58,7 @@ export default function Home() {
           </div>
           <div className="flex flex-col space-y-4">
             <img src="companies.svg" loading="lazy" />
+            {/* <Image src="/companies.svg" layout="fill"></Image> */}
           </div>
         </div>
       </MainContainer>
