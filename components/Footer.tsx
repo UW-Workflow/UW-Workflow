@@ -19,11 +19,9 @@ export const NavLink: React.FC<NavLinkProps> = ({ to, children }) => {
 export const Footer: React.FC = () => {
   return (
     <div className="flex bg-gray-200 text-gray-500  p-4 justify-around">
-      <div className="flex-col">
-        <NavLink to={ROUTES.PRIVACY_POLICY}>Privacy Policy</NavLink>
-      </div>
-      <div className="flex-col">Made with ❤ by UW Workflow</div>
-      <div className="flex-col"></div>
+      <NavLink to={ROUTES.PRIVACY_POLICY}>Privacy Policy</NavLink>
+      <div>Made with ❤ by UW Workflow</div>
+      <div></div>
     </div>
   );
 };
