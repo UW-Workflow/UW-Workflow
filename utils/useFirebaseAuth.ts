@@ -4,7 +4,8 @@ import firebase from "./firebase";
 const formatAuthUser = (user) => ({
   uid: user.uid,
   email: user.email,
-  verified: user.emailVerified
+  verified: user.emailVerified,
+  username: user.displayName,
 });
 
 export default function useFirebaseAuth() {
@@ -20,19 +21,30 @@ export default function useFirebaseAuth() {
       return;
     }
 
-    setLoading(true);
-    var formattedUser = formatAuthUser(authState);
-    setAuthUser(formattedUser);
-    if(formattedUser.verified) {
-      setLoading(false);
-    } else {
+    if (authState.emailVerified) {
       setLoading(true);
+      var formattedUser = formatAuthUser(authState);
+      setAuthUser(formattedUser);
+      setLoading(false);
+      return;
     }
+
+    setLoading(false);
+    setAuthUser(null);
+
+    // setLoading(true);
+    // var formattedUser = formatAuthUser(authState);
+    // setAuthUser(formattedUser);
+    // if (formattedUser.verified) {
+    //   setLoading(false);
+    // } else {
+    //   setLoading(true);
+    // }
   };
 
   const clear = () => {
     setAuthUser(null);
-    setLoading(true);
+    setLoading(false);
   };
 
   const signInWithEmailAndPassword = (email, password) =>
@@ -41,15 +53,18 @@ export default function useFirebaseAuth() {
   const createUserWithEmailAndPassword = (email, password) =>
     firebase.auth().createUserWithEmailAndPassword(email, password);
 
-  const sendVerificationEmail = () => 
+  const sendVerificationEmail = () =>
     firebase.auth().currentUser.sendEmailVerification();
-  
-  const  sendPasswordResetEmail = (email) => 
+
+  const sendPasswordResetEmail = (email) =>
     firebase.auth().sendPasswordResetEmail(email);
-  
-  const  updatePassword = (newPassword) =>
+
+  const updatePassword = (newPassword) =>
     firebase.auth().currentUser.updatePassword(newPassword);
-    
+
+  const updateDisplayName = (name) =>
+    firebase.auth().currentUser.updateProfile({ displayName: name });
+
   const signOut = () => firebase.auth().signOut().then(clear);
 
   useEffect(() => {
@@ -64,6 +79,7 @@ export default function useFirebaseAuth() {
     sendVerificationEmail,
     sendPasswordResetEmail,
     updatePassword,
+    updateDisplayName,
     signOut,
   };
 }

@@ -21,7 +21,7 @@ const Login = () => {
     setLoginError(null);
     signInWithEmailAndPassword(email, password)
       .then(() => {
-        if (!loading) {
+        if (!loading && authUser) {
           if (authUser.verified) {
             console.log("Success. Verified user logged in.");
             router.push("/");
@@ -34,7 +34,7 @@ const Login = () => {
         console.log(error.message);
         if (error.code == CODES.USER_NOT_FOUND) {
           setLoginError(
-            "No account witht he given credentials is found, please Sign Up!"
+            "No account with the given credentials is found, please Sign Up!"
           );
         } else if (error.code == CODES.WRONG_PASSWORD) {
           setLoginError("Wrong Password!");

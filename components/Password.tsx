@@ -20,15 +20,13 @@ export default function Password() {
     if (authUser && newPasswordOne === newPasswordTwo) {
       updatePassword(newPasswordOne)
         .then(() => {
-          console.log("Success. User password successfully updated");
           setPasswordChanged(true);
         })
         .catch((error) => {
           // An error occurred. Set error message to be displayed to user
-          console.log(error.message);
           if (error.code == CODES.REQUIRES_LOGIN) {
             setError(
-              "This action requires you to be loggen in recently. Please Sign out and Log In again"
+              "This action requires you to be logged in recently. Please Sign out and Log In again"
             );
           } else if (error.code == CODES.WEAK_PASSWORD) {
             setError("Password should be atleast 6 characters long.");
@@ -44,7 +42,7 @@ export default function Password() {
         <div className="flex flex-col flex-grow rounded-lg bg-light-grey m-5">
           <div className="flex flex-col flex-grow m-5">
             {passwordChanged ? (
-              <div className="flex flex-grow items-center">
+              <div className="flex flex-grow items-center place-self-center">
                 <div className="mt-3 grid grid-cols-1 gap-2 justify-items-center">
                   <img src="Vector.svg" className="self-center" />
                   <h2 className="text-xl font-bold text-center text-black">
@@ -64,7 +62,7 @@ export default function Password() {
                   </p>
                 </div>
                 <p className="ml-2 font-cabinet-grotesk text-sm text-center self-center">
-                  This action requires you to be loggen in recently.
+                  This action requires you to be logged in recently,
                   <Link href={ROUTES.LOG_IN}>
                     <span className="hover:text-light-black hover:font-bold font-medium text-login-blue">
                       {" "}
@@ -76,13 +74,13 @@ export default function Password() {
                 <input
                   type="password"
                   onChange={(event) => setNewPasswordOne(event.target.value)}
-                  className="p-2 rounded-lg drop-shadow-md border-2"
+                  className="p-2 rounded-lg drop-shadow-md min-w-full"
                 ></input>
                 <p className="my-2 text-gray-700">Confirm New Password</p>
                 <input
                   type="password"
                   onChange={(event) => setNewPasswordTwo(event.target.value)}
-                  className="p-2 rounded-lg drop-shadow-md border-2"
+                  className="p-2 rounded-lg drop-shadow-md min-w-full"
                 ></input>
                 {error && (
                   <div className="flex">
