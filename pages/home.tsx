@@ -58,7 +58,6 @@ export default function Home() {
           </div>
           <div className="flex flex-col space-y-4">
             <img src="companies.svg" loading="lazy" />
-            {/* <Image src="/companies.svg" layout="fill"></Image> */}
           </div>
         </div>
       </MainContainer>
