@@ -85,8 +85,8 @@ export default function Roles() {
           <hr className="mr-20" />
         </div>
         <div className="mx-20">
-            {chosenWindow == "reviews" && <Reviews/>}
-            {chosenWindow == "comments" && <Comments/>}
+          {chosenWindow == "reviews" && <Reviews />}
+          {chosenWindow == "comments" && <Comments />}
         </div>
       </div>
     </MainContainer>
