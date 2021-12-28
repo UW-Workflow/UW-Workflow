@@ -299,7 +299,7 @@ export default function AddCompany() {
                 <div className="flex">
                   <img
                     src={company.logo ? company.logo : "samplecompany.png"}
-                    className="mt-4 max-h-20 max-w-lg"
+                    className="mt-4 w-40 h-40"
                   />
                   <div className="flex flex-col">
                     <h1 className=" text-sm md:text-xl font-cabinet-grotesk mt-5 ml-10">
