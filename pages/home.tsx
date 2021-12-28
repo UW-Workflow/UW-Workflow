@@ -1,7 +1,6 @@
 import { MainContainer } from "../components/MainContainer";
 import React, { useEffect, useState } from "react";
 import AutoComplete from "../components/AutoComplete";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { Company } from "../models/interfaces/types/Company";
 import axios from "axios";
