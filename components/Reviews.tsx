@@ -37,14 +37,15 @@ export default function Reviews() {
     var stars = [];
     for (let i = 0; i < num; i++) {
       stars.push(
-        <div>
+        <div key={i}>
           <img src="star.svg"></img>
         </div>
       );
     }
+    let k = num
     for (let i = 0; i < TOTAL_STARS - num; i++) {
       stars.push(
-        <div>
+        <div key={k + i}>
             <img src="dullStar.svg"></img>
         </div>
       );

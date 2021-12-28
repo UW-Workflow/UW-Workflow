@@ -7,10 +7,8 @@ const FirebaseCredentials = {
   projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
 };
 // if a Firebase instance doesn't exist, create one
-console.log(firebase);
 if (!firebase.apps.length) {
   firebase.initializeApp(FirebaseCredentials);
 }
-console.log(firebase);
 
 export default firebase;

@@ -1,8 +1,7 @@
 import { MainContainer } from "../components/MainContainer";
 import { useState } from "react";
 import CompanyRoles from "../components/CompanyRoles";
-import Reviews from "../components/Reviews";
-import Comments from "../components/Comments";
+import ReviewDetails from "../components/ReviewDetails";
 export default function Roles() {
   const [chosenWindow, setChosenWindow] = useState("reviews");
   function handleClick(tab) {
@@ -49,44 +48,9 @@ export default function Roles() {
             </div>
           </div>
         </div>
-        <div className="mb-4 ml-20">
-          <div className="flex">
-            <ul className="flex">
-              <li
-                className={
-                  chosenWindow === "reviews"
-                    ? "p-4 border-b-2 border-transparent border-blue-active text-gray-500"
-                    : "p-4 border-b-2 border-transparent hover:border-blue-active hover:text-gray-500"
-                }
-                onClick={() => {
-                  handleClick("reviews");
-                }}
-              >
-                <a className="font-medium text-black-500 " href="#">
-                  Reviews
-                </a>
-              </li>
-              <li
-                className={
-                  chosenWindow === "comments"
-                    ? "p-4 border-b-2 border-transparent border-blue-active text-gray-500"
-                    : "p-4 border-b-2 border-transparent hover:border-blue-active hover:text-gray-500"
-                }
-                onClick={() => {
-                  handleClick("comments");
-                }}
-              >
-                <a className="font-medium text-black-500 " href="#">
-                  Comments
-                </a>
-              </li>
-            </ul>
-          </div>
-          <hr className="mr-20" />
-        </div>
+
         <div className="mx-20">
-            {chosenWindow == "reviews" && <Reviews/>}
-            {chosenWindow == "comments" && <Comments/>}
+          <ReviewDetails />
         </div>
       </div>
     </MainContainer>

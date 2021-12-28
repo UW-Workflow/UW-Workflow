@@ -67,6 +67,7 @@ module.exports = {
       },
     },
     maxHeight: {
+      90: "25rem",
       100: "30rem",
     },
   },
