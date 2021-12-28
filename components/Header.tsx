@@ -104,6 +104,9 @@ export const Header: React.FC = () => {
     }
   };
   const MobileNavMenu = (companies) => {
+    {
+      console.log(companies);
+    }
     return (
       <div className="flex flex-col cursor-pointer">
         <div className="self-center">
@@ -116,9 +119,9 @@ export const Header: React.FC = () => {
           <NavLink to={ROUTES.CONTACT_US}>Contact Us</NavLink>
         </div>
         <div className="self-center">
-          <AutoComplete items={companies} />
+          <AutoComplete items={companies.companies} />
         </div>
-        <div>{Auth()}</div>
+        <div className="self-center">{Auth()}</div>
       </div>
     );
   };
