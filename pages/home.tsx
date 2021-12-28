@@ -9,6 +9,7 @@ import axios from "axios";
 export default function Home() {
   let [companies, setCompanies] = useState<Company[]>([]);
   const router = useRouter();
+
   // fetches the companies on load
   useEffect(() => {
     async function getCompanies() {
@@ -27,6 +28,7 @@ export default function Home() {
   const addACompany = () => {
     router.push("/addcompany");
   };
+
   return (
     <>
       <MainContainer>
@@ -58,7 +60,6 @@ export default function Home() {
           </div>
           <div className="flex flex-col space-y-4">
             <img src="companies.svg" loading="lazy" />
-            {/* <Image src="/companies.svg" layout="fill"></Image> */}
           </div>
         </div>
       </MainContainer>
