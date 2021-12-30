@@ -1,5 +1,5 @@
 import { MainContainer } from "../../../../components/MainContainer";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import CompanyRoles from "../../../../components/CompanyRoles";
 import Reviews from "../../../../components/Reviews";
 import Comments from "../../../../components/Comments";
@@ -8,7 +8,10 @@ import { useRouter } from "next/router";
 import { ROUTES } from "../../../../constants/routes";
 import axios from "axios";
 import { Role } from "../../../../models/interfaces/types/Role";
+import { useAuth } from "../../../../utils/AuthUserContext";
+import Link from "next/link";
 export default function Roles(props) {
+  const { authUser, loading } = useAuth();
   const [chosenWindow, setChosenWindow] = useState("reviews");
   function handleClick(tab) {
     setChosenWindow(tab);
@@ -18,6 +21,38 @@ export default function Roles(props) {
   const roleID = router.query.role;
   const [company, setCompany] = useState<Company>();
   const [role, setRole] = useState<Role>();
+  const [bookmarked, setBookmarked] = useState(false);
+  async function addBookmark() {
+    try {
+      const response = await axios.get(`/api/roles/addRoleBookmarkByUser`, {
+        params: {
+          email: authUser.email,
+          role_id: roleID,
+        },
+      });
+      if (response.data.update_users) {
+        setBookmarked(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
+  async function removeBookmark() {
+    try {
+      const response = await axios.get(`/api/roles/removeRoleBookmarkByUser`, {
+        params: {
+          email: authUser.email,
+          role_id: roleID,
+        },
+      });
+      if (response.data.update_users) {
+        setBookmarked(false);
+      }
+      return;
+    } catch (error) {
+      console.error(error);
+    }
+  }
 
   useEffect(() => {
     if (!companyID || !roleID) {
@@ -58,7 +93,25 @@ export default function Roles(props) {
       }
     }
     getRole();
-  }, [companyID, roleID]);
+    async function checkBookmark() {
+      try {
+        const response = await axios.get(`/api/user/getBookmarkCheck`, {
+          params: {
+            email: authUser.email,
+            role_id: roleID,
+          },
+        });
+        if (response.data.result) {
+          setBookmarked(true);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    if (authUser) {
+      checkBookmark();
+    }
+  }, [companyID, roleID, authUser, bookmarked]);
   return (
     <MainContainer>
       {company && role && (
@@ -78,9 +131,21 @@ export default function Roles(props) {
                 <div>
                   <p className="text-lg font-bold">{role.title_name}</p>
                 </div>
-                <div>
-                  <p className="text-md">Save in Bookmarks</p>
-                </div>
+                {authUser ? (
+                  bookmarked ? (
+                    <p onClick={removeBookmark} className="text-md">
+                      Remove from Bookmarks
+                    </p>
+                  ) : (
+                    <p onClick={addBookmark} className="text-md">
+                      Save as Bookmarks
+                    </p>
+                  )
+                ) : (
+                  <div>
+                    <p className="text-md">Log In for Bookmark</p>
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex flex-row space-x-4 my-auto">
