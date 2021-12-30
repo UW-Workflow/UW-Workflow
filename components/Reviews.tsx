@@ -1,52 +1,41 @@
-import { useState } from "react";
-export default function Reviews() {
-  const [Reviews, setReviews] = useState([
-    {
-      review_title: "Great Experience!",
-      reviewed_date: "3 days ago",
-      interview_experience: 3, // out of 5,
-      coop_experience: 5, // out of 5
-    },
-    {
-      review_title: "Great Experience!",
-      reviewed_date: "3 days ago",
-      interview_experience: 3, // out of 5,
-      coop_experience: 5, // out of 5
-    },
-    {
-      review_title: "Great Experience!",
-      reviewed_date: "3 days ago",
-      interview_experience: 3, // out of 5,
-      coop_experience: 5, // out of 5
-    },
-    {
-      review_title: "Great Experience!",
-      reviewed_date: "3 days ago",
-      interview_experience: 3, // out of 5,
-      coop_experience: 5, // out of 5
-    },
-    {
-      review_title: "Great Experience!",
-      reviewed_date: "3 days ago",
-      interview_experience: 3, // out of 5,
-      coop_experience: 5, // out of 5
-    },
-  ]);
+import axios from "axios";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import { Review } from "../models/interfaces/types/Review";
+export default function Reviews(props) {
+  let [reviews, setReviews] = useState<Review[]>([]);
+  useEffect(() => {
+    async function getReviews() {
+      try {
+        const response = await axios.get(`/api/reviews/getReviewsByRole`, {
+          params: {
+            roleId: props.roleId,
+          },
+        });
+        if (response.data.reviews) {
+          setReviews(response.data.reviews);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    getReviews();
+  }, [props.roleId]);
   function setStars(num) {
     const TOTAL_STARS = 5;
     var stars = [];
     for (let i = 0; i < num; i++) {
       stars.push(
         <div key={i}>
-          <img src="star.svg"></img>
+          <img src="/star.svg"></img>
         </div>
       );
     }
-    let k = num
+    let k = num;
     for (let i = 0; i < TOTAL_STARS - num; i++) {
       stars.push(
         <div key={k + i}>
-            <img src="dullStar.svg"></img>
+          <img src="/dullStar.svg"></img>
         </div>
       );
     }
@@ -55,16 +44,23 @@ export default function Reviews() {
   return (
     <div className="flex">
       <div className="flex flex-col flex-grow my-5 overflow-auto max-h-100">
-        {Reviews.map((value, index) => {
+        {reviews.map((value, index) => {
           return (
             <div key={index} className="flex flex-grow flex-row">
               <div className="flex flex-grow my-2 mx-2 rounded-lg bg-light-grey py-6 px-5">
                 <div className="flex flex-col flex-grow">
                   <div>
-                    <p className="text-base font-bold">{value.review_title}</p>
+                    <Link
+                      href="/companies/[id]/[role]/[review]"
+                      as={`/companies/${props.companyId}/${props.roleId}/${value.id}`}
+                    >
+                      <p className="text-base font-bold">
+                        {value.work_experience.substr(0, 15)}
+                      </p>
+                    </Link>
                   </div>
                   <div className="text-sm text-gray-500 my-auto">
-                    <p>{value.reviewed_date}</p>
+                    <p>{value.year_worked}</p>
                   </div>
                 </div>
                 <div className="flex flex-row-reverse">
@@ -74,7 +70,7 @@ export default function Reviews() {
                         <p>Interview experience</p>
                       </div>
                       <div className="flex flex-row">
-                        {setStars(value.interview_experience)}
+                        {setStars(value.interview_experience_rating)}
                       </div>
                     </div>
                     <div className="flex flex-row">
@@ -82,7 +78,7 @@ export default function Reviews() {
                         <p>Co-op experience</p>
                       </div>
                       <div className="flex flex-row ml-5">
-                        {setStars(value.coop_experience)}
+                        {setStars(value.work_experience_rating)}
                       </div>
                     </div>
                   </div>

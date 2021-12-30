@@ -1,6 +1,8 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 import { Role } from "../models/interfaces/types/Role";
+import { useAuth } from "../utils/AuthUserContext";
 export default function CompanyRoles(props) {
   let [roles, setRoles] = useState<Role[]>([]);
   const [companyRoles, setcompanyRoles] = useState([
@@ -44,7 +46,12 @@ export default function CompanyRoles(props) {
               <div className="flex flex-grow my-2 mx-2">
                 <div className="flex flex-col flex-grow">
                   <div>
-                    <p className="text-base font-bold">{value.title_name}</p>
+                    <Link
+                      href="/companies/[id]/[role]"
+                      as={`/companies/${props.companyId}/${value.id}`}
+                    >
+                      <p className="text-base font-bold">{value.title_name}</p>
+                    </Link>
                   </div>
                   <div className="text-sm">
                     {/* {value.reviews != 1 ? (
