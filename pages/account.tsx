@@ -5,7 +5,7 @@ import Bookmarks from "../components/Bookmarks";
 import Password from "../components/Password";
 
 export default function YourAccount() {
-  const [chosenWindow, setChosenWindow] = useState("profile");
+  const [chosenWindow, setChosenWindow] = useState("bookmarks");
   function handleClick(tab) {
     setChosenWindow(tab);
   }
