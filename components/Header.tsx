@@ -127,7 +127,6 @@ export const Header: React.FC = () => {
   };
   const onSignOut = (event) => {
     signOut();
-    router.push("/");
     event.preventDefault();
   };
 

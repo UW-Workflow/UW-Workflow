@@ -87,6 +87,14 @@ export const GET_COMPANY = gql`
   }
 `;
 
+export const GET_COMPANY_NAME = gql`
+  query get_company_name($id: Int) {
+    companies(where: { id: { _eq: $id } }) {
+      name
+    }
+  }
+`;
+
 export const GET_ROLES_BY_COMPANY = gql`
   query get_roles_by_company($company_id: Int) {
     roles(where: { company_id: { _eq: $company_id } }) {
@@ -159,7 +167,7 @@ export const ADD_USER_BOOKMARK = gql`
 `;
 
 export const REMOVE_USER_BOOKMARK = gql`
-  mutation remove_user_bookmark($email: String, $role_id: jsonb) {
+  mutation remove_user_bookmark($email: String, $role_id: String) {
     update_users(
       where: { email: { _eq: $email } }
       _delete_key: { role_bookmarks: $role_id }
@@ -172,20 +180,27 @@ export const REMOVE_USER_BOOKMARK = gql`
 export const GET_USER_BOOKMARKS = gql`
   query get_user_bookmarks($email: String) {
     users(where: { email: { _eq: $email } }) {
-      role_bookmarks
+      roles_bks {
+        id
+        title_name
+        company_id
+        avg_coop_rating
+        avg_interview_rating
+        avg_salary
+      }
     }
   }
 `;
 
-export const GET_USER_BOOKMARKED_ROLES = gql`
-  query get_user_bookmarked_roles($bookmarks: [Int!] = []) {
-    roles(where: { id: { _in: $bookmarks } }) {
-      title_name
+export const CHECK_USER_BOOKMARKS = gql`
+  query get_user_bookmarks($email: String, $role_id: jsonb) {
+    users(
+      where: {
+        email: { _eq: $email }
+        _and: { role_bookmarks: { _contains: $role_id } }
+      }
+    ) {
       id
-      company_id
-      avg_salary
-      avg_interview_rating
-      avg_coop_rating
     }
   }
 `;
