@@ -27,7 +27,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="min-w-400 max-w-400">
+    <div>
       {state === "resetPassword" && (
         <div>
           <h2 className="text-xl font-bold text-center text-black">

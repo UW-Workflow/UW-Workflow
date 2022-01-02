@@ -61,9 +61,6 @@ export default function AboutUs() {
             The team @UWwork
           </h4>
         </div>
-        <div className="hidden md:flex mt-60 min-w-100">
-          <img src="swiglylines.png" />
-        </div>
       </div>
       <div className="flex flex-col items-center">
         <h1 className="font-cabinet-grotesk font-bold text-5xl">
