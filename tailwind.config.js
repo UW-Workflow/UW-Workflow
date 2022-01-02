@@ -69,8 +69,9 @@ module.exports = {
     },
   },
   variants: {
-    extend: {},
-    display: ["group-hover"],
+    extend: {
+      display: ["group-hover"],
+    },
   },
   plugins: [require("@tailwindcss/forms")],
 };
