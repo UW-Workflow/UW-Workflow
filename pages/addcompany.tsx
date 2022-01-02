@@ -7,11 +7,12 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { ReactSearchAutocomplete } from "react-search-autocomplete";
+import BadgeCheckIcon from "@heroicons/react/solid/BadgeCheckIcon";
 
 export default function AddCompany() {
   const [modelStage, setModelStage] = useState<number>(0);
   const router = useRouter();
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState<string>("");
   const [companies, setCompanies] = useState<any>({});
   const [company, setCompany] = useState<Company>({
     id: 0,
@@ -74,22 +75,19 @@ export default function AddCompany() {
 
   const checkError = () => {
     if (company.name === "") {
-      setError(true);
-      toast("Company name not set");
+      setError("Company name not set");
     } else if (!validURL(company.website)) {
-      toast("Company website entered is incorrect");
+      setError("Company website entered is incorrect");
     } else if (company.city === "") {
-      setError(true);
-      toast("City is incorrect");
+      setError("City is incorrect");
     } else if (company.country === "") {
-      setError(true);
-      toast("Country is incorrect");
+      setError("Country is incorrect");
     } else if (company.description === "") {
-      setError(true);
-      toast("Company description is incorrect");
+      setError("Company description is incorrect");
     } else {
       setModelStage(modelStage + 1);
       forceUpdate();
+      setError("");
     }
   };
 
@@ -99,7 +97,6 @@ export default function AddCompany() {
     } else if (modelStage === 1) {
       addCompany();
     }
-    setError(false);
   };
 
   const cancel = () => {
@@ -110,7 +107,6 @@ export default function AddCompany() {
     }
   };
   const handleOnSelect = (item: any) => {
-    console.log(item);
     company.name = item.name;
     company.logo = item.logo;
     company.website = item.domain;
@@ -118,13 +114,39 @@ export default function AddCompany() {
     forceUpdate();
   };
 
+  const VerificationStage = () => {
+    return (
+      <div className="flex flex-col justify-center items-center text-center bg-center bg-company-added bg-cover m-10 p-16">
+        <div className=" w-20 h-20 md:w-40 md:h-40">
+          <BadgeCheckIcon color="#0ED00A" />
+        </div>
+
+        <div className="text-bold text-base md:text-2xl font-cabinet-grotesk ">
+          Company added successfully!
+        </div>
+        <div className=" text-gray-500  text-sm md:text-lg font-cabinet-grotesk">
+          Bravo! thank you for adding the company. Your contribution goes a long
+          way in helping others learn about co-op experiences at different
+          companies.
+        </div>
+        <button className="bg-button-blue text-white text-xs lg:text-base  rounded-xl p-2 mx-auto mt-5">
+          Add a review for added Company
+        </button>
+        <button
+          className="rounded-xl  text-xs lg:text-base p-2  my-2  border-2 border-gray-300  mx-auto"
+          onClick={cancel}
+        >
+          Back to home page
+        </button>
+      </div>
+    );
+  };
   const findCompany = async (name) => {
     try {
       const companies = await axios.get(
         `https://autocomplete.clearbit.com/v1/companies/suggest?query=${name}`,
         { headers: { Authorization: `Bearer ${process.env.CLEARBIT_API_KEY}` } }
       );
-      console.log(companies.data);
       setCompanies(companies.data);
     } catch (err) {
       console.log(err);
@@ -143,25 +165,7 @@ export default function AddCompany() {
         </h4>
       </div>
       {modelStage === 2 ? (
-        <div className="flex flex-col justify-center mx-32 p-40 mb-5  bg-company-added bg-cover">
-          <div className="text-bold mt-52 mx-auto text-2xl font-cabinet-grotesk ">
-            Company added successfully!
-          </div>
-          <div className="text-gray-500 mx-auto ml-20 text-md font-cabinet-grotesk">
-            Bravo! thank you for adding the company. Your contribution goes a
-            long way in helping others learn about co-op experiences
-            <p className="ml-64"> at different companies.</p>
-          </div>
-          <button className="bg-button-blue text-white rounded-xl p-3 mx-auto mt-5">
-            Add a review for added Company
-          </button>
-          <button
-            className="rounded-xl p-2  mt-2 mb-4 border-2 border-gray-300  mx-auto"
-            onClick={cancel}
-          >
-            Back to home page
-          </button>
-        </div>
+        VerificationStage()
       ) : (
         <div>
           <div className="flex flex-col bg-white shadow rounded-xl px-8 py-2 max-w-lg mx-auto mb-5">
@@ -193,7 +197,7 @@ export default function AddCompany() {
                   ) : (
                     <img
                       src={company.logo ? company.logo : "ImageUpload.svg"}
-                      className="max-h-40 max-w-xl"
+                      className="max-h-40 max-w-l"
                     />
                   )}
                 </button>
@@ -201,7 +205,13 @@ export default function AddCompany() {
                   <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
                     Company Name
                   </label>
-                  <div style={{ width: 450 }}>
+                  <div
+                    className="w-100 md:w-200"
+                    onChange={(e) => {
+                      company.name = e.currentTarget.nodeValue;
+                      setCompany(company);
+                    }}
+                  >
                     <ReactSearchAutocomplete
                       items={companies}
                       onSelect={handleOnSelect}
@@ -220,7 +230,6 @@ export default function AddCompany() {
 
                   <input
                     placeholder="Please enter company website url"
-                    value={company.website}
                     type="text"
                     onChange={(e) => {
                       company.website = e.target.value;
@@ -244,7 +253,7 @@ export default function AddCompany() {
                     className="rounded-lg placeholder-gray-300 resize-none"
                   />
                 </div>
-                <div className="flex">
+                <div className="flex flex-col md:flex-row">
                   <div className="flex flex-col mt-4 space-y-1">
                     <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
                       City
@@ -290,10 +299,10 @@ export default function AddCompany() {
                 <div className="flex">
                   <img
                     src={company.logo ? company.logo : "samplecompany.png"}
-                    className="mt-4 max-h-20 max-w-lg"
+                    className="mt-4 w-40 h-40"
                   />
                   <div className="flex flex-col">
-                    <h1 className="text-xl font-cabinet-grotesk mt-5 ml-10">
+                    <h1 className=" text-sm md:text-xl font-cabinet-grotesk mt-5 ml-10">
                       {company.name}
                     </h1>
                     <h1 className="text-sm text-gray-600 font-cabinet-grotesk mt-2 ml-10">
@@ -302,7 +311,7 @@ export default function AddCompany() {
                         : company.description}
                     </h1>
                     <a
-                      href={"https://" + company.website}
+                      href={company.website}
                       className=" font-cabinet-grotesk mt-2 ml-10 text-md"
                       target="_blank"
                       rel="noreferrer"
@@ -315,7 +324,6 @@ export default function AddCompany() {
                   <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
                     Location
                   </label>
-                  {console.log(company.city)}
                   <input
                     placeholder={company.city + "," + company.country}
                     type="text"
@@ -325,7 +333,11 @@ export default function AddCompany() {
                 </div>
               </div>
             ) : null}
-
+            {error !== "" ? (
+              <p className="m-2 font-cabinet-grotesk text-sm font-semibold text-red-700">
+                {error}
+              </p>
+            ) : null}
             <button
               className="bg-button-blue text-white rounded-xl p-3  mx-10 my-4"
               onClick={addModelStage}

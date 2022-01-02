@@ -1,7 +1,6 @@
 import { MainContainer } from "../components/MainContainer";
 import React, { useEffect, useState } from "react";
 import AutoComplete from "../components/AutoComplete";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { Company } from "../models/interfaces/types/Company";
 import axios from "axios";
@@ -9,6 +8,7 @@ import axios from "axios";
 export default function Home() {
   let [companies, setCompanies] = useState<Company[]>([]);
   const router = useRouter();
+
   // fetches the companies on load
   useEffect(() => {
     async function getCompanies() {
@@ -27,14 +27,15 @@ export default function Home() {
   const addACompany = () => {
     router.push("/addcompany");
   };
+
   return (
     <>
       <MainContainer>
-        <div className="flex flex-col lg:flex-row  items-center justify-between mx-auto">
+        <div className="flex flex-col lg:flex-row my-10 md:items-center justify-between mx-10 md:mx-auto">
           <div className="flex md:flex-col space-y-4 absolute">
             <div className="self-center bg-gradient-2 filter rounded-full blur-huge h-gradient-2-circle w-gradient-2-circle -ml-48"></div>
           </div>
-          <div className="flex flex-col md:flex-col  space-y-4 mx-auto z-10 ">
+          <div className="flex flex-col md:flex-col  space-y-4 mx-auto z-10 lg:ml-10">
             <h1 className="text-5xl md:text-6xl font-cabinet-grotesk font-extrabold ">
               The <span className="text-blue-600"> Secret Sauce </span> <br />
               you need on co-op jobs
@@ -58,7 +59,6 @@ export default function Home() {
           </div>
           <div className="flex flex-col space-y-4">
             <img src="companies.svg" loading="lazy" />
-            {/* <Image src="/companies.svg" layout="fill"></Image> */}
           </div>
         </div>
       </MainContainer>

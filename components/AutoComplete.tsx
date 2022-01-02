@@ -14,7 +14,7 @@ export const AutoComplete: React.FC<AutoCompleteProps> = ({ items }) => {
   };
 
   return (
-    <div style={{ width: 400 }}>
+    <div className=" min-w-300 relative z-50 self-center">
       <ReactSearchAutocomplete
         items={items}
         onSelect={handleOnSelect}

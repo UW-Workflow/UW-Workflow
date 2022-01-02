@@ -12,7 +12,7 @@ export default function ImageCard({
   github: string;
 }) {
   return (
-    <div className="rounded-md mx-10">
+    <div className="rounded-md mx-10 my-2">
       <img className="rounded-xl" src={image} width={200} height={200} />
       <h5 className="font-cabinet-grotesk font-normal text-lg mt-2">{name}</h5>
       <h6 className="font-cabinet-grotesk font-normal text-md mt-1"> {role}</h6>

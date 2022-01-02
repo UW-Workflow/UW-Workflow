@@ -14,33 +14,33 @@ export default function CompanyRoles() {
 
   return (
     <div className="flex">
-      <div className="flex flex-col flex-grow rounded-lg bg-white my-5 shadow bg-white overflow-auto max-h-100">
+      <div className="flex flex-col flex-grow rounded-lg  my-5 shadow bg-white overflow-auto max-h-100">
         {companyRoles.map((value, index) => {
           return (
             <div
               key={index}
               className="flex flex-grow flex-row mx-4 my-4 border-b-2"
             >
-                <div className="flex flex-grow my-2 mx-2">
-                    <div className="flex flex-col flex-grow">
-                        <div>
-                        <p className="text-base font-bold">{value.role_name}</p>
-                        </div>
-                        <div className="text-sm">
-                        {value.reviews != 1 ? (
-                            <p>{value.reviews} Reviews</p>
-                        ) : (
-                            <p>{value.reviews} Review</p>
-                        )}
-                        </div>
-                    </div>
-                    <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full">
-                        <p className="text-blue-active">View</p>
-                    </div>
-                    <div className="flex items-center my-auto">
-                        <img src={"bookmark_selected.svg"}></img>
-                    </div>
+              <div className="flex flex-grow my-2 mx-2">
+                <div className="flex flex-col flex-grow">
+                  <div>
+                    <p className="text-base font-bold">{value.role_name}</p>
+                  </div>
+                  <div className="text-sm">
+                    {value.reviews != 1 ? (
+                      <p>{value.reviews} Reviews</p>
+                    ) : (
+                      <p>{value.reviews} Review</p>
+                    )}
+                  </div>
                 </div>
+                <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full">
+                  <p className="text-blue-active">View</p>
+                </div>
+                <div className="flex items-center my-auto">
+                  <img src={"bookmark_selected.svg"}></img>
+                </div>
+              </div>
             </div>
           );
         })}
