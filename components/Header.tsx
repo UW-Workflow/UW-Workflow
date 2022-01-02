@@ -40,7 +40,7 @@ export const Header: React.FC = () => {
       } else if (authUser && authUser.verified && !loading) {
         return (
           <div>
-            <div className="group inline-block relative">
+            <div className="group inline-block relative justify-self-end">
               <button className="min-w-200 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center ">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -68,14 +68,14 @@ export const Header: React.FC = () => {
               <ul className="absolute hidden text-gray-700 pt-1 group-hover:block min-w-200">
                 <li className="">
                   <a
-                    className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap  min-w-200"
+                    className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 block whitespace-no-wrap  min-w-200"
                     href={ROUTES.PROFILE}
                   >
                     Profile
                   </a>
                 </li>
                 <li className="min-w-200">
-                  <a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap ">
+                  <a className="bg-gray-200 hover:bg-gray-400 py-2  block whitespace-no-wrap ">
                     <button onClick={onSignOut}>Sign Out</button>
                   </a>
                 </li>
@@ -150,7 +150,7 @@ export const Header: React.FC = () => {
   }, []);
   return (
     <div>
-      <div className="flex flex-col lg:flex-row  lg:justify-start lg:items-center my-4  ml:10 lg:ml-20 lg:space-x-12 text-shadow-gray">
+      <div className="flex flex-col lg:flex-row lg:justify-between lg:items-center my-4  ml:10 lg:ml-20   text-shadow-gray">
         <div className="flex justify-between lg:justify-start">
           <div className="self-start pl-5 lg:pl-0 min-w-100">
             <NavLink to={ROUTES.HOME}>
@@ -168,20 +168,20 @@ export const Header: React.FC = () => {
           {show ? <MobileNavMenu companies={companies} /> : null}
         </div>
         <div className="hidden lg:block lg:border-r-2 border-divider-color w-1 h-10"></div>
-        <div className="hidden lg:block  max-w-0 max-h-0 lg:max-h-none lg:max-w-none">
+        <div className="hidden lg:block">
           <NavLink to={ROUTES.HOME}>Home</NavLink>
         </div>
-        <div className="hidden lg:block max-w-0 max-h-0 lg:max-h-none lg:max-w-none lg:visible">
+        <div className="hidden lg:block">
           <NavLink to={ROUTES.ABOUT_US}>About Us</NavLink>
         </div>
-        <div className="hidden lg:block max-w-0 max-h-0 lg:max-h-none lg:max-w-none lg:visible">
+        <div className="hidden lg:block">
           <NavLink to={ROUTES.CONTACT_US}>Contact Us</NavLink>
         </div>
-        <div className="hidden lg:block max-w-0 max-h-0 lg:max-h-none lg:max-w-none lg:visible">
+        <div className="hidden lg:block">
           <AutoComplete items={companies} />
         </div>
-        <div className=" hidden lg:block border-r-2 border-divider-color h-10 max-w-0 max-h-0"></div>
-        <div className="hidden lg:block">{Auth()}</div>
+        <div className="hidden lg:block border-r-2 border-divider-color h-10"></div>
+        <div className="hidden lg:block mr-10">{Auth()}</div>
       </div>
       {state === "login" && (
         <Modal>
