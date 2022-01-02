@@ -35,7 +35,7 @@ export default function Home() {
           <div className="flex md:flex-col space-y-4 absolute">
             <div className="self-center bg-gradient-2 filter rounded-full blur-huge h-gradient-2-circle w-gradient-2-circle -ml-48"></div>
           </div>
-          <div className="flex flex-col md:flex-col  space-y-4 mx-auto z-10 ">
+          <div className="flex flex-col md:flex-col  space-y-4 mx-auto z-10 lg:ml-10">
             <h1 className="text-5xl md:text-6xl font-cabinet-grotesk font-extrabold ">
               The <span className="text-blue-600"> Secret Sauce </span> <br />
               you need on co-op jobs
