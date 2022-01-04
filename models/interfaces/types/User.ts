@@ -3,4 +3,5 @@ export type User = {
   email: string;
   is_verified: boolean;
   username: string;
+  role_bookmarks: JSON;
 };

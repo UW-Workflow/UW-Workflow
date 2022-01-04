@@ -124,7 +124,6 @@ export const Header: React.FC = () => {
   };
   const onSignOut = (event) => {
     signOut();
-    router.push("/");
     event.preventDefault();
   };
 
@@ -151,7 +150,7 @@ export const Header: React.FC = () => {
         <div className="flex justify-between lg:justify-start">
           <div className="self-start pl-5 lg:pl-0 min-w-100">
             <NavLink to={ROUTES.HOME}>
-              <img src="Logo.svg" />
+              <img src="/Logo.svg" />
             </NavLink>
           </div>
           <div
