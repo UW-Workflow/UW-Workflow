@@ -5,6 +5,9 @@ import axios from "axios";
 import { ROUTES } from "../../../constants/routes";
 import { Company } from "../../../models/interfaces/types/Company";
 import { useRouter } from "next/router";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function Companies() {
   const router = useRouter();
   const companyID = router.query.id;
@@ -22,13 +25,13 @@ export default function Companies() {
             id: companyID,
           },
         });
-        if (response.data.companies) {
+        if (response.data.companies.length > 0 && response.data.companies[0]) {
           setCompany(response.data.companies[0]);
         } else {
           router.push(ROUTES.FOUR_ZERO_FOUR);
         }
       } catch (error) {
-        console.error(error);
+        toast("Error in get company for company page. " + error);
       }
     }
     getCompany();
@@ -81,6 +84,11 @@ export default function Companies() {
           </div>
         </div>
       )}
+      <div>
+        <ToastContainer
+          toastStyle={{ backgroundColor: "#e74c3c", color: "black" }}
+        />
+      </div>
     </MainContainer>
   );
 }

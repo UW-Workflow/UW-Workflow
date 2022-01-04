@@ -7,6 +7,9 @@ import { Company } from "../../../../models/interfaces/types/Company";
 import { Role } from "../../../../models/interfaces/types/Role";
 import { ROUTES } from "../../../../constants/routes";
 import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function Roles() {
   const [chosenWindow, setChosenWindow] = useState("reviews");
   function handleClick(tab) {
@@ -31,13 +34,15 @@ export default function Roles() {
             id: companyID,
           },
         });
-        if (response.data.companies) {
+        if (response.data.companies.length > 0 && response.data.companies[0]) {
           setCompany(response.data.companies[0]);
         } else {
           router.push(ROUTES.FOUR_ZERO_FOUR);
         }
       } catch (error) {
-        console.error(error);
+        toast(
+          "Error in getting compay for companies/id/role/review page. " + error
+        );
       }
     }
     getCompany();
@@ -48,13 +53,15 @@ export default function Roles() {
             id: roleID,
           },
         });
-        if (response.data.roles) {
+        if (response.data.roles.length > 0 && response.data.roles[0]) {
           setRole(response.data.roles[0]);
         } else {
           router.push(ROUTES.FOUR_ZERO_FOUR);
         }
       } catch (error) {
-        console.error(error);
+        toast(
+          "Error in getting role for companies/id/role/review page. " + error
+        );
       }
     }
     getRole();
@@ -97,6 +104,11 @@ export default function Roles() {
           </div>
         </div>
       )}
+      <div>
+        <ToastContainer
+          toastStyle={{ backgroundColor: "#e74c3c", color: "black" }}
+        />
+      </div>
     </MainContainer>
   );
 }

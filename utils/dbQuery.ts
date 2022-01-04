@@ -15,10 +15,6 @@ export async function dbQuery(query: any, variables = {}): Promise<any> {
         },
       }
     );
-    if (response.data.errors) {
-      console.log(response.data.errors);
-      throw new Error(`Error making database call: ${response.data.errors}`);
-    }
     return response.data.data;
   } catch (error) {
     throw new Error(`Error making db query: ${error.message}`);

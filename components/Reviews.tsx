@@ -2,6 +2,9 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { Review } from "../models/interfaces/types/Review";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function Reviews(props) {
   let [reviews, setReviews] = useState<Review[]>([]);
   useEffect(() => {
@@ -12,11 +15,11 @@ export default function Reviews(props) {
             roleId: props.roleId,
           },
         });
-        if (response.data.reviews) {
+        if (response.data.reviews.length > 0) {
           setReviews(response.data.reviews);
         }
       } catch (error) {
-        console.error(error);
+        toast("Error in getting revoews by role for role page. " + error);
       }
     }
     getReviews();
@@ -95,6 +98,11 @@ export default function Reviews(props) {
         <p className="text-xs mx-auto my-2 text-gray-300">
           You have reached the end of the list
         </p>
+      </div>
+      <div>
+        <ToastContainer
+          toastStyle={{ backgroundColor: "#e74c3c", color: "black" }}
+        />
       </div>
     </div>
   );

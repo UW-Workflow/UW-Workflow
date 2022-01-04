@@ -1,6 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Review } from "../models/interfaces/types/Review";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function ReviewDetails(props) {
   const [review, setReview] = useState<Review>();
   function setStars(num) {
@@ -30,11 +33,11 @@ export default function ReviewDetails(props) {
             id: props.reviewId,
           },
         });
-        if (response.data.reviews) {
+        if (response.data.reviews.length > 0 && response.data.reviews[0]) {
           setReview(response.data.reviews[0]);
         }
       } catch (error) {
-        console.error(error);
+        toast("Error in getting reviews for review details page. " + error);
       }
     }
     getReviews();
@@ -81,6 +84,11 @@ export default function ReviewDetails(props) {
             </div>
           </div>
         )}
+      </div>
+      <div>
+        <ToastContainer
+          toastStyle={{ backgroundColor: "#e74c3c", color: "black" }}
+        />
       </div>
     </div>
   );

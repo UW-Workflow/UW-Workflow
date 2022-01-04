@@ -2,6 +2,9 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Role } from "../models/interfaces/types/Role";
 import { useAuth } from "../utils/AuthUserContext";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function Bookmarks() {
   const [companyNames, setCompanyNames] = useState<String[]>([]);
   const { authUser, loading } = useAuth();
@@ -14,9 +17,14 @@ export default function Bookmarks() {
           id: companyID,
         },
       });
-      return response.data.companies[0].name;
+      if (response.data.companies.length > 0 && response.data.companies[0]) {
+        return response.data.companies[0].name;
+      }
+      return null;
     } catch (error) {
-      console.error(error);
+      toast(
+        "Error in getting company name for bookmarks for account page. " + error
+      );
     }
   }
   async function removeBookmark(roleID: number) {
@@ -27,12 +35,12 @@ export default function Bookmarks() {
           role_id: roleID,
         },
       });
-      if (response.data.update_users) {
+      if (response.data.update_users.length > 0) {
         setUpdate(true);
       }
       return;
     } catch (error) {
-      console.error(error);
+      toast("Error in removing bookmark for account pages. " + error);
     }
   }
 
@@ -44,11 +52,11 @@ export default function Bookmarks() {
             email: authUser.email,
           },
         });
-        if (response.data.bookmarks) {
+        if (response.data.bookmarks.length > 0) {
           setBookmarks(response.data.bookmarks);
         }
       } catch (error) {
-        console.error(error);
+        toast("Error in getting bookmarks for account page. " + error);
       }
     }
     getRoles();
@@ -104,6 +112,11 @@ export default function Bookmarks() {
         </p>
       </div>
       <div className="self-center bg-gradient-3 filter blur-huge px-20 py-10 mt-5 flex-grow"></div>
+      <div>
+        <ToastContainer
+          toastStyle={{ backgroundColor: "#e74c3c", color: "black" }}
+        />
+      </div>
     </div>
   );
 }

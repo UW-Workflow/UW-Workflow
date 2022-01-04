@@ -9,7 +9,9 @@ import { ROUTES } from "../../../../constants/routes";
 import axios from "axios";
 import { Role } from "../../../../models/interfaces/types/Role";
 import { useAuth } from "../../../../utils/AuthUserContext";
-import Link from "next/link";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 export default function Roles(props) {
   const { authUser, loading } = useAuth();
   const [chosenWindow, setChosenWindow] = useState("reviews");
@@ -30,11 +32,13 @@ export default function Roles(props) {
           role_id: roleID,
         },
       });
-      if (response.data.update_users) {
+      if (response.data.update_users.length > 0) {
         setBookmarked(true);
       }
     } catch (error) {
-      console.error(error);
+      toast(
+        "Error in adding bookmark for the user for the role page. " + error
+      );
     }
   }
   async function removeBookmark() {
@@ -45,12 +49,14 @@ export default function Roles(props) {
           role_id: roleID,
         },
       });
-      if (response.data.update_users) {
+      if (response.data.update_users.length > 0) {
         setBookmarked(false);
       }
       return;
     } catch (error) {
-      console.error(error);
+      toast(
+        "Error in removing bookmark for the user for the role page. " + error
+      );
     }
   }
 
@@ -66,13 +72,13 @@ export default function Roles(props) {
             id: companyID,
           },
         });
-        if (response.data.companies) {
+        if (response.data.companies.length > 0 && response.data.companies[0]) {
           setCompany(response.data.companies[0]);
         } else {
           router.push(ROUTES.FOUR_ZERO_FOUR);
         }
       } catch (error) {
-        console.error(error);
+        toast("Error in getting company for the role page. " + error);
       }
     }
     getCompany();
@@ -83,13 +89,13 @@ export default function Roles(props) {
             id: roleID,
           },
         });
-        if (response.data.roles) {
+        if (response.data.roles.length > 0 && response.data.roles[0]) {
           setRole(response.data.roles[0]);
         } else {
           router.push(ROUTES.FOUR_ZERO_FOUR);
         }
       } catch (error) {
-        console.error(error);
+        toast("Error in getting role for the role page. " + error);
       }
     }
     getRole();
@@ -101,11 +107,11 @@ export default function Roles(props) {
             role_id: roleID,
           },
         });
-        if (response.data.result) {
+        if (response.data.result != null) {
           setBookmarked(true);
         }
       } catch (error) {
-        console.error(error);
+        toast("Error in checking bookmark for role page. " + error);
       }
     }
     if (authUser) {
@@ -202,6 +208,11 @@ export default function Roles(props) {
           </div>
         </div>
       )}
+      <div>
+        <ToastContainer
+          toastStyle={{ backgroundColor: "#e74c3c", color: "black" }}
+        />
+      </div>
     </MainContainer>
   );
 }
