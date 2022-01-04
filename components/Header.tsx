@@ -104,9 +104,6 @@ export const Header: React.FC = () => {
     }
   };
   const MobileNavMenu = (companies) => {
-    {
-      console.log(companies);
-    }
     return (
       <div className="flex flex-col cursor-pointer">
         <div className="self-center">
@@ -186,7 +183,7 @@ export const Header: React.FC = () => {
       {state === "login" && (
         <Modal>
           <div>
-            <div className="min-w-400 max-w-400">
+            <div>
               <button onClick={(e) => setState("home")} className="float-right">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
