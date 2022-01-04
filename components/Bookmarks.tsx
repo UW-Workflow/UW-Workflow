@@ -45,7 +45,6 @@ export default function Bookmarks() {
   }
 
   useEffect(() => {
-    console.log(authUser);
     async function getRoles() {
       try {
         const response = await axios.get(`/api/user/getUserBookmarks`, {
