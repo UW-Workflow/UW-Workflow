@@ -35,7 +35,7 @@ export default function Bookmarks() {
           role_id: roleID,
         },
       });
-      if (response.data.update_users.length > 0) {
+      if (response.data.update_users.affected_rows == 1) {
         setUpdate(true);
       }
       return;
@@ -45,6 +45,7 @@ export default function Bookmarks() {
   }
 
   useEffect(() => {
+    console.log(authUser);
     async function getRoles() {
       try {
         const response = await axios.get(`/api/user/getUserBookmarks`, {

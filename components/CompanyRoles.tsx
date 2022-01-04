@@ -49,14 +49,7 @@ export default function CompanyRoles(props) {
                 <div className="flex flex-grow my-2 mx-2">
                   <div className="flex flex-col flex-grow">
                     <div>
-                      <Link
-                        href="/companies/[id]/[role]"
-                        as={`/companies/${props.companyId}/${value.id}`}
-                      >
-                        <p className="text-base font-bold">
-                          {value.title_name}
-                        </p>
-                      </Link>
+                      <p className="text-base font-bold">{value.title_name}</p>
                     </div>
                     <div className="text-sm">
                       {/* {value.reviews != 1 ? (
@@ -78,7 +71,12 @@ export default function CompanyRoles(props) {
                     </div>
                   </div>
                   <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full">
-                    <p className="text-blue-active">View</p>
+                    <Link
+                      href="/companies/[id]/[role]"
+                      as={`/companies/${props.companyId}/${value.id}`}
+                    >
+                      <p className="text-blue-active">View</p>
+                    </Link>
                   </div>
                   <div className="flex items-center my-auto">
                     <img src={"/bookmark_selected.svg"}></img>

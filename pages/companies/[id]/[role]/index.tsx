@@ -32,7 +32,7 @@ export default function Roles(props) {
           role_id: roleID,
         },
       });
-      if (response.data.update_users.length > 0) {
+      if (response.data.update_users.affected_rows == 1) {
         setBookmarked(true);
       }
     } catch (error) {
@@ -49,7 +49,7 @@ export default function Roles(props) {
           role_id: roleID,
         },
       });
-      if (response.data.update_users.length > 0) {
+      if (response.data.update_users.affected_rows == 1) {
         setBookmarked(false);
       }
       return;
@@ -107,7 +107,7 @@ export default function Roles(props) {
             role_id: roleID,
           },
         });
-        if (response.data.result != null) {
+        if (response.data.result) {
           setBookmarked(true);
         }
       } catch (error) {
