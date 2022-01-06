@@ -17,6 +17,7 @@ export default async function handler(
     try {
       const comments = await dbQuery(GET_COMMENTS, {
         role: role_id,
+        parent_comment: Number(req.query.parent_comment)
       });
       return res.json(comments);
     } catch (error) {

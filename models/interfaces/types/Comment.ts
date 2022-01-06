@@ -1,7 +1,7 @@
 export type Comment = {
   id: number;
   author: string;
-  reply_source: number;
+  parent_comment: number;
   content: string;
   created_time: string;
   role: number;
