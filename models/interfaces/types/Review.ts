@@ -11,4 +11,3 @@ export type Review = {
   interview_experience: string | null;
   interview_experience_rating: number;
 }
-  

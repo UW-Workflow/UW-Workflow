@@ -37,7 +37,7 @@ const Login = (props) => {
   };
 
   return (
-    <div className="min-w-400">
+    <div className="justify-center items-center">
       {state === "login" && (
         <div>
           <h2 className="text-xl font-bold text-center text-black">

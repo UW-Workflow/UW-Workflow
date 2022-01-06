@@ -10,11 +10,16 @@ export const AutoComplete: React.FC<AutoCompleteProps> = ({ items }) => {
   const router = useRouter();
   const handleOnSelect = (item: Company) => {
     // TODO: Take them to the company page
-    router.push(`companies/${item.id}`);
+    router.push({
+      pathname: "/companies/[id]",
+      query: { id: item.id },
+    });
+
+    // router.push(`companies/${item.id}`);
   };
 
   return (
-    <div style={{ width: 400 }}>
+    <div className=" min-w-300 relative z-50 self-center">
       <ReactSearchAutocomplete
         items={items}
         onSelect={handleOnSelect}

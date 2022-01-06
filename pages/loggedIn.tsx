@@ -25,14 +25,15 @@ const LoggedIn = () => {
     //Your logged in page
     <MainContainer>
       <Modal>
-        <div className="min-w-400 max-w-400">
+        <div>
           <div className="mt-3 grid grid-cols-1 gap-2 justify-items-center">
             <img src="Vector.svg" className="self-center" />
             <h2 className="text-xl font-bold text-center text-black">
               Check your mail!
             </h2>
             <p className="mt-2 text-xs text-gray-600 text-center">
-              Thank you for signing up! To start using UWWorkflow, please check your email to verify your email id and then log in again.
+              Thank you for signing up! To start using UWWorkflow, please check
+              your email to verify your email id and then log in again.
             </p>
             <div className="block ">
               <div className="mt-2 min-w-full">
