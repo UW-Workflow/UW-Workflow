@@ -204,7 +204,7 @@ export default function Roles(props) {
             {chosenWindow == "reviews" && (
               <Reviews companyId={companyID} roleId={roleID} />
             )}
-            {chosenWindow == "comments" && <Comments />}
+            {chosenWindow == "comments" && <Comments roleID={roleID} />}
           </div>
         </div>
       )}

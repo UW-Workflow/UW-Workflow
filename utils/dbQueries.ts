@@ -87,6 +87,37 @@ export const GET_COMPANY = gql`
   }
 `;
 
+export const GET_COMMENTS = gql`
+  query get_comments($role: Int) {
+    comments(where: { role: { _eq: $role } }) {
+      content
+      reply_source
+      created_time
+      author_object {
+        username
+      }
+    }
+  }
+`;
+export const INSERT_COMMENT = gql`
+  mutation INSERT_COMMENT(
+    $author: String
+    $content: String
+    $reply_source: Int
+    $role: Int
+  ) {
+    insert_comments(
+      objects: {
+        author: $author
+        content: $content
+        reply_source: $reply_source
+        role: $role
+      }
+    ) {
+      affected_rows
+    }
+  }
+`;
 export const GET_COMPANY_NAME = gql`
   query get_company_name($id: Int) {
     companies(where: { id: { _eq: $id } }) {
