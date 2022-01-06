@@ -8,7 +8,7 @@ export default function Profile() {
       <div className="flex flex-col rounded-lg bg-white mb-5 shadow bg-white">
         <div className="flex flex-grow m-5">
           <div className="rounded-lg shadow flex-grow">
-            <div className="flex flex-row">
+            {/* <div className="flex flex-row">
               <div className="mr-10 ml-3 my-5">
                 <img src="default_profile.jpg" />
               </div>
@@ -24,7 +24,7 @@ export default function Profile() {
                   <p className="text-blue-text">Upload</p>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
         {authUser && (

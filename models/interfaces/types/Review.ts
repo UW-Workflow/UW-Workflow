@@ -1,16 +1,14 @@
-import { Company } from "./Company";
-import { User } from "./User";
+import { Role } from "../types/Role"
 
 export type Review = {
-    id: number;
-    title_name: string;
-    year_worked: number;
-    company: Company;
-    user: User;
-    salary: number;
-    interview_experience: string;
-    interview_experience_rating: number;
-    work_experience: string;
-    work_experience_rating: number;
-  };
+  id: number;
+  year_worked: number;
+  role: Role;
+  salary: number;
+  duration: number;
+  work_experience: string | null;
+  work_experience_rating: number;
+  interview_experience: string | null;
+  interview_experience_rating: number;
+}
   

@@ -15,6 +15,7 @@ const authUserContext = createContext({
   sendVerificationEmail: async (): Promise<void> => {},
   sendPasswordResetEmail: async (email): Promise<void> => {},
   updatePassword: async (newPassword): Promise<void> => {},
+  updateDisplayName: async (name): Promise<void> => {},
   signOut: async () => {},
 });
 

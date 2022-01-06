@@ -1,8 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { useReducer } from "react-transition-group/node_modules/@types/react";
-import { User } from "../../../models/interfaces/types/User";
 import { apiResponse } from "../../../utils/apiResponse";
-import { QUERY_USER } from "../../../utils/dbQueries";
+import { QUERY_ROLE } from "../../../utils/dbQueries";
 import { dbQuery } from "../../../utils/dbQuery";
 
 export default async function handler(
@@ -13,16 +11,17 @@ export default async function handler(
     return apiResponse(res, 405, "This method is  not supported", true);
   }
 
-  const userEmail: string = String(req.query.email);
+  const roleTitle: string = String(req.query.title_name);
 
-  if (userEmail === "") {
-    return apiResponse(res, 400, "Missing user's email", true);
+  if (roleTitle === "") {
+    return apiResponse(res, 400, "Missing title of role", true);
   }
   try {
-    const userResponse = await dbQuery(QUERY_USER, {
-      email: userEmail,
+    const roleResponse = await dbQuery(QUERY_ROLE, {
+      title_name: roleTitle,
+      company_id: req.query.company_id,
     });
-    return res.json(userResponse);
+    return res.json(roleResponse);
   } catch (error) {
     console.error(error);
     return apiResponse(res, 500, `Error logging: ${error.message}`, true);
