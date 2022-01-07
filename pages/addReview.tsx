@@ -18,7 +18,10 @@ export default function AddReview() {
   const [role, setRole] = useState<{ value: string; label: string }>();
   const [newRoleName, setNewRoleName] = useState<string>();
   const [salary, setSalary] = useState<string>("0.0");
-  const [yearJoined, setYearJoined] = useState<number>();
+  const [yearJoined, setYearJoined] = useState<{
+    value: number;
+    label: string;
+  }>();
   const [duration, setDuration] = useState<{ value: number; label: string }>();
   const [interviewRating, setInterviewRating] = useState<number>(0.0);
   const [interviewReview, setInterviewReview] = useState<string>(" ");
@@ -40,7 +43,7 @@ export default function AddReview() {
 
   async function addReview() {
     const reviewResponse = await axios.post("/api/review/addReview", {
-      year_worked: 2000,
+      year_worked: yearJoined.value,
       role_id: roleId,
       salary: parseFloat(salary),
       duration: duration.value,
