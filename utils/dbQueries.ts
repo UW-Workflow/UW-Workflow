@@ -51,12 +51,12 @@ export const GET_COMPANY_NAMES = gql`
 
 export const INSERT_COMPANY = gql`
   mutation INSERT_COMPANY(
-    $name: String
-    $website: String
-    $city: String
-    $country: String
-    $description: String
-    $logo: String
+    $name: String!
+    $website: String!
+    $city: String!
+    $country: String!
+    $description: String!
+    $logo: String!
   ) {
     insert_companies(
       objects: {

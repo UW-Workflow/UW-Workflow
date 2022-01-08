@@ -229,13 +229,17 @@ export default function AddCompany() {
                   </div>
 
                   <input
-                    placeholder="Please enter company website url"
+                    placeholder={
+                      company.website
+                        ? company.website
+                        : "Please enter company website url"
+                    }
                     type="text"
                     onChange={(e) => {
                       company.website = e.target.value;
                       setCompany(company);
                     }}
-                    className="rounded-lg placeholder-gray-300"
+                    className="rounded-lg placeholder-gray-900"
                   />
                 </div>
                 <div className="flex flex-col mt-4 space-y-1">
