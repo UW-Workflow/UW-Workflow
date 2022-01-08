@@ -69,7 +69,7 @@ const SignUp = () => {
     <MainContainer>
       <Modal>
         <div>
-          <div className="min-w-400 max-w-400">
+          <div>
             <button onClick={onClose} className="float-right">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

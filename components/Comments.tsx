@@ -1,41 +1,30 @@
 import Image from "next/image";
 import moment from "moment";
-import { useState } from "react";
-
-const TIMESTAMP_FORMAT = "YYYY-MM-DD:hh:mm";
-
-export default function Comments() {
-  const is_authenticated = false; // should be global state variable
-  const [comments, setComments] = useState([
-    // {
-    //   id: 1,
-    //   author_name: "Tony",
-    //   author_picture: "",
-    //   time_passed: "2021-12-10:19:20",
-    //   text: "Lorem ipsum dolor sit @amet, consectetur adipiscing elit. Donec id nunc at magna placerat faucibus nec quis dolor. Morbi ultricies consectetur justo, ut lacinia dolor rhoncus nec. Proin in enim in erat commodo semper. Integer ac posuere augue, eu ultricies enim. Morbi dignissim mauris vel nibh ultricies, vel aliquet augue varius. Aliquam ullamcorper blandit diam sed laoreet. Donec aliquam, erat et dapibus accumsan, lectus augue pulvinar odio, gravida hendrerit lorem nibh vel mauris. Integer rhoncus felis enim, dictum efficitur ipsum tristique eget. Donec tortor ipsum, convallis ac mollis ut, convallis sed ligula. Duis sodales, sapien vitae aliquam tempus, mi sapien rutrum diam, imperdiet ullamcorper dui orci at metus. Mauris augue leo, consequat in ligula sed, tincidunt tincidunt metus. Praesent dapibus imperdiet eleifend. Fusce sed augue nec turpis porttitor volutpat. Donec et magna velit. Sed fringilla mi vel lacus ullamcorper, sit amet tristique ante pulvinar. Mauris sit amet dolor leo.",
-    // },
-    // {
-    //   id: 1,
-    //   author_name: "Tony",
-    //   author_picture: "",
-    //   time_passed: "2021-12-10:19:20",
-    //   text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id nunc at magna placerat faucibus nec quis dolor. Morbi ultricies consectetur justo, ut lacinia dolor rhoncus nec. Proin in enim in erat commodo semper. Integer ac posuere augue, eu ultricies enim. Morbi dignissim mauris vel nibh ultricies, vel aliquet augue varius. Aliquam ullamcorper blandit diam sed laoreet. Donec aliquam, erat et dapibus accumsan, lectus augue pulvinar odio, gravida hendrerit lorem nibh vel mauris. Integer rhoncus felis enim, dictum efficitur ipsum tristique eget. Donec tortor ipsum, convallis ac mollis ut, convallis sed ligula. Duis sodales, sapien vitae aliquam tempus, mi sapien rutrum diam, imperdiet ullamcorper dui orci at metus. Mauris augue leo, consequat in ligula sed, tincidunt tincidunt metus. Praesent dapibus imperdiet eleifend. Fusce sed augue nec turpis porttitor volutpat. Donec et magna velit. Sed fringilla mi vel lacus ullamcorper, sit amet tristique ante pulvinar. Mauris sit amet dolor leo.",
-    // },
-    // {
-    //   id: 2,
-    //   author_name: "Tony",
-    //   author_picture: "",
-    //   time_passed: "2021-12-10:19:20",
-    //   text: "this is a comment",
-    // },
-    // {
-    //   id: 3,
-    //   author_name: "Tony",
-    //   author_picture: "",
-    //   time_passed: "2021-12-10:19:20",
-    //   text: "this is a @comment",
-    // },
-  ]);
+import { useState, useEffect } from "react";
+import { useAuth } from "../utils/AuthUserContext";
+import axios from "axios";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+export default function Comments({ roleID }) {
+  const { authUser } = useAuth();
+  const [trigger, setTrigger] = useState(0);
+  const [comments, setComments] = useState([]);
+  useEffect(() => {
+    async function getComments() {
+      try {
+        const response = await axios.get(`/api/comments/getCommentsByRole`, {
+          params: {
+            id: roleID,
+            parent_comment: -1,
+          },
+        });
+        setComments([...response.data.comments]);
+      } catch (error) {
+        console.log("Error in getting comments. " + error);
+      }
+    }
+    getComments();
+  }, [trigger]);
   function parseText(comment_text) {
     const words = comment_text.split(" ");
     let results = [];
@@ -52,34 +41,96 @@ export default function Comments() {
     }
     return results;
   }
-  function AddComment(e) {
+  function AddComment(e, parent) {
     if (e.key == "Enter") {
-      setComments([
-        {
-          id: -1,
-          author_name: "Tony",
-          author_picture: "",
-          time_passed: "2021-12-10:19:20",
-          text: e.target.value,
-        },
-        ...comments,
-      ]);
-      e.target.value = "";
+      const addComment = async () => {
+        try {
+          await axios.post("/api/comments/addComment", {
+            author: authUser.username,
+            content: e.target.value,
+            role: roleID,
+            parent_comment: parent,
+          });
+          e.target.value = "";
+          setTrigger(trigger + 1);
+        } catch (err) {
+          toast("We couldn't add your comment!")
+        }
+      };
+      addComment();
     }
+  }
+  function getCommentBlock(comment) {
+    console.log(comment);
+    return (
+      <div className="flex flex-col mt-4 p-2 max-h-100 bg-gray-50 rounded-lg">
+        <div className="flex flex-row space-x-4 mb-4">
+          <div className="flex flex-row flex-grow space-x-4 my-auto">
+            <div>
+              <a href="#" className="text-blue-400">
+                {comment.author_object.username}
+              </a>
+            </div>
+            <div>
+              <p className="text-gray-300">
+                {moment.parseZone(comment.created_time).fromNow()}
+              </p>
+            </div>
+          </div>
+          {/* <div className="flex flex-row-reverse flex-grow my-auto">
+            <div>
+              <img src="/More.svg"></img>
+            </div>
+            <div>
+              <img src="/Reply.svg"></img>
+            </div>
+          </div> */}
+        </div>
+        <div>
+          <div className="flex flex-shrink">
+            <p>{parseText(comment.content)}</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  function createCommentStructure(comments_input) {
+    return comments_input.map((comment, index) => {
+      return (
+        <div key={index}>
+          {getCommentBlock(comment)}
+          <input
+            type="text"
+            onKeyPress={(e) => {
+              AddComment(e, comment.id);
+            }}
+            placeholder="Write a reply"
+            className="rounded-lg full-input border-gray-400 border-0 placeholder:text-gray-500
+          focus:outline-0 ml-2 text-sm"
+          ></input>
+          {comment.replies_object.map((reply, reply_index) => {
+            return (
+              <div key={reply_index} className="ml-6">
+                {getCommentBlock(reply)}
+              </div>
+            );
+          })}
+        </div>
+      );
+    });
   }
   function isAuthenticated() {
     return (
       <div className="flex flex-col">
-        <div className="flex flex-row flex-grow space-x-8 mb-6">
-          <div>
-            <img src="default_profile.jpg"></img>
-          </div>
+        <div className="flex flex-row flex-grow space-x-8 mb-2">
           <div className="flex flex-grow">
             <input
               type="text"
               className="rounded-lg full-input border-gray-400 border-0.5 placeholder:text-gray-500
-              focus:outline-none"
-              onKeyPress={AddComment}
+              focus:outline-none text-sm"
+              onKeyPress={(e) => {
+                AddComment(e, -1);
+              }} // use -1 to indicate root comments
               placeholder="Add your comment here"
             ></input>
           </div>
@@ -87,80 +138,34 @@ export default function Comments() {
         {comments.length == 0 && (
           <div className="flex items-center flex-grow bg-light-grey rounded-lg shadow py-24">
             <div className="mx-auto my-auto">
-              <img src="NoComments.svg"></img>
+              <img src="/NoComments.svg"></img>
             </div>
           </div>
         )}
         <div className="flex flex-col overflow-auto max-h-90">
-          {comments.length > 0 &&
-            comments.map((comment, index) => {
-              return (
-                <div
-                  key={index}
-                  className="flex flex-col my-4 p-2 max-h-100 bg-gray-50 rounded-lg"
-                >
-                  <div className="flex flex-row space-x-4 mb-4">
-                    <div>
-                      {comment.author_picture == "" && (
-                        <img
-                          src="default_profile.jpg"
-                          className="rounded-full"
-                        ></img>
-                      )}
-                      {comment.author_picture != "" && (
-                        <img
-                          src={comment.author_picture}
-                          className="rounded-full"
-                        ></img>
-                      )}
-                    </div>
-                    <div className="flex flex-row flex-grow space-x-4 my-auto">
-                      <div>
-                        <a href="#" className="text-blue-400">
-                          {comment.author_name}
-                        </a>
-                      </div>
-                      <div>
-                        <p className="text-gray-300">
-                          {moment(
-                            comment.time_passed,
-                            TIMESTAMP_FORMAT
-                          ).fromNow()}
-                        </p>
-                      </div>
-                    </div>
-                    <div className="flex flex-row-reverse flex-grow my-auto">
-                      <div>
-                        <img src="More.svg"></img>
-                      </div>
-                      <div>
-                        <img src="Reply.svg"></img>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <div className="flex flex-shrink">
-                      {/* <p>{comment.text}</p> */}
-                      <p>{parseText(comment.text)}</p>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
+          {comments.length > 0 && createCommentStructure(comments)}
+        </div>
+        <div>
+          <ToastContainer
+            toastStyle={{ backgroundColor: "#e74c3c", color: "black" }}
+          />
         </div>
       </div>
     );
   }
-  if (is_authenticated) {
+  if (authUser) {
     return isAuthenticated();
   } else {
     return (
       <div className="flex flex-col shadow bg-gray-50 mt-2">
         <div className="m-auto mt-10">
-          <img src="loginNeededIcon.svg"></img>
+          <img src="/loginNeededIcon.svg"></img>
         </div>
         <div className="m-auto my-8">
-          <p className="text-lg">Please <span className="text-blue-400">login</span> or <span className="text-blue-400">sign up</span> to add a comment</p>
+          <p className="text-lg">
+            Please <span className="text-blue-400">login</span> or{" "}
+            <span className="text-blue-400">sign up</span> to add a comment
+          </p>
         </div>
       </div>
     );

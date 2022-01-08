@@ -104,9 +104,6 @@ export const Header: React.FC = () => {
     }
   };
   const MobileNavMenu = (companies) => {
-    {
-      console.log(companies);
-    }
     return (
       <div className="flex flex-col cursor-pointer">
         <div className="self-center">
@@ -127,7 +124,6 @@ export const Header: React.FC = () => {
   };
   const onSignOut = (event) => {
     signOut();
-    router.push("/");
     event.preventDefault();
   };
 
@@ -154,7 +150,7 @@ export const Header: React.FC = () => {
         <div className="flex justify-between lg:justify-start">
           <div className="self-start pl-5 lg:pl-0 min-w-100">
             <NavLink to={ROUTES.HOME}>
-              <img src="Logo.svg" />
+              <img src="/Logo.svg" />
             </NavLink>
           </div>
           <div
@@ -186,7 +182,7 @@ export const Header: React.FC = () => {
       {state === "login" && (
         <Modal>
           <div>
-            <div className="min-w-400 max-w-400">
+            <div>
               <button onClick={(e) => setState("home")} className="float-right">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
