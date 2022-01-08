@@ -11,6 +11,7 @@ import CurrencyInput from "react-currency-input-field";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BadgeCheckIcon from "@heroicons/react/solid/BadgeCheckIcon";
+import { defaultRoleOptions, durationOptions } from "../constants/contants";
 
 export default function AddReview() {
   const [step, setStep] = useState<number>(1);
@@ -42,45 +43,25 @@ export default function AddReview() {
   };
 
   async function addReview() {
-    const reviewResponse = await axios.post("/api/review/addReview", {
-      year_worked: yearJoined.value,
-      role_id: roleId,
-      salary: parseFloat(salary),
-      duration: duration.value,
-      work_experience: coopReview,
-      work_experience_rating: coopRating,
-      interview_experience: interviewReview,
-      interview_experience_rating: interviewRating,
-    });
+    try {
+      const reviewResponse = await axios.post("/api/review/addReview", {
+        year_worked: yearJoined.value,
+        role_id: roleId,
+        salary: parseFloat(salary),
+        duration: duration.value,
+        work_experience: coopReview,
+        work_experience_rating: coopRating,
+        interview_experience: interviewReview,
+        interview_experience_rating: interviewRating,
+      });
 
-    if (reviewResponse.status === 200) {
-      setStep(5);
-    } else {
-      toast("Error in adding the review. " + reviewResponse.data.message);
+      if (reviewResponse.status === 200) {
+        setStep(5);
+      }
+    } catch (error) {
+      toast("Error in adding the review. " + error);
     }
   }
-
-  const durationOptions: any[] = [
-    { value: 4, label: "4 months" },
-    { value: 8, label: "8 months" },
-    { value: 12, label: "12 months" },
-  ];
-  const defaultRoleOptions = [
-    { value: "Software Engineer", label: "Software Engineer" },
-    { value: "Data Scientist", label: "Data Scientist" },
-    { value: "Product Designer", label: "Product Designer" },
-    { value: "Product Manager", label: "Product Manager" },
-    { value: "Accountant", label: "Accountant" },
-    { value: "Human Resources", label: "Human Resources" },
-    { value: "Marketing", label: "Marketing" },
-    { value: "Recruiter", label: "Recruiter" },
-    { value: "Sales", label: "Sales" },
-    { value: "Hardware Engineer", label: "Hardware Engineer" },
-    { value: "Mechanical Engineer", label: "Mechanical Engineer" },
-    { value: "Solution Architect", label: "Solution Architect" },
-    { value: "Business Analyst", label: "Business Analyst" },
-    { value: "Finance", label: "Finance" },
-  ];
 
   const formValidations = () => {
     if (step === 2) {
@@ -92,23 +73,31 @@ export default function AddReview() {
   };
 
   async function checkAndCreateRole() {
-    const roleName = role ? role.value : newRoleName;
-    const roleResponse = await axios.get("/api/role/getRole", {
-      params: {
-        title_name: roleName,
-        company_id: 4,
-      },
-    });
-    if (roleResponse.data.roles.length > 0) {
-      setRoleId(roleResponse.data.roles[0].id);
-    } else {
-      const addRoleResponse = await axios.post("/api/role/addRole", {
-        title_name: roleName,
-        company_id: 4,
+    try {
+      const roleName = role ? role.value : newRoleName;
+      const roleResponse = await axios.get("/api/role/getRole", {
+        params: {
+          title_name: roleName,
+          company_id: 4,
+        },
       });
-      if (addRoleResponse.status === 200 && addRoleResponse.data.id) {
-        setRoleId(addRoleResponse.data.id);
+      if (roleResponse.data.roles && roleResponse.data.roles.length > 0) {
+        setRoleId(roleResponse.data.roles[0].id);
+      } else {
+        try {
+          const addRoleResponse = await axios.post("/api/role/addRole", {
+            title_name: roleName,
+            company_id: 4,
+          });
+          if (addRoleResponse.status === 200 && addRoleResponse.data.id) {
+            setRoleId(addRoleResponse.data.id);
+          }
+        } catch (error) {
+          toast("Error in adding the role. " + error);
+        }
       }
+    } catch (error) {
+      toast("Error in querying for role. " + error);
     }
   }
 

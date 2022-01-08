@@ -6,6 +6,5 @@ export function generateArrayOfYears(goBack: number) {
   for (var i = max; i >= min; i--) {
     years.push({value: i, label: i.toString()})
   }
-  console.log(years);
   return years
 }
