@@ -73,6 +73,34 @@ export const INSERT_COMPANY = gql`
   }
 `;
 
+export const INSERT_REVIEW= gql`
+  mutation INSERT_REVIEW(
+    $year_worked: Int
+    $role_id: Int
+    $salary: float8
+    $duration: Int
+    $interview_experience: String
+    $interview_experience_rating: Int
+    $work_experience: String
+    $work_experience_rating: Int
+  ) {
+    insert_reviews(
+      objects: {
+        year_worked: $year_worked
+        role_id: $role_id
+        salary: $salary
+        duration: $duration
+        interview_experience: $interview_experience
+        interview_experience_rating: $interview_experience_rating
+        work_experience: $work_experience
+        work_experience_rating: $work_experience_rating
+      }
+    ) {
+      affected_rows
+    }
+  }
+`;
+
 export const GET_COMPANY = gql`
   query get_company($id: Int) {
     companies(where: { id: { _eq: $id } }) {
@@ -86,6 +114,17 @@ export const GET_COMPANY = gql`
     }
   }
 `;
+
+
+export const QUERY_ROLE = gql`
+  query query_role($company_id: Int, $title_name: String) {
+    roles(where: { company_id: { _eq: $company_id }, title_name: { _eq:  $title_name} }) {
+      id
+      title_name
+    }
+  }
+`;
+
 
 export const GET_COMMENTS = gql`
   query get_comments($role: Int, $parent_comment: Int) {
@@ -130,6 +169,7 @@ export const INSERT_COMMENT = gql`
     }
   }
 `;
+
 export const GET_COMPANY_NAME = gql`
   query get_company_name($id: Int) {
     companies(where: { id: { _eq: $id } }) {
@@ -147,6 +187,24 @@ export const GET_ROLES_BY_COMPANY = gql`
       avg_coop_rating
       avg_interview_rating
       avg_salary
+    }
+  }
+`;
+
+export const INSERT_ROLE = gql`
+  mutation INSERT_ROLE(
+    $title_name: String
+    $company_id: Int
+  ) {
+    insert_roles(
+      objects: {
+        title_name: $title_name
+        company_id: $company_id
+      }
+    ) {
+      returning {
+        id
+      }
     }
   }
 `;
