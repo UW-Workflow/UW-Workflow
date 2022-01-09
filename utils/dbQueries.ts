@@ -51,12 +51,12 @@ export const GET_COMPANY_NAMES = gql`
 
 export const INSERT_COMPANY = gql`
   mutation INSERT_COMPANY(
-    $name: String
-    $website: String
-    $city: String
-    $country: String
-    $description: String
-    $logo: String
+    $name: String!
+    $website: String!
+    $city: String!
+    $country: String!
+    $description: String!
+    $logo: String!
   ) {
     insert_companies(
       objects: {
@@ -115,11 +115,57 @@ export const GET_COMPANY = gql`
   }
 `;
 
+
 export const QUERY_ROLE = gql`
   query query_role($company_id: Int, $title_name: String) {
     roles(where: { company_id: { _eq: $company_id }, title_name: { _eq:  $title_name} }) {
       id
       title_name
+    }
+  }
+`;
+
+
+export const GET_COMMENTS = gql`
+  query get_comments($role: Int, $parent_comment: Int) {
+    comments(
+      where: { role: { _eq: $role }, parent_comment: { _eq: $parent_comment } }
+      order_by: { created_time: desc }
+    ) {
+      id
+      content
+      parent_comment
+      created_time
+      replies_object(order_by: { created_time: desc }) {
+        id
+        content
+        created_time
+        author_object {
+          username
+        }
+      }
+      author_object {
+        username
+      }
+    }
+  }
+`;
+export const INSERT_COMMENT = gql`
+  mutation INSERT_COMMENT(
+    $author: String
+    $content: String
+    $parent_comment: Int
+    $role: Int
+  ) {
+    insert_comments(
+      objects: {
+        author: $author
+        content: $content
+        parent_comment: $parent_comment
+        role: $role
+      }
+    ) {
+      affected_rows
     }
   }
 `;
