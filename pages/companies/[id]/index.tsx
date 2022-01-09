@@ -19,11 +19,13 @@ export default function Companies() {
       setCID(router.query.id as string);
     }
     if (!cID) {
-      router.push(ROUTES.FOUR_ZERO_FOUR);
       return;
     }
     async function getCompany() {
       try {
+        if (!parseInt(cID as string)) {
+          router.push(ROUTES.FOUR_ZERO_FOUR);
+        }
         const response = await axios.get(`/api/company/getCompany`, {
           params: {
             id: cID,
