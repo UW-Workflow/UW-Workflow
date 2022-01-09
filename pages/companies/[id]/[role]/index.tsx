@@ -141,22 +141,31 @@ export default function Roles(props) {
                 </div>
                 <div>
                   <p className="text-lg font-bold">{role.title_name}</p>
-                </div>
-                {authUser ? (
-                  bookmarked ? (
-                    <p onClick={removeBookmark} className="text-md">
-                      Remove from Bookmarks
-                    </p>
+
+                  {authUser ? (
+                    bookmarked ? (
+                      <img
+                        src="/bookmark_selected.svg"
+                        onClick={removeBookmark}
+                        className=" flex flex-row flex-grow text-md"
+                      >
+                        {/* Remove from Bookmarks */}
+                      </img>
+                    ) : (
+                      <img
+                        src="/bookmark_unselected.svg"
+                        onClick={addBookmark}
+                        className="flex flex-row flex-grow text-md"
+                      >
+                        {/* Save as Bookmarks */}
+                      </img>
+                    )
                   ) : (
-                    <p onClick={addBookmark} className="text-md">
-                      Save as Bookmarks
-                    </p>
-                  )
-                ) : (
-                  <div>
-                    <p className="text-md">Log In for Bookmark</p>
-                  </div>
-                )}
+                    <div>
+                      <p className="text-md">Log In for Bookmark</p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
             <div className="flex flex-row space-x-4 my-auto">
