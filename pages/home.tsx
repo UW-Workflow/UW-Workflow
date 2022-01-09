@@ -51,14 +51,14 @@ export default function Home() {
               <span>or</span>
               <div className="bg-button-blue text-white rounded-xl p-3 flex items-center space-x-2">
                 <div className="bg-white text-button-blue rounded-md">
-                  <img src="plus.svg" loading="lazy"></img>
+                  <img src="/plus.svg" loading="lazy"></img>
                 </div>
                 <button onClick={addACompany}>Add a company</button>
               </div>
             </div>
           </div>
           <div className="flex flex-col space-y-4">
-            <img src="companies.svg" loading="lazy" />
+            <img src="/companies.svg" loading="lazy" />
           </div>
         </div>
       </MainContainer>
