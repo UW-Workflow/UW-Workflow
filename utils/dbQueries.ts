@@ -250,7 +250,6 @@ export const GET_REVIEW = gql`
       work_experience_rating
       interview_experience
       interview_experience_rating
-      user_id
       duration
       role_id
     }
