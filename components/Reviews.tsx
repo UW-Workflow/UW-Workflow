@@ -15,11 +15,11 @@ export default function Reviews(props) {
             roleId: props.roleId,
           },
         });
-        if (response.data.reviews.length > 0) {
+        if (response.data.reviews && response.data.reviews.length > 0) {
           setReviews(response.data.reviews);
         }
       } catch (error) {
-        toast("Error in getting revoews by role for role page. " + error);
+        toast("Error in getting reviews by role for role page. " + error);
       }
     }
     getReviews();

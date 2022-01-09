@@ -18,6 +18,7 @@ export default async function handler(
     const reviews = await dbQuery(GET_REVIEWS_BY_ROLES, {
       role_id: roleId,
     });
+    console.log(reviews);
     return res.json(reviews);
   } catch (error) {
     console.error(error);
