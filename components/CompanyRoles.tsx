@@ -58,15 +58,21 @@ export default function CompanyRoles(props) {
                       <p>{value.reviews} Review</p>
                     )} */}
                       {value.avg_coop_rating && (
-                        <p>Average Coop Rating: {value.avg_coop_rating}</p>
+                        <p>
+                          Average Coop Rating:{" "}
+                          {Number(value.avg_coop_rating).toFixed(2)}
+                        </p>
                       )}
                       {value.avg_interview_rating && (
                         <p>
-                          Average Interview Rating: {value.avg_interview_rating}
+                          Average Interview Rating:{" "}
+                          {Number(value.avg_interview_rating).toFixed(2)}
                         </p>
                       )}
                       {value.avg_salary && (
-                        <p>Average Salary: {value.avg_salary}</p>
+                        <p>
+                          Average Salary: {Number(value.avg_salary).toFixed(2)}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -78,9 +84,9 @@ export default function CompanyRoles(props) {
                       <p className="text-blue-active">View</p>
                     </Link>
                   </div>
-                  <div className="flex items-center my-auto">
+                  {/* <div className="flex items-center my-auto">
                     <img src={"/bookmark_selected.svg"}></img>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             );

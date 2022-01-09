@@ -187,6 +187,7 @@ export const GET_ROLES_BY_COMPANY = gql`
       avg_coop_rating
       avg_interview_rating
       avg_salary
+      company_name
     }
   }
 `;
@@ -218,6 +219,7 @@ export const GET_ROLE = gql`
       avg_coop_rating
       avg_interview_rating
       avg_salary
+      company_name
     }
   }
 `;
@@ -232,7 +234,6 @@ export const GET_REVIEWS_BY_ROLES = gql`
       work_experience_rating
       interview_experience
       interview_experience_rating
-      user_id
       duration
       role_id
     }
@@ -288,6 +289,7 @@ export const GET_USER_BOOKMARKS = gql`
         avg_coop_rating
         avg_interview_rating
         avg_salary
+        company_name
       }
     }
   }
