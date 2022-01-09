@@ -76,12 +76,12 @@ export default function CompanyRoles(props) {
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full">
+                  <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full text-blue-active">
                     <Link
                       href="/companies/[id]/[role]"
                       as={`/companies/${props.companyId}/${value.id}`}
                     >
-                      <p className="text-blue-active">View</p>
+                      View
                     </Link>
                   </div>
                   {/* <div className="flex items-center my-auto">

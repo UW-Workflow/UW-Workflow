@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 
 export default function Bookmarks() {
-  const [companyNames, setCompanyNames] = useState<String[]>([]);
   const { authUser, loading } = useAuth();
   const [bookmarks, setBookmarks] = useState<Role[]>([]);
   const [update, setUpdate] = useState(false);
@@ -61,7 +60,9 @@ export default function Bookmarks() {
         toast("Error in getting bookmarks for account page. " + error);
       }
     }
-    getRoles();
+    if (authUser) {
+      getRoles();
+    }
   }, [authUser, update]);
 
   return (

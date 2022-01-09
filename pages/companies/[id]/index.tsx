@@ -10,25 +10,25 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function Companies() {
   const router = useRouter();
-  const [cID, setCID] = useState<String>();
-  const companyID = router.query.id;
+  const [companyID, setcompanyID] = useState<String>();
+  // const companyID = router.query.id;
   const [company, setCompany] = useState<Company>();
 
   useEffect(() => {
     if (router && router.query) {
-      setCID(router.query.id as string);
+      setcompanyID(router.query.id as string);
     }
-    if (!cID) {
+    if (!companyID) {
       return;
     }
     async function getCompany() {
       try {
-        if (!parseInt(cID as string)) {
+        if (!parseInt(companyID as string)) {
           router.push(ROUTES.FOUR_ZERO_FOUR);
         }
         const response = await axios.get(`/api/company/getCompany`, {
           params: {
-            id: cID,
+            id: companyID,
           },
         });
         if (response.data.companies.length > 0 && response.data.companies[0]) {
@@ -41,7 +41,7 @@ export default function Companies() {
       }
     }
     getCompany();
-  }, [cID, router]);
+  }, [companyID, router]);
 
   return (
     <MainContainer>

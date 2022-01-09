@@ -16,15 +16,22 @@ export default function Roles() {
     setChosenWindow(tab);
   }
   const router = useRouter();
-  const companyID = router.query.id;
-  const roleID = router.query.role;
-  const reviewID = router.query.review;
+  // const companyID = router.query.id;
+  // const roleID = router.query.role;
+  // const reviewID = router.query.review;
+  const [companyID, setCompanyID] = useState<String>();
+  const [roleID, setRoleID] = useState<String>();
+  const [reviewID, setReviewID] = useState<String>();
   const [company, setCompany] = useState<Company>();
   const [role, setRole] = useState<Role>();
 
   useEffect(() => {
+    if (router && router.query) {
+      setCompanyID(router.query.id as string);
+      setRoleID(router.query.role as string);
+      setReviewID(router.query.review as string);
+    }
     if (!companyID || !roleID || !reviewID) {
-      router.push(ROUTES.FOUR_ZERO_FOUR);
       return;
     }
     async function getCompany() {
@@ -65,7 +72,7 @@ export default function Roles() {
       }
     }
     getRole();
-  }, [companyID, roleID]);
+  }, [companyID, roleID, router]);
   return (
     <MainContainer>
       {company && role && (
