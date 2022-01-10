@@ -25,8 +25,7 @@ export default async function handler(
       title_name: role.title_name,
       company_id: role.company_id,
     });
-    console.log(roleResponse);
-    return res.json(roleResponse.insert_roles.returning[0]);;
+    return res.json(roleResponse.insert_roles.returning[0]);
   } catch (error) {
     console.error(error);
     return apiResponse(res, 500, `Error logging: ${error.message}`, true);
