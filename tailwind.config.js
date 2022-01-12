@@ -18,6 +18,7 @@ module.exports = {
       },
       backgroundImage: {
         "about-us-gradient": "url('/gradientBgAboutUs.png')",
+        "add-review-gradient": "linear-gradient(rgba(255,255,255,0), rgba(255,255,255,0)), url('/add-review-gradient.svg')",
         "add-a-company-gradient": "url('/addACompanyBg.png')",
         "company-added": "url('/companyadded.png')",
         "contact-us-gradient":

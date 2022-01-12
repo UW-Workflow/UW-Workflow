@@ -78,7 +78,7 @@ export default function ConatctUs() {
             height="auto"
             src={
               afterSuceess
-                ? "contact-success-image.png"
+                ? "contact-success-image.svg"
                 : "contact-form-image.svg"
             }
           />

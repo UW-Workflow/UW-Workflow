@@ -9,19 +9,17 @@ interface AutoCompleteProps {
 export const AutoComplete: React.FC<AutoCompleteProps> = ({ items }) => {
   const router = useRouter();
   const handleOnSelect = (item: Company) => {
-    // TODO: Take them to the company page
     router.push({
       pathname: "/companies/[id]",
       query: { id: item.id },
     });
-
-    // router.push(`companies/${item.id}`);
   };
 
   return (
     <div className=" min-w-300 relative z-50 self-center">
       <ReactSearchAutocomplete
         items={items}
+        maxResults={5}
         onSelect={handleOnSelect}
         autoFocus
         placeholder={"Search for companies"}
