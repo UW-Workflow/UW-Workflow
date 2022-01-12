@@ -66,12 +66,9 @@ export const Header: React.FC = () => {
                 </svg>
               </button>
               <ul className="absolute hidden text-gray-700 pt-1 group-hover:block min-w-200">
-                <li className="rounded-t bg-gray-200 hover:bg-gray-400 p-4 block whitespace-no-wrap min-w-200">
-                  <a
-                    className=""
-                    href={ROUTES.PROFILE}
-                  >
-                    Profile
+                <li className="">
+                  <a className="rounded-t bg-gray-200 hover:bg-gray-400 p-4 block whitespace-no-wrap  min-w-200">
+                    <Link href={ROUTES.PROFILE}>Profile</Link>
                   </a>
                 </li>
                 <li className="rounded-b bg-gray-200 hover:bg-gray-400 p-4 block whitespace-no-wrap">
