@@ -117,7 +117,7 @@ export default function Comments({ roleID }) {
               AddComment(e, comment.id);
             }}
             placeholder="Write a reply"
-            className="rounded-lg w-11/12 border-gray-400 border-0 placeholder:text-gray-500 ml-12 text-sm mb-4"
+            className="rounded-lg w-11/12 border-gray-400 border-0 placeholder:text-gray-500 ml-12 text-sm mb-4 bg-gray-100"
           ></input>
           {comment.replies_object.length > 0 && (
             <div className="mb-4">
