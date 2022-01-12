@@ -58,29 +58,35 @@ export default function CompanyRoles(props) {
                       <p>{value.reviews} Review</p>
                     )} */}
                       {value.avg_coop_rating && (
-                        <p>Average Coop Rating: {value.avg_coop_rating}</p>
+                        <p>
+                          Average Coop Rating:{" "}
+                          {Number(value.avg_coop_rating).toFixed(2)}
+                        </p>
                       )}
                       {value.avg_interview_rating && (
                         <p>
-                          Average Interview Rating: {value.avg_interview_rating}
+                          Average Interview Rating:{" "}
+                          {Number(value.avg_interview_rating).toFixed(2)}
                         </p>
                       )}
                       {value.avg_salary && (
-                        <p>Average Salary: {value.avg_salary}</p>
+                        <p>
+                          Average Salary: {Number(value.avg_salary).toFixed(2)}
+                        </p>
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full">
+                  <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full text-blue-active">
                     <Link
                       href="/companies/[id]/[role]"
                       as={`/companies/${props.companyId}/${value.id}`}
                     >
-                      <p className="text-blue-active">View</p>
+                      View
                     </Link>
                   </div>
-                  <div className="flex items-center my-auto">
+                  {/* <div className="flex items-center my-auto">
                     <img src={"/bookmark_selected.svg"}></img>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             );

@@ -1,4 +1,4 @@
-import { Role } from "../types/Role"
+import { Role } from "../types/Role";
 
 export type Review = {
   id: number;
@@ -10,4 +10,5 @@ export type Review = {
   work_experience_rating: number;
   interview_experience: string | null;
   interview_experience_rating: number;
-}
+  role_id: number;
+};
