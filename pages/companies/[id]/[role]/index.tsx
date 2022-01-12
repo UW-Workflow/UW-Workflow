@@ -19,8 +19,6 @@ export default function Roles(props) {
     setChosenWindow(tab);
   }
   const router = useRouter();
-  // const companyID = router.query.id;
-  // const roleID = router.query.role;
   const [companyID, setCompanyID] = useState<String>();
   const [roleID, setRoleID] = useState<String>();
   const [company, setCompany] = useState<Company>();
@@ -139,33 +137,31 @@ export default function Roles(props) {
                   <p className="text-xl font-bold">{company.name}</p>
                   <p>🔗 {company.website}</p>
                 </div>
-                <div>
-                  <p className="text-lg font-bold">{role.title_name}</p>
-
-                  {authUser ? (
-                    bookmarked ? (
+                <div className="flex flex-row space-x-2">
+                  <p className="text-lg font-bold text-light-black">
+                    {role.title_name}
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-col">
+                {authUser &&
+                  (bookmarked ? (
+                    <div>
                       <img
                         src="/bookmark_selected.svg"
                         onClick={removeBookmark}
-                        className=" flex flex-row flex-grow text-md"
-                      >
-                        {/* Remove from Bookmarks */}
-                      </img>
-                    ) : (
-                      <img
-                        src="/bookmark_unselected.svg"
-                        onClick={addBookmark}
-                        className="flex flex-row flex-grow text-md"
-                      >
-                        {/* Save as Bookmarks */}
-                      </img>
-                    )
-                  ) : (
-                    <div>
-                      <p className="text-md">Log In for Bookmark</p>
+                        className=""
+                        style={{ cursor: "pointer" }}
+                      ></img>
                     </div>
-                  )}
-                </div>
+                  ) : (
+                    <img
+                      src="/bookmark_unselected.svg"
+                      onClick={addBookmark}
+                      style={{ cursor: "pointer" }}
+                      className="flex flex-row flex-grow text-md"
+                    ></img>
+                  ))}
               </div>
             </div>
             <div className="flex flex-row space-x-4 my-auto">

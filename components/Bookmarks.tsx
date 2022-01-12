@@ -107,18 +107,19 @@ export default function Bookmarks() {
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full">
+                  <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full text-blue-active">
                     <Link
                       href="/companies/[id]/[role]"
                       as={`/companies/${value.company_id}/${value.id}`}
                     >
-                      <p className="text-blue-active">View</p>
+                      View
                     </Link>
                   </div>
                   <div className="flex items-center my-auto">
                     <img
                       onClick={() => removeBookmark(value.id)}
                       src={"bookmark_selected.svg"}
+                      style={{ cursor: "pointer" }}
                     ></img>
                   </div>
                 </div>

@@ -16,9 +16,6 @@ export default function Roles() {
     setChosenWindow(tab);
   }
   const router = useRouter();
-  // const companyID = router.query.id;
-  // const roleID = router.query.role;
-  // const reviewID = router.query.review;
   const [companyID, setCompanyID] = useState<String>();
   const [roleID, setRoleID] = useState<String>();
   const [reviewID, setReviewID] = useState<String>();
