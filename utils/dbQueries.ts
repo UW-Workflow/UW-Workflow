@@ -97,7 +97,7 @@ export const GET_COMMENTS = gql`
       content
       parent_comment
       created_time
-      replies_object(order_by: { created_time: desc }) {
+      replies_object(order_by: { created_time: asc }) {
         id
         content
         created_time

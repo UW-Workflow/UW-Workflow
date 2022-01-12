@@ -77,18 +77,10 @@ export default function Comments({ roleID }) {
               </p>
             </div>
           </div>
-          {/* <div className="flex flex-row-reverse flex-grow my-auto">
-            <div>
-              <img src="/More.svg"></img>
-            </div>
-            <div>
-              <img src="/Reply.svg"></img>
-            </div>
-          </div> */}
         </div>
         <div>
           <div className="flex flex-shrink">
-            <p>{parseText(comment.content)}</p>
+            <p>{comment.content}</p>
           </div>
         </div>
       </div>
@@ -127,11 +119,11 @@ export default function Comments({ roleID }) {
             <input
               type="text"
               className="rounded-lg full-input border-gray-400 border-0.5 placeholder:text-gray-500
-              focus:outline-none text-sm"
+              no-outline text-sm"
               onKeyPress={(e) => {
                 AddComment(e, -1);
               }} // use -1 to indicate root comments
-              placeholder="Add your comment here"
+              placeholder="Ask a question"
             ></input>
           </div>
         </div>

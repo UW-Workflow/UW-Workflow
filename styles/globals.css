@@ -16,3 +16,6 @@ body {
 input.full-input{
   width: 100%;
 }
+input:focus{
+  outline: none;
+}
