@@ -10,6 +10,7 @@ export default function Bookmarks() {
   const { authUser, loading } = useAuth();
   const [bookmarks, setBookmarks] = useState<Role[]>([]);
   const [update, setUpdate] = useState(false);
+  // get company name
   async function getCompanyName(companyID: number) {
     try {
       const response = await axios.get(`/api/company/getCompanyName`, {
