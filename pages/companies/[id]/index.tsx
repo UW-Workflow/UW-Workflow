@@ -56,9 +56,7 @@ export default function Companies() {
               <div className="flex flex-col">
                 <div className="flex flex-row space-x-2">
                   <p className="text-xl font-bold">{company.name}</p>
-                  <a href={company.website} target="_blank">
-                    🔗 {company.website}
-                  </a>
+                  <a href={company.website}>🔗 {company.website}</a>
                 </div>
                 {company.city != "N/A" && company.country != "N/A" && (
                   <div>
