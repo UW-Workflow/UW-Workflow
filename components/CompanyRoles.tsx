@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Role } from "../models/interfaces/types/Role";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import router, { useRouter } from "next/router";
 
 export default function CompanyRoles(props) {
   let [roles, setRoles] = useState<Role[]>([]);
@@ -18,6 +19,26 @@ export default function CompanyRoles(props) {
     { role_name: "Watermelon SDE", reviews: 4 },
     { role_name: "Boeing SDE", reviews: 4 },
   ]);
+
+  function setStars(num) {
+    const TOTAL_STARS = 5;
+    var stars = [];
+    for (let i = 0; i < num; i++) {
+      stars.push(
+        <div>
+          <img src="/star.svg"></img>
+        </div>
+      );
+    }
+    for (let i = 0; i < TOTAL_STARS - num; i++) {
+      stars.push(
+        <div>
+          <img src="/dullStar.svg"></img>
+        </div>
+      );
+    }
+    return stars;
+  }
   useEffect(() => {
     async function getRoles() {
       try {
@@ -28,14 +49,15 @@ export default function CompanyRoles(props) {
         });
         if (response.data.roles.length > 0) {
           setRoles(response.data.roles);
-        }
+        } else setRoles([]);
       } catch (error) {
-        toast("Error in get roles by company for company page. " + error);
+        toast("Error in getting roles by company for company page. " + error);
       }
     }
+    setRoles([]);
     getRoles();
   }, [props.companyId]);
-
+  console.log(roles);
   return (
     <div className="flex">
       <div className="flex flex-col flex-grow rounded-lg  my-5 shadow bg-white overflow-auto max-h-100">
@@ -44,7 +66,7 @@ export default function CompanyRoles(props) {
             return (
               <div
                 key={index}
-                className="flex flex-grow flex-row mx-4 my-4 border-b-2"
+                className="flex flex-grow flex-row mx-4 mb-4 border-b-2 pb-2"
               >
                 <div className="flex flex-grow my-2 mx-2">
                   <div className="flex flex-col flex-grow">
@@ -57,21 +79,41 @@ export default function CompanyRoles(props) {
                     ) : (
                       <p>{value.reviews} Review</p>
                     )} */}
-                      {value.avg_coop_rating && (
-                        <p>
-                          Average Coop Rating:{" "}
-                          {Number(value.avg_coop_rating).toFixed(2)}
-                        </p>
-                      )}
-                      {value.avg_interview_rating && (
-                        <p>
-                          Average Interview Rating:{" "}
-                          {Number(value.avg_interview_rating).toFixed(2)}
-                        </p>
-                      )}
+
+                      <div className="flex flex-row">
+                        <div>
+                          <p>Average Co-op Rating </p>
+                        </div>
+                        {value.avg_coop_rating ? (
+                          <div className="flex flex-row">
+                            {setStars(
+                              Number(value.avg_coop_rating).toPrecision(1)
+                            )}
+                          </div>
+                        ) : (
+                          <div className="flex flex-row  pl-1">--</div>
+                        )}
+                      </div>
+
+                      <div className="flex flex-row">
+                        <div>
+                          <p>Average Interview Rating </p>
+                        </div>
+                        {value.avg_interview_rating ? (
+                          <div className="flex flex-row">
+                            {setStars(
+                              Number(value.avg_interview_rating).toPrecision(1)
+                            )}
+                          </div>
+                        ) : (
+                          <div className="flex flex-row pl-1">--</div>
+                        )}
+                      </div>
+
                       {value.avg_salary && (
                         <p>
                           Average Salary: {Number(value.avg_salary).toFixed(2)}
+                          /hr
                         </p>
                       )}
                     </div>
@@ -91,9 +133,13 @@ export default function CompanyRoles(props) {
               </div>
             );
           })}
-        <p className="text-xs mx-auto my-2 text-gray-300">
-          You have reached the end of the list
-        </p>
+        {roles.length == 0 && (
+          <div className="flex flex-row items-center">
+            <p className="text-xs mx-auto my-2 text-gray-300 m-0">
+              No reviews yet, add a Review
+            </p>
+          </div>
+        )}
       </div>
       <div>
         <ToastContainer

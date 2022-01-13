@@ -6,4 +6,5 @@ export type Company = {
   city: string;
   country: string;
   logo: string;
+  total_reviews: number;
 };
