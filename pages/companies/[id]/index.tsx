@@ -51,12 +51,24 @@ export default function Companies() {
           <div className="flex flex-row flex-grow border-b-2 mx-20">
             <div className="flex flex-row flex-grow my-2 space-x-4">
               <img
-                src={company.logo === "" ? "default_company.svg" : company.logo}
+                src={
+                  company.logo === "" ? "/default_company.svg" : company.logo
+                }
               ></img>
               <div className="flex flex-col">
                 <div className="flex flex-row space-x-2">
                   <p className="text-xl font-bold">{company.name}</p>
-                  <a href={company.website}>🔗 {company.website}</a>
+                  <a
+                    href={
+                      company.website.indexOf("http://") == 0 ||
+                      company.website.indexOf("https://") == 0
+                        ? company.website
+                        : "https://" + company.website
+                    }
+                    target="_blank"
+                  >
+                    🔗 {company.website}
+                  </a>
                 </div>
                 {company.city != "N/A" && company.country != "N/A" && (
                   <div>

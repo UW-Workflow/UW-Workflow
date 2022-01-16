@@ -54,14 +54,13 @@ export default function Comments({ roleID }) {
           e.target.value = "";
           setTrigger(trigger + 1);
         } catch (err) {
-          toast("We couldn't add your comment!")
+          toast("We couldn't add your comment!");
         }
       };
       addComment();
     }
   }
   function getCommentBlock(comment) {
-    console.log(comment);
     return (
       <div className="flex flex-col mt-4 p-2 max-h-100 bg-gray-50 rounded-lg">
         <div className="flex flex-row space-x-4 mb-4">

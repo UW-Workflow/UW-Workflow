@@ -23,7 +23,6 @@ const Login = () => {
       .then(() => {
         if (!loading && authUser) {
           if (authUser.verified) {
-            console.log("Success. Verified user logged in.");
             router.push("/");
           } else {
             setLoginError("Please verify your email address!");
