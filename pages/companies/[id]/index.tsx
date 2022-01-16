@@ -64,6 +64,7 @@ export default function Companies() {
                         : "https://" + company.website
                     }
                     target="_blank"
+                    rel="noreferrer"
                   >
                     🔗 {company.website}
                   </a>
