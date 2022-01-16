@@ -212,7 +212,7 @@ export default function Roles(props) {
                   }}
                 >
                   <a className="font-medium text-black-500 " href="#">
-                    Comments
+                    Questions and Answers
                   </a>
                 </li>
               </ul>

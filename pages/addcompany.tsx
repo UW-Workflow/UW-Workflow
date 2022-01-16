@@ -197,7 +197,7 @@ export default function AddCompany() {
                     <p>Drop the files here ...</p>
                   ) : (
                     <img
-                      src={company.logo ? company.logo : "ImageUpload.svg"}
+                      src={company.logo ? company.logo : "/ImageUpload.svg"}
                       className="max-h-40 max-w-l"
                     />
                   )}

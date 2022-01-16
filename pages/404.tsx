@@ -8,7 +8,7 @@ export default function PageNotFound404() {
         <div className="flex flex-row flex-grow items-center">
             <div className="self-center bg-gradient-2 filter rounded-full blur-huge h-gradient-2-circle w-gradient-2-circle -ml-auto"></div>
             <div className="flex flex-col flex-grow items-center m-10 space-y-4">
-                <img src="yeti.svg" />
+                <img src="/yeti.svg" />
                 <p className="font-black text-5xl">Oops!</p>
                 <p>You were not supposed to see this page...yeti here you are</p>
                 <NavLink to={ROUTES.HOME}>

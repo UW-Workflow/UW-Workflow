@@ -76,18 +76,10 @@ export default function Comments({ roleID }) {
               </p>
             </div>
           </div>
-          {/* <div className="flex flex-row-reverse flex-grow my-auto">
-            <div>
-              <img src="/More.svg"></img>
-            </div>
-            <div>
-              <img src="/Reply.svg"></img>
-            </div>
-          </div> */}
         </div>
         <div>
           <div className="flex flex-shrink">
-            <p>{parseText(comment.content)}</p>
+            <p>{comment.content}</p>
           </div>
         </div>
       </div>
@@ -96,41 +88,88 @@ export default function Comments({ roleID }) {
   function createCommentStructure(comments_input) {
     return comments_input.map((comment, index) => {
       return (
-        <div key={index}>
-          {getCommentBlock(comment)}
+        <div key={index} className="bg-light-grey my-4 rounded-lg">
+          <div className="flex flex-col mt-4 p-2 max-h-100 bg-gray-50 rounded-lg ml-12">
+            <div className="flex flex-row space-x-4 mb-2">
+              <div className="flex flex-row flex-grow space-x-4 my-auto">
+                <div>
+                  <a href="#" className="text-blue-400">
+                    {comment.author_object.username}
+                  </a>
+                </div>
+                <div>
+                  <p className="text-gray-300">
+                    {moment.parseZone(comment.created_time).fromNow()}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div className="flex flex-shrink">
+                <p>{comment.content}</p>
+              </div>
+            </div>
+          </div>
           <input
             type="text"
             onKeyPress={(e) => {
               AddComment(e, comment.id);
             }}
             placeholder="Write a reply"
-            className="rounded-lg full-input border-gray-400 border-0 placeholder:text-gray-500
-          focus:outline-0 ml-2 text-sm"
+            className="rounded-lg w-11/12 border-gray-400 border-0 placeholder:text-gray-500 ml-12 text-sm mb-4 bg-gray-100"
           ></input>
-          {comment.replies_object.map((reply, reply_index) => {
-            return (
-              <div key={reply_index} className="ml-6">
-                {getCommentBlock(reply)}
-              </div>
-            );
-          })}
+          {comment.replies_object.length > 0 && (
+            <div className="mb-4">
+              <hr className="w-11/12 mx-auto"></hr>
+              <p className="mt-2 mx-14 font-bold text-base">
+                {comment.replies_object.length} Answers
+              </p>
+              {comment.replies_object.map((reply, key) => {
+                return (
+                <div key={key} className="ml-16">
+                  <div className="flex flex-col p-2 max-h-100 bg-gray-50 rounded-lg">
+                    <div className="flex flex-row space-x-4 mb-2">
+                      <div className="flex flex-row flex-grow space-x-4 my-auto">
+                        <div>
+                          <a href="#" className="text-blue-400">
+                            {reply.author_object.username}
+                          </a>
+                        </div>
+                        <div>
+                          <p className="text-gray-300">
+                            {moment.parseZone(reply.created_time).fromNow()}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div className="flex flex-shrink">
+                        <p>{reply.content}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                )
+              })}
+            </div>
+          )}
         </div>
       );
     });
   }
   function isAuthenticated() {
     return (
-      <div className="flex flex-col">
+      <div className="flex flex-col mb-4">
         <div className="flex flex-row flex-grow space-x-8 mb-2">
           <div className="flex flex-grow">
             <input
               type="text"
               className="rounded-lg full-input border-gray-400 border-0.5 placeholder:text-gray-500
-              focus:outline-none text-sm"
+              no-outline text-sm"
               onKeyPress={(e) => {
                 AddComment(e, -1);
               }} // use -1 to indicate root comments
-              placeholder="Add your comment here"
+              placeholder="Ask a question"
             ></input>
           </div>
         </div>
@@ -141,7 +180,7 @@ export default function Comments({ roleID }) {
             </div>
           </div>
         )}
-        <div className="flex flex-col overflow-auto max-h-90">
+        <div className="flex flex-col">
           {comments.length > 0 && createCommentStructure(comments)}
         </div>
         <div>

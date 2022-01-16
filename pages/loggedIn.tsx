@@ -26,7 +26,7 @@ const LoggedIn = () => {
       <Modal>
         <div>
           <div className="mt-3 grid grid-cols-1 gap-2 justify-items-center">
-            <img src="Vector.svg" className="self-center" />
+            <img src="/Vector.svg" className="self-center" />
             <h2 className="text-xl font-bold text-center text-black">
               Check your mail!
             </h2>
