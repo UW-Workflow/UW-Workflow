@@ -57,7 +57,7 @@ export default function CompanyRoles(props) {
     setRoles([]);
     getRoles();
   }, [props.companyId]);
-  console.log(roles);
+
   return (
     <div className="flex">
       <div className="flex flex-col flex-grow rounded-lg  my-5 shadow bg-white overflow-auto max-h-100">
