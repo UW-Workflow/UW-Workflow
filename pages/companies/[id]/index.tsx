@@ -40,6 +40,7 @@ export default function Companies() {
         toast("Error in get company for company page. " + error);
       }
     }
+    setCompany(null);
     getCompany();
   }, [companyID, router]);
 
@@ -55,16 +56,37 @@ export default function Companies() {
               <div className="flex flex-col">
                 <div className="flex flex-row space-x-2">
                   <p className="text-xl font-bold">{company.name}</p>
-                  <p>🔗 {company.website}</p>
+                  <a
+                    href={
+                      company.website.indexOf("http://") == 0 ||
+                      company.website.indexOf("https://") == 0
+                        ? company.website
+                        : "https://" + company.website
+                    }
+                    target="_blank"
+                  >
+                    🔗 {company.website}
+                  </a>
                 </div>
-                <div>
-                  <p>
-                    {company.city}, {company.country}
-                  </p>
-                </div>
-                <div>
-                  <p>{company.description}</p>
-                </div>
+                {company.city != "N/A" && company.country != "N/A" && (
+                  <div>
+                    <p>
+                      {company.city},{company.country}
+                    </p>
+                  </div>
+                )}{" "}
+                {company.description != "N/A" && (
+                  <div>
+                    <p>{company.description}</p>
+                  </div>
+                )}
+                {company.total_reviews != null && (
+                  <div>
+                    <p className="text-xs pt-1">
+                      {company.total_reviews} reviews
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex flex-row space-x-4 my-auto">
@@ -77,11 +99,20 @@ export default function Companies() {
                 <p className="underline">{company.total_reviews} reviews</p>
               </div> */}
               </div>
-              <div className="bg-button-blue text-white rounded-xl flex items-center space-x-2 p-4">
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  router.push({
+                    pathname: "/addReview",
+                    query: { company_id: company.id },
+                  });
+                }}
+                className="bg-button-blue text-white rounded-xl flex items-center space-x-2 p-4"
+              >
                 <div className="bg-white text-button-blue rounded-md">
                   <img src="/plus.svg"></img>
                 </div>
-                <span>Add a company</span>
+                <span>Add a review</span>
               </div>
             </div>
           </div>

@@ -22,6 +22,7 @@ export default function AddCompany() {
     city: "",
     country: "",
     logo: "",
+    total_reviews: 0,
   });
   const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void;
 
@@ -205,18 +206,16 @@ export default function AddCompany() {
                   <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
                     Company Name
                   </label>
-                  <div
-                    className="w-100 md:w-200"
-                    onChange={(e) => {
-                      company.name = e.currentTarget.nodeValue;
-                      setCompany(company);
-                    }}
-                  >
+                  <div className="w-100 md:w-200">
                     <ReactSearchAutocomplete
                       items={companies}
                       onSelect={handleOnSelect}
                       autoFocus
-                      onSearch={(value) => findCompany(value)}
+                      onSearch={(value) => {
+                        findCompany(value);
+                        company.name = value;
+                        setCompany(company);
+                      }}
                       placeholder={"Search for companies"}
                     />
                   </div>
@@ -314,8 +313,14 @@ export default function AddCompany() {
                         ? company.description.substring(0, 20) + "..."
                         : company.description}
                     </h1>
+
                     <a
-                      href={company.website}
+                      href={
+                        company.website.indexOf("http://") == 0 ||
+                        company.website.indexOf("https://") == 0
+                          ? company.website
+                          : "https://" + company.website
+                      }
                       className=" font-cabinet-grotesk mt-2 ml-10 text-md"
                       target="_blank"
                       rel="noreferrer"

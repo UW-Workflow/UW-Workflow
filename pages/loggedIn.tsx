@@ -16,7 +16,6 @@ const LoggedIn = () => {
   }, [authUser, loading]);
 
   const onClose = (event) => {
-    console.log("Success. The user has verified, proceed to log in");
     router.push("/");
     event.preventDefault();
   };

@@ -18,7 +18,6 @@ const ResetPassword = () => {
     setResetPasswordError(null);
     sendPasswordResetEmail(email)
       .then(() => {
-        console.log("Password Reset Email Sent");
         router.push("/resetPasswordCheckEmail");
         event.preventDefault();
       })

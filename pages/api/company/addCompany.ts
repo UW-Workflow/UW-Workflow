@@ -38,7 +38,6 @@ export default async function handler(
       description: company.description,
       logo: company.logo,
     });
-    console.log(userResponse);
     return res.json(userResponse);
   } catch (error) {
     console.error(error);
