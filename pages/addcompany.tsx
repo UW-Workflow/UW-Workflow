@@ -22,6 +22,7 @@ export default function AddCompany() {
     city: "",
     country: "",
     logo: "",
+    total_reviews: 0,
   });
   const forceUpdate = React.useReducer(() => ({}), {})[1] as () => void;
 
