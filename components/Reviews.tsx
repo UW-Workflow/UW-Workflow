@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import { Review } from "../models/interfaces/types/Review";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import moment from "moment";
 export default function Reviews(props) {
   let [reviews, setReviews] = useState<Review[]>([]);
   useEffect(() => {
@@ -62,11 +62,14 @@ export default function Reviews(props) {
                           href="/companies/[id]/[role]/[review]"
                           as={`/companies/${props.companyId}/${props.roleId}/${value.id}`}
                         >
-                          {value.work_experience.substr(0, 15)}
+                          {value.work_experience.substr(0, 15) + " ..."}
                         </Link>
                       </div>
                       <div className="text-sm text-gray-500 my-auto">
-                        <p>{value.year_worked}</p>
+                        <p>Co-op from {value.year_worked}</p>
+                      </div>
+                      <div className="mt-4">
+                        <p className="text-xs text-gray-300">{moment.parseZone(value.time_created).fromNow()}</p>
                       </div>
                     </div>
                     <div className="flex flex-row-reverse">

@@ -9,6 +9,7 @@ export type Review = {
   work_experience: string | null;
   work_experience_rating: number;
   interview_experience: string | null;
+  time_created: string;
   interview_experience_rating: number;
   role_id: number;
 };
