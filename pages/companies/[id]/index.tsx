@@ -89,11 +89,20 @@ export default function Companies() {
                 <p className="underline">{company.total_reviews} reviews</p>
               </div> */}
               </div>
-              <div className="bg-button-blue text-white rounded-xl flex items-center space-x-2 p-4">
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  router.push({
+                    pathname: "/addReview",
+                    query: { company_id: company.id },
+                  });
+                }}
+                className="bg-button-blue text-white rounded-xl flex items-center space-x-2 p-4"
+              >
                 <div className="bg-white text-button-blue rounded-md">
                   <img src="/plus.svg"></img>
                 </div>
-                <span>Add a company</span>
+                <span>Add a review</span>
               </div>
             </div>
           </div>
