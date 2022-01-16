@@ -119,7 +119,7 @@ export default function Bookmarks() {
                   <div className="flex items-center my-auto">
                     <img
                       onClick={() => removeBookmark(value.id)}
-                      src={"bookmark_selected.svg"}
+                      src={"/bookmark_selected.svg"}
                       style={{ cursor: "pointer" }}
                     ></img>
                   </div>
