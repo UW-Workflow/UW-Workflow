@@ -5,8 +5,10 @@ import { Review } from "../models/interfaces/types/Review";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
+import { useRouter } from "next/router";
 export default function Reviews(props) {
   let [reviews, setReviews] = useState<Review[]>([]);
+  const router = useRouter();
   useEffect(() => {
     async function getReviews() {
       try {
@@ -69,7 +71,9 @@ export default function Reviews(props) {
                         <p>Co-op from {value.year_worked}</p>
                       </div>
                       <div className="mt-4">
-                        <p className="text-xs text-gray-300">{moment.parseZone(value.time_created).fromNow()}</p>
+                        <p className="text-xs text-gray-300">
+                          {moment.parseZone(value.time_created).fromNow()}
+                        </p>
                       </div>
                     </div>
                     <div className="flex flex-row-reverse">
@@ -103,9 +107,23 @@ export default function Reviews(props) {
             </div>
           );
         })}
-        <p className="text-xs mx-auto my-2 text-gray-300">
-          You have reached the end of the list
-        </p>
+        {reviews.length === 0 && (
+          <p className="text-xs mx-auto my-2 text-gray-300">
+            No Reviews added yet.
+            <a
+              style={{ cursor: "pointer", color: "#86c5da" }}
+              onClick={() => {
+                router.push({
+                  pathname: "/addReview",
+                  query: { company_id: props.companyId, role_id: props.roleId },
+                });
+              }}
+            >
+              &nbsp;Click here&nbsp;
+            </a>
+            to add a review
+          </p>
+        )}
       </div>
       <div>
         <ToastContainer
