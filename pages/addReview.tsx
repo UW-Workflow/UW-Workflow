@@ -303,7 +303,7 @@ export default function AddReview() {
                     >
                       <img
                         src={
-                          company.logo.length > 0
+                          company && company.logo && company.logo.length > 0
                             ? company.logo
                             : "/default_company.svg"
                         }
