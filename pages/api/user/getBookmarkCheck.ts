@@ -23,7 +23,6 @@ export default async function handler(
       email: email,
       role_id: role_id,
     });
-    console.log(response.users.length);
     if (response.users.length > 0) {
       const result = {
         result: true,

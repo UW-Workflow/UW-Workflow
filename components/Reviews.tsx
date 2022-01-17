@@ -5,6 +5,7 @@ import { Review } from "../models/interfaces/types/Review";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
+import router from "next/router";
 export default function Reviews(props) {
   let [reviews, setReviews] = useState<Review[]>([]);
   useEffect(() => {
@@ -49,57 +50,68 @@ export default function Reviews(props) {
       <div className="flex flex-col flex-grow my-5 overflow-auto max-h-100">
         {reviews.map((value, index) => {
           return (
-            <div key={index} className="flex flex-grow flex-row">
-              <Link
-                href="/companies/[id]/[role]/[review]"
-                as={`/companies/${props.companyId}/${props.roleId}/${value.id}`}
-              >
-                {
-                  <div className="flex flex-grow my-2 mx-2 rounded-lg bg-light-grey py-6 px-5">
-                    <div className="flex flex-col flex-grow">
-                      <div className="text-base font-bold">
-                        <Link
-                          href="/companies/[id]/[role]/[review]"
-                          as={`/companies/${props.companyId}/${props.roleId}/${value.id}`}
-                        >
-                          {value.work_experience.substr(0, 15) + " ..."}
-                        </Link>
+            <div
+              style={{ cursor: "pointer" }}
+              onClick={() => {
+                router.push({
+                  pathname: "/companies/[id]/[role]/[review]",
+                  query: {
+                    id: props.companyId,
+                    role: props.roleId,
+                    review: value.id,
+                  },
+                });
+              }}
+              key={index}
+              className="flex flex-grow flex-row"
+            >
+              {
+                <div className="flex flex-grow my-2 mx-2 rounded-lg bg-light-grey py-6 px-5">
+                  <div className="flex flex-col flex-grow">
+                    <div className="text-base font-bold">
+                      <Link
+                        href="/companies/[id]/[role]/[review]"
+                        as={`/companies/${props.companyId}/${props.roleId}/${value.id}`}
+                      >
+                        {value.work_experience.substr(0, 15) + " ..."}
+                      </Link>
+                    </div>
+                    <div className="text-sm text-gray-500 my-auto">
+                      <p>Co-op from {value.year_worked}</p>
+                    </div>
+                    <div className="mt-4">
+                      <p className="text-xs text-gray-300">
+                        {moment.parseZone(value.time_created).fromNow()}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex flex-row-reverse">
+                    <div className="flex flex-col">
+                      <div className="flex flex-row">
+                        <div className="mr-4">
+                          <p>Interview experience</p>
+                        </div>
+                        <div className="flex flex-row">
+                          {setStars(value.interview_experience_rating)}
+                        </div>
                       </div>
-                      <div className="text-sm text-gray-500 my-auto">
-                        <p>Co-op from {value.year_worked}</p>
-                      </div>
-                      <div className="mt-4">
-                        <p className="text-xs text-gray-300">{moment.parseZone(value.time_created).fromNow()}</p>
+                      <div className="flex flex-row">
+                        <div className="mr-4">
+                          <p>Co-op experience</p>
+                        </div>
+                        <div className="flex flex-row ml-5">
+                          {setStars(value.work_experience_rating)}
+                        </div>
                       </div>
                     </div>
-                    <div className="flex flex-row-reverse">
-                      <div className="flex flex-col">
-                        <div className="flex flex-row">
-                          <div className="mr-4">
-                            <p>Interview experience</p>
-                          </div>
-                          <div className="flex flex-row">
-                            {setStars(value.interview_experience_rating)}
-                          </div>
-                        </div>
-                        <div className="flex flex-row">
-                          <div className="mr-4">
-                            <p>Co-op experience</p>
-                          </div>
-                          <div className="flex flex-row ml-5">
-                            {setStars(value.work_experience_rating)}
-                          </div>
-                        </div>
-                      </div>
-                      {/* <div className="flex items-center border-2 rounded-lg mr-6 px-4 border-gray-400">
+                    {/* <div className="flex items-center border-2 rounded-lg mr-6 px-4 border-gray-400">
                     <p className="mx-2 font-bold text-gray-400">
                       Ask a question
                     </p>
                   </div> */}
-                    </div>
                   </div>
-                }
-              </Link>
+                </div>
+              }
             </div>
           );
         })}

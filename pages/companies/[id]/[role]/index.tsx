@@ -150,7 +150,18 @@ export default function Roles(props) {
               <div className="flex flex-col">
                 <div className="flex flex-row space-x-2">
                   <p className="text-xl font-bold">{company.name}</p>
-                  <p>🔗 {company.website}</p>
+                  <a
+                    href={
+                      company.website.indexOf("http://") == 0 ||
+                      company.website.indexOf("https://") == 0
+                        ? company.website
+                        : "https://" + company.website
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    🔗 {company.website}
+                  </a>
                 </div>
                 <div className="flex flex-row space-x-2">
                   <p className="text-lg font-bold text-light-black">
