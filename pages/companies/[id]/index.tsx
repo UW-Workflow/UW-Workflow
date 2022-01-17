@@ -11,16 +11,17 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Companies() {
   const router = useRouter();
   const [companyID, setcompanyID] = useState<String>();
-  // const companyID = router.query.id;
+  //const companyID = router.query.id;
   const [company, setCompany] = useState<Company>();
 
   useEffect(() => {
     if (router && router.query) {
       setcompanyID(router.query.id as string);
     }
-    if (!companyID) {
-      return;
-    }
+    // if (!companyID) {
+    //   return;
+    // }
+    console.log("Company ID: ", companyID);
     async function getCompany() {
       try {
         if (!parseInt(companyID as string)) {
@@ -40,8 +41,16 @@ export default function Companies() {
         toast("Error in get company for company page. " + error);
       }
     }
-    setCompany(null);
-    getCompany();
+
+    if (companyID) {
+      if (
+        (company && parseInt(companyID as string) !== company.id) ||
+        !company
+      ) {
+        setCompany(null);
+        getCompany();
+      }
+    }
   }, [companyID, router]);
 
   return (
@@ -51,7 +60,9 @@ export default function Companies() {
           <div className="flex flex-row flex-grow border-b-2 mx-20">
             <div className="flex flex-row flex-grow my-2 space-x-4">
               <img
-                src={company.logo === "" ? "/default_company.svg" : company.logo}
+                src={
+                  company.logo === "" ? "/default_company.svg" : company.logo
+                }
               ></img>
               <div className="flex flex-col">
                 <div className="flex flex-row space-x-2">
