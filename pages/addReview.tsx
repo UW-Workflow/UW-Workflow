@@ -327,6 +327,7 @@ export default function AddReview() {
                               : "https://www.companyname.com"
                           }
                           target="_blank"
+                          rel="noreferrer"
                         >
                           {company ? company.website : "www.companyname.com"}
                         </a>
