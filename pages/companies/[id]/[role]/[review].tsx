@@ -28,7 +28,7 @@ export default function Roles() {
       setRoleID(router.query.role as string);
       setReviewID(router.query.review as string);
     }
-    if (!companyID || !roleID || !reviewID) {
+    if (!reviewID) {
       return;
     }
     async function getCompany() {
@@ -49,7 +49,6 @@ export default function Roles() {
         );
       }
     }
-    getCompany();
     async function getRole() {
       try {
         const response = await axios.get(`/api/roles/getRole`, {
@@ -68,7 +67,23 @@ export default function Roles() {
         );
       }
     }
-    getRole();
+
+    if (companyID) {
+      if (
+        (company && parseInt(companyID as string) !== company.id) ||
+        !company
+      ) {
+        setCompany(null);
+        getCompany();
+      }
+    }
+
+    if (roleID) {
+      if ((role && parseInt(roleID as string) !== role.id) || !role) {
+        setRole(null);
+        getRole();
+      }
+    }
   }, [companyID, roleID, router]);
   return (
     <MainContainer>

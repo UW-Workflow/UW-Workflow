@@ -65,9 +65,9 @@ export default function Roles(props) {
       setCompanyID(router.query.id as string);
       setRoleID(router.query.role as string);
     }
-    if (!companyID || !roleID) {
-      return;
-    }
+    // if (!companyID || !roleID) {
+    //   return;
+    // }
     async function getCompany() {
       try {
         const response = await axios.get(`/api/company/getCompany`, {
@@ -84,7 +84,6 @@ export default function Roles(props) {
         toast("Error in getting company for the role page. " + error);
       }
     }
-    getCompany();
     async function getRole() {
       try {
         const response = await axios.get(`/api/roles/getRole`, {
@@ -101,7 +100,6 @@ export default function Roles(props) {
         toast("Error in getting role for the role page. " + error);
       }
     }
-    getRole();
     async function checkBookmark() {
       try {
         const response = await axios.get(`/api/user/getBookmarkCheck`, {
@@ -115,6 +113,23 @@ export default function Roles(props) {
         }
       } catch (error) {
         toast("Error in checking bookmark for role page. " + error);
+      }
+    }
+
+    if (companyID) {
+      if (
+        (company && parseInt(companyID as string) !== company.id) ||
+        !company
+      ) {
+        setCompany(null);
+        getCompany();
+      }
+    }
+
+    if (roleID) {
+      if ((role && parseInt(roleID as string) !== role.id) || !role) {
+        setRole(null);
+        getRole();
       }
     }
     if (authUser) {
@@ -155,12 +170,14 @@ export default function Roles(props) {
                       ></img>
                     </div>
                   ) : (
-                    <img
-                      src="/bookmark_unselected.svg"
-                      onClick={addBookmark}
-                      style={{ cursor: "pointer" }}
-                      className="flex flex-row flex-grow text-md"
-                    ></img>
+                    <div>
+                      <img
+                        src="/bookmark_unselected.svg"
+                        onClick={addBookmark}
+                        style={{ cursor: "pointer" }}
+                        className="flex flex-row flex-grow text-md"
+                      ></img>
+                    </div>
                   ))}
               </div>
             </div>
