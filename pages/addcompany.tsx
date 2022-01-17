@@ -28,13 +28,18 @@ export default function AddCompany() {
 
   const addCompany = async () => {
     try {
-      await axios.post("/api/company/addCompany", {
+      const companyResponse = await axios.post("/api/company/addCompany", {
         name: company.name,
         city: company.city,
         country: company.country,
         website: company.website,
         description: company.description,
         logo: company.logo,
+      });
+      setCompany((prev) => {
+        const prevCompany = prev;
+        prevCompany.id = companyResponse.data.id;
+        return prevCompany;
       });
       setModelStage(modelStage + 1);
     } catch (err) {
@@ -130,7 +135,16 @@ export default function AddCompany() {
           way in helping others learn about co-op experiences at different
           companies.
         </div>
-        <button className="bg-button-blue text-white text-xs lg:text-base  rounded-xl p-2 mx-auto mt-5">
+        <button
+          className="bg-button-blue text-white text-xs lg:text-base  rounded-xl p-2 mx-auto mt-5"
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            router.push({
+              pathname: "/addReview",
+              query: { company_id: company.id },
+            });
+          }}
+        >
           Add a review for added Company
         </button>
         <button

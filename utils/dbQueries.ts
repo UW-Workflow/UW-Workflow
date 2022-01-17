@@ -68,7 +68,9 @@ export const INSERT_COMPANY = gql`
         website: $website
       }
     ) {
-      affected_rows
+      returning {
+        id
+      }
     }
   }
 `;
