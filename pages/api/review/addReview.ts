@@ -49,7 +49,7 @@ export default async function handler(
       salary: review.salary,
       duration: review.duration,
     });
-    return apiResponse(res, 200, `Successfully added review`, true);
+    return res.json(reviewResponse);
   } catch (error) {
     console.error(error);
     return apiResponse(res, 500, `Error logging: ${error.message}`, true);

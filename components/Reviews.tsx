@@ -95,11 +95,6 @@ export default function Reviews(props) {
                           </div>
                         </div>
                       </div>
-                      {/* <div className="flex items-center border-2 rounded-lg mr-6 px-4 border-gray-400">
-                    <p className="mx-2 font-bold text-gray-400">
-                      Ask a question
-                    </p>
-                  </div> */}
                     </div>
                   </div>
                 }

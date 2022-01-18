@@ -20,8 +20,5 @@ export default async function handler(
         parent_comment: Number(req.query.parent_comment)
       });
       return res.json(comments);
-    } catch (error) {
-      console.error(error);
-      return apiResponse(res, 500, `Error logging: ${error.message}`, true);
-    }
+    } 
   }
