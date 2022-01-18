@@ -28,7 +28,7 @@ export default function Roles() {
       setRoleID(router.query.role as string);
       setReviewID(router.query.review as string);
     }
-    if (!companyID || !roleID || !reviewID) {
+    if (!reviewID) {
       return;
     }
     async function getCompany() {
@@ -49,7 +49,6 @@ export default function Roles() {
         );
       }
     }
-    getCompany();
     async function getRole() {
       try {
         const response = await axios.get(`/api/roles/getRole`, {
@@ -68,7 +67,23 @@ export default function Roles() {
         );
       }
     }
-    getRole();
+
+    if (companyID) {
+      if (
+        (company && parseInt(companyID as string) !== company.id) ||
+        !company
+      ) {
+        setCompany(null);
+        getCompany();
+      }
+    }
+
+    if (roleID) {
+      if ((role && parseInt(roleID as string) !== role.id) || !role) {
+        setRole(null);
+        getRole();
+      }
+    }
   }, [companyID, roleID, router]);
   return (
     <MainContainer>
@@ -82,7 +97,18 @@ export default function Roles() {
               <div className="flex flex-col">
                 <div className="flex flex-row space-x-2">
                   <p className="text-xl font-bold">{company.name}</p>
-                  <p>🔗 {company.website}</p>
+                  <a
+                    href={
+                      company.website.indexOf("http://") == 0 ||
+                      company.website.indexOf("https://") == 0
+                        ? company.website
+                        : "https://" + company.website
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    🔗 {company.website}
+                  </a>
                 </div>
                 <div>
                   <p className="text-lg font-bold">{role.title_name}</p>
