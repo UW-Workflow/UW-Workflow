@@ -1,5 +1,6 @@
 import Image from "next/image";
 import moment from "moment";
+import * as blockies from "blockies-ts";
 import { useState, useEffect } from "react";
 import { useAuth } from "../utils/AuthUserContext";
 import axios from "axios";
@@ -92,7 +93,13 @@ export default function Comments({ roleID }) {
           <div className="flex flex-col mt-4 p-2 max-h-100 bg-gray-50 rounded-lg ml-12">
             <div className="flex flex-row space-x-4 mb-2">
               <div className="flex flex-row flex-grow space-x-4 my-auto">
-                <div>
+                <div className="flex">
+                  <img
+                    src={blockies
+                      .create({ seed: authUser.username })
+                      .toDataURL()}
+                    className="rounded-xl mr-2"
+                  />
                   <a href="#" className="text-blue-400">
                     {comment.author_object.username}
                   </a>
@@ -126,30 +133,30 @@ export default function Comments({ roleID }) {
               </p>
               {comment.replies_object.map((reply, key) => {
                 return (
-                <div key={key} className="ml-16">
-                  <div className="flex flex-col p-2 max-h-100 bg-gray-50 rounded-lg">
-                    <div className="flex flex-row space-x-4 mb-2">
-                      <div className="flex flex-row flex-grow space-x-4 my-auto">
-                        <div>
-                          <a href="#" className="text-blue-400">
-                            {reply.author_object.username}
-                          </a>
-                        </div>
-                        <div>
-                          <p className="text-gray-300">
-                            {moment.parseZone(reply.created_time).fromNow()}
-                          </p>
+                  <div key={key} className="ml-16">
+                    <div className="flex flex-col p-2 max-h-100 bg-gray-50 rounded-lg">
+                      <div className="flex flex-row space-x-4 mb-2">
+                        <div className="flex flex-row flex-grow space-x-4 my-auto">
+                          <div>
+                            <a href="#" className="text-blue-400">
+                              {reply.author_object.username}
+                            </a>
+                          </div>
+                          <div>
+                            <p className="text-gray-300">
+                              {moment.parseZone(reply.created_time).fromNow()}
+                            </p>
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div>
-                      <div className="flex flex-shrink">
-                        <p>{reply.content}</p>
+                      <div>
+                        <div className="flex flex-shrink">
+                          <p>{reply.content}</p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                )
+                );
               })}
             </div>
           )}
