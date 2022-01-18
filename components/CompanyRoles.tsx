@@ -118,13 +118,20 @@ export default function CompanyRoles(props) {
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full text-blue-active">
-                    <Link
-                      href="/companies/[id]/[role]"
-                      as={`/companies/${props.companyId}/${value.id}`}
-                    >
-                      View
-                    </Link>
+                  <div
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      router.push({
+                        pathname: "/companies/[id]/[role]",
+                        query: {
+                          id: props.companyId,
+                          role: value.id,
+                        },
+                      });
+                    }}
+                    className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full text-blue-active"
+                  >
+                    <span>View</span>
                   </div>
                   {/* <div className="flex items-center my-auto">
                     <img src={"/bookmark_selected.svg"}></img>
