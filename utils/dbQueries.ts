@@ -287,6 +287,16 @@ export const REMOVE_USER_BOOKMARK = gql`
   }
 `;
 
+export const REMOVE_BOOKMARK_EMAIL = gql`
+  mutation REMOVE_BOOKMARK_EMAIL($email: String, $role_id: Int) {
+    delete_bookmarks(
+      where: { email: { _eq: $email }, _and: { role_id: { _eq: $role_id } } }
+    ) {
+      affected_rows
+    }
+  }
+`;
+
 export const GET_USER_BOOKMARKS = gql`
   query get_user_bookmarks($email: String) {
     users(where: { email: { _eq: $email } }) {
