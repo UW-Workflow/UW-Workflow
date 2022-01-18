@@ -5,9 +5,11 @@ import { Review } from "../models/interfaces/types/Review";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
-import router from "next/router";
+import { useRouter } from "next/router";
+
 export default function Reviews(props) {
   let [reviews, setReviews] = useState<Review[]>([]);
+  const router = useRouter();
   useEffect(() => {
     async function getReviews() {
       try {
@@ -115,9 +117,23 @@ export default function Reviews(props) {
             </div>
           );
         })}
-        <p className="text-xs mx-auto my-2 text-gray-300">
-          You have reached the end of the list
-        </p>
+        {reviews.length === 0 && (
+          <p className="text-xs mx-auto my-2 text-gray-300">
+            No Reviews added yet.
+            <a
+              style={{ cursor: "pointer", color: "#86c5da" }}
+              onClick={() => {
+                router.push({
+                  pathname: "/addReview",
+                  query: { company_id: props.companyId, role_id: props.roleId },
+                });
+              }}
+            >
+              &nbsp;Click here&nbsp;
+            </a>
+            to add a review
+          </p>
+        )}
       </div>
       <div>
         <ToastContainer
