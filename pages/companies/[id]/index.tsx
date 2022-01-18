@@ -51,7 +51,9 @@ export default function Companies() {
           <div className="flex flex-row flex-grow border-b-2 mx-20">
             <div className="flex flex-row flex-grow my-2 space-x-4">
               <img
-                src={company.logo === "" ? "/default_company.svg" : company.logo}
+                src={
+                  company.logo === "" ? "/default_company.svg" : company.logo
+                }
               ></img>
               <div className="flex flex-col">
                 <div className="flex flex-row space-x-2">
@@ -64,6 +66,7 @@ export default function Companies() {
                         : "https://" + company.website
                     }
                     target="_blank"
+                    rel="noreferrer"
                   >
                     🔗 {company.website}
                   </a>
