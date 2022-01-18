@@ -69,13 +69,6 @@ export default function AddReview() {
 
   async function sendEmail() {
     try {
-      console.log({
-        name: company.name,
-        role: role ? role.value : newRoleName,
-        work_experience: coopReview,
-        interview_experience: interviewReview,
-        salary: salary,
-      });
       const emailResponse = await axios.get(
         "/api/bookmarks/getUserEmailsByBookmark",
         {
