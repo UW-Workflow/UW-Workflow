@@ -24,6 +24,7 @@ export default function Roles(props) {
   const [company, setCompany] = useState<Company>();
   const [role, setRole] = useState<Role>();
   const [bookmarked, setBookmarked] = useState(false);
+
   async function addBookmark() {
     try {
       const response = await axios.get(`/api/roles/addRoleBookmarkByUser`, {
@@ -59,6 +60,31 @@ export default function Roles(props) {
       );
     }
   }
+
+  const Bookmark = () => {
+    return (
+      authUser &&
+      (bookmarked ? (
+        <div>
+          <img
+            src="/bookmark_selected.svg"
+            onClick={removeBookmark}
+            className=""
+            style={{ cursor: "pointer" }}
+          ></img>
+        </div>
+      ) : (
+        <div>
+          <img
+            src="/bookmark_unselected.svg"
+            onClick={addBookmark}
+            style={{ cursor: "pointer" }}
+            className="flex flex-row flex-grow text-md"
+          ></img>
+        </div>
+      ))
+    );
+  };
 
   useEffect(() => {
     if (router && router.query) {
@@ -140,60 +166,50 @@ export default function Roles(props) {
     <MainContainer>
       {company && role && (
         <div className="flex flex-col flex-grow">
-          <div className="flex flex-row flex-grow mx-20">
-            <div className="flex flex-row flex-grow my-2 space-x-4">
+          <div className="flex flex-col sm:flex-row flex-grow mx-5 sm:mx-20">
+            <div className="flex flex-col sm:flex-row flex-grow my-2 space-x-4">
               <img
+                className="flex ml-5 sm:ml-0 mr-56 sm:mr-0 mt-3 sm:mt-0"
                 src={
                   company.logo === "" ? "/default_company.svg" : company.logo
                 }
               ></img>
-              <div className="flex flex-col">
-                <div className="flex flex-row space-x-2">
-                  <p className="text-xl font-bold">{company.name}</p>
-                  <a
-                    href={
-                      company.website.indexOf("http://") == 0 ||
-                      company.website.indexOf("https://") == 0
-                        ? company.website
-                        : "https://" + company.website
-                    }
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    🔗 {company.website}
-                  </a>
-                </div>
-                <div className="flex flex-row space-x-2">
-                  <p className="text-lg font-bold text-light-black">
-                    {role.title_name}
-                  </p>
-                </div>
-              </div>
-              <div className="flex flex-col">
-                {authUser &&
-                  (bookmarked ? (
+              <div className="flex flex-row">
+                <div className="flex flex-col mt-2.5 sm:mt-0">
+                  <div className="flex flex-row space-x-2">
+                    <p className="text-xl font-bold">{company.name}</p>
+                    <a
+                      href={
+                        company.website.indexOf("http://") == 0 ||
+                        company.website.indexOf("https://") == 0
+                          ? company.website
+                          : "https://" + company.website
+                      }
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      🔗 {company.website}
+                    </a>
+                  </div>
+                  <div className="flex space-x-2">
+                    <p className="text-lg font-bold text-light-black">
+                      {role.title_name}
+                    </p>
+                  </div>
+                  {role.total_reviews != null && (
                     <div>
-                      <img
-                        src="/bookmark_selected.svg"
-                        onClick={removeBookmark}
-                        className=""
-                        style={{ cursor: "pointer" }}
-                      ></img>
+                      <p className="text-xs pt-1">
+                        {role.total_reviews} reviews
+                      </p>
                     </div>
-                  ) : (
-                    <div>
-                      <img
-                        src="/bookmark_unselected.svg"
-                        onClick={addBookmark}
-                        style={{ cursor: "pointer" }}
-                        className="flex flex-row flex-grow text-md"
-                      ></img>
-                    </div>
-                  ))}
+                  )}
+                </div>
+                <div className="sm:hidden flex flex-col mx-5">{Bookmark()}</div>
               </div>
+              <div className="hidden sm:block flex flex-col">{Bookmark()}</div>
             </div>
-            <div className="flex flex-row space-x-4 my-auto">
-              <div className="flex flex-col">
+            <div className="flex space-x-4  sm:my-auto my-5 ml-5">
+              <div className="flex flex-row space-x-1 my-auto">
                 <div
                   style={{ cursor: "pointer" }}
                   onClick={() => {
@@ -202,7 +218,7 @@ export default function Roles(props) {
                       query: { company_id: company.id, role_id: role.id },
                     });
                   }}
-                  className="bg-button-blue text-white rounded-xl flex items-center space-x-2 p-4"
+                  className="bg-button-blue text-white rounded-xl flex items-center space-x-2 sm:p-4 px-20 py-4"
                 >
                   <div className="bg-white text-button-blue rounded-md">
                     <img src="/plus.svg"></img>
@@ -212,7 +228,7 @@ export default function Roles(props) {
               </div>
             </div>
           </div>
-          <div className="mb-4 ml-20">
+          <div className="mb-4 sm:mx-20 mx-5">
             <div className="flex">
               <ul className="flex">
                 <li
@@ -247,7 +263,7 @@ export default function Roles(props) {
             </div>
             <hr className="mr-20" />
           </div>
-          <div className="mx-20">
+          <div className="sm:mx-20 mx-5">
             {chosenWindow == "reviews" && (
               <Reviews companyId={companyID} roleId={roleID} />
             )}

@@ -65,10 +65,10 @@ export default function Reviews(props) {
                 });
               }}
               key={index}
-              className="flex flex-grow flex-row"
+              className="flex flex-grow flex-col sm:flex-row"
             >
               {
-                <div className="flex flex-grow my-2 mx-2 rounded-lg bg-light-grey py-6 px-5">
+                <div className="flex flex-col sm:flex-row flex-grow my-2 mx-2 rounded-lg bg-light-grey py-6 px-5">
                   <div className="flex flex-col flex-grow">
                     <div className="text-base font-bold">
                       <Link
@@ -81,13 +81,13 @@ export default function Reviews(props) {
                     <div className="text-sm text-gray-500 my-auto">
                       <p>Co-op from {value.year_worked}</p>
                     </div>
-                    <div className="mt-4">
+                    <div className="hidden sm:block mt-4">
                       <p className="text-xs text-gray-300">
                         {moment.parseZone(value.time_created).fromNow()}
                       </p>
                     </div>
                   </div>
-                  <div className="flex flex-row-reverse">
+                  <div className="flex sm:flex-row-reverse my-4">
                     <div className="flex flex-col">
                       <div className="flex flex-row">
                         <div className="mr-4">
@@ -111,6 +111,11 @@ export default function Reviews(props) {
                       Ask a question
                     </p>
                   </div> */}
+                  </div>
+                  <div className="sm:hidden mt-4">
+                    <p className="text-xs text-gray-300">
+                      {moment.parseZone(value.time_created).fromNow()}
+                    </p>
                   </div>
                 </div>
               }
