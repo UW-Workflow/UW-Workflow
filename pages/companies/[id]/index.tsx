@@ -11,7 +11,6 @@ import "react-toastify/dist/ReactToastify.css";
 export default function Companies() {
   const router = useRouter();
   const [companyID, setcompanyID] = useState<String>();
-  // const companyID = router.query.id;
   const [company, setCompany] = useState<Company>();
 
   useEffect(() => {
