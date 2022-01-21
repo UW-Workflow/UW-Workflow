@@ -69,11 +69,11 @@ export default function CompanyRoles(props) {
                 className="flex flex-grow flex-row mx-4 mb-4 border-b-2 pb-2"
               >
                 <div className="flex flex-grow my-2 mx-2">
-                  <div className="flex flex-col flex-grow">
+                  <div className="flex flex-col flex-grow justify-center">
                     <div>
                       <p className="text-base font-bold">{value.title_name}</p>
                     </div>
-                    <div className="text-sm">
+                    <div className="hidden sm:block text-sm">
                       {/* {value.reviews != 1 ? (
                       <p>{value.reviews} Reviews</p>
                     ) : (
@@ -118,13 +118,20 @@ export default function CompanyRoles(props) {
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full text-blue-active">
-                    <Link
-                      href="/companies/[id]/[role]"
-                      as={`/companies/${props.companyId}/${value.id}`}
-                    >
-                      View
-                    </Link>
+                  <div
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      router.push({
+                        pathname: "/companies/[id]/[role]",
+                        query: {
+                          id: props.companyId,
+                          role: value.id,
+                        },
+                      });
+                    }}
+                    className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full text-blue-active"
+                  >
+                    <span>View</span>
                   </div>
                   {/* <div className="flex items-center my-auto">
                     <img src={"/bookmark_selected.svg"}></img>

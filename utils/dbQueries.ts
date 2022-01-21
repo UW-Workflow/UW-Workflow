@@ -68,7 +68,9 @@ export const INSERT_COMPANY = gql`
         website: $website
       }
     ) {
-      affected_rows
+      returning {
+        id
+      }
     }
   }
 `;
@@ -218,6 +220,7 @@ export const GET_ROLE = gql`
       avg_interview_rating
       avg_salary
       company_name
+      total_reviews
     }
   }
 `;

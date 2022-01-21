@@ -133,7 +133,7 @@ export default function AddReview() {
         try {
           const addRoleResponse = await axios.post("/api/role/addRole", {
             title_name: roleName,
-            company_id: 4,
+            company_id: company.id,
           });
           if (addRoleResponse.status === 200 && addRoleResponse.data.id) {
             setRoleId(addRoleResponse.data.id);
@@ -302,7 +302,11 @@ export default function AddReview() {
                       className="p-3 ml-3 mt-4 bg-gray-300 rounded-lg"
                     >
                       <img
-                        src={company ? company.logo : "/default_company.svg"}
+                        src={
+                          company && company.logo && company.logo.length > 0
+                            ? company.logo
+                            : "/default_company.svg"
+                        }
                         width="60px"
                         height="60px"
                       />
@@ -316,7 +320,17 @@ export default function AddReview() {
                       </p>
                       <p className="text-xs text-gray-600 mb-4 font-cabinet-grotesk">
                         🔗&nbsp;&nbsp;
-                        {company ? company.website : "www.companyname.com"}
+                        <a
+                          href={
+                            company
+                              ? company.website
+                              : "https://www.companyname.com"
+                          }
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {company ? company.website : "www.companyname.com"}
+                        </a>
                       </p>
                       <p className="text-xs text-gray-600 mb-4 font-cabinet-grotesk">
                         📍&nbsp;
