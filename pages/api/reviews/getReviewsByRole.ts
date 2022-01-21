@@ -12,7 +12,7 @@ export default async function handler(
   }
   const roleId: number = Number(req.query.roleId);
   if (!roleId) {
-    return apiResponse(res, 400, " Missing company id", true);
+    return apiResponse(res, 400, " Missing role id", true);
   }
   try {
     const reviews = await dbQuery(GET_REVIEWS_BY_ROLES, {

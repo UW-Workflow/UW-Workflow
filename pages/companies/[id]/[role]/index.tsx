@@ -1,6 +1,5 @@
 import { MainContainer } from "../../../../components/MainContainer";
 import React, { useEffect, useState } from "react";
-import CompanyRoles from "../../../../components/CompanyRoles";
 import Reviews from "../../../../components/Reviews";
 import Comments from "../../../../components/Comments";
 import { Company } from "../../../../models/interfaces/types/Company";
@@ -11,6 +10,7 @@ import { Role } from "../../../../models/interfaces/types/Role";
 import { useAuth } from "../../../../utils/AuthUserContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import RoleLogistics from "../../../../components/RoleLogistics";
 
 export default function Roles(props) {
   const { authUser, loading } = useAuth();
@@ -243,6 +243,20 @@ export default function Roles(props) {
                     Questions and Answers
                   </a>
                 </li>
+                <li
+                  className={
+                    chosenWindow === "logistics"
+                      ? "p-4 border-b-2 border-transparent border-blue-active text-gray-500"
+                      : "p-4 border-b-2 border-transparent hover:border-blue-active hover:text-gray-500"
+                  }
+                  onClick={() => {
+                    handleClick("logistics");
+                  }}
+                >
+                  <a className="font-medium text-black-500 " href="#">
+                    Logistics
+                  </a>
+                </li>
               </ul>
             </div>
             <hr className="mr-20" />
@@ -252,6 +266,7 @@ export default function Roles(props) {
               <Reviews companyId={companyID} roleId={roleID} />
             )}
             {chosenWindow == "comments" && <Comments roleID={roleID} />}
+            {chosenWindow == "logistics" && <RoleLogistics roleID={roleID} />}
           </div>
         </div>
       )}
