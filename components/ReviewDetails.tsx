@@ -51,7 +51,9 @@ export default function ReviewDetails(props) {
               <div className="flex flex-col flex-grow">
                 <div className="flex flex-row">
                   <div>
-                    <p className="text-base font-bold">Interview Experience</p>
+                    <p className="font-bold text-base mr-0.5">
+                      Interview Experience
+                    </p>
                   </div>
                   <div className="flex flex-row">
                     {setStars(review.interview_experience_rating)}
@@ -71,7 +73,7 @@ export default function ReviewDetails(props) {
               <div className="flex flex-col flex-grow">
                 <div className="flex flex-row">
                   <div>
-                    <p className="text-base font-bold">Coop Experience</p>
+                    <p className="text-base font-bold  mr-1">Coop Experience</p>
                   </div>
                   <div className="flex flex-row">
                     {setStars(review.work_experience_rating)}

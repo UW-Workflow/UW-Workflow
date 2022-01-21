@@ -69,11 +69,11 @@ export default function CompanyRoles(props) {
                 className="flex flex-grow flex-row mx-4 mb-4 border-b-2 pb-2"
               >
                 <div className="flex flex-grow my-2 mx-2">
-                  <div className="flex flex-col flex-grow">
+                  <div className="flex flex-col flex-grow justify-center">
                     <div>
                       <p className="text-base font-bold">{value.title_name}</p>
                     </div>
-                    <div className="text-sm">
+                    <div className="hidden sm:block text-sm">
                       {/* {value.reviews != 1 ? (
                       <p>{value.reviews} Reviews</p>
                     ) : (
