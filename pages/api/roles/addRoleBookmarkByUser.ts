@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { apiResponse } from "../../../utils/apiResponse";
-import { ADD_USER_BOOKMARK } from "../../../utils/dbQueries";
+import { ADD_BOOKMARK_USER, ADD_USER_BOOKMARK } from "../../../utils/dbQueries";
 import { dbQuery } from "../../../utils/dbQuery";
 
 export default async function handler(
@@ -20,6 +20,10 @@ export default async function handler(
   }
   try {
     const roles = await dbQuery(ADD_USER_BOOKMARK, {
+      email: email,
+      role_id: role_id,
+    });
+    await dbQuery(ADD_BOOKMARK_USER, {
       email: email,
       role_id: role_id,
     });
