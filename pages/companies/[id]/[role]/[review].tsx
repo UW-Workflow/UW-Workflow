@@ -93,7 +93,7 @@ export default function Roles() {
             <div className="flex flex-col sm:flex-row flex-grow my-2 space-x-4">
               <img
                 className="flex ml-5 sm:ml-0 mr-56 sm:mr-0 mt-3 sm:mt-0"
-                src={company.logo === "" ? "default_company.svg" : company.logo}
+                src={company.logo === "" ? "/default_company.svg" : company.logo}
               ></img>
               <div className="flex flex-col mt-2.5 sm:mt-0">
                 <div className="flex flex-row space-x-2 ">

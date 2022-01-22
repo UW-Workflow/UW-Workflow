@@ -37,8 +37,8 @@ export default function Password() {
   };
   return (
     <div className="flex">
-      <div className="self-center bg-gradient-2 filter blur-huge px-20 py-16 mt-5 flex-grow"></div>
-      <div className="flex flex-col flex-grow rounded-lg bg-white my-5 shadow bg-white">
+      <div className="self-center bg-gradient-2 filter blur-huge px-20 py-16 mt-5 flex-grow hidden sm:block"></div>
+      <div className="flex flex-col flex-grow rounded-lg bg-white my-5 shadow bg-white mx-16 sm:mx-0">
         <div className="flex flex-col flex-grow rounded-lg bg-light-grey m-5">
           <div className="flex flex-col flex-grow m-5">
             {passwordChanged ? (
@@ -101,7 +101,7 @@ export default function Password() {
           </div>
         </div>
       </div>
-      <div className="self-center bg-gradient-3 filter blur-huge px-20 py-10 mt-5 flex-grow"></div>
+      <div className="self-center bg-gradient-3 filter blur-huge px-20 py-10 mt-5 flex-grow hidden sm:block"></div>
     </div>
   );
 }
