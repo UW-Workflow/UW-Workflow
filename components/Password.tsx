@@ -63,8 +63,8 @@ export default function Password() {
                 </div>
                 <p className="ml-2 font-cabinet-grotesk text-sm text-center self-center">
                   This action requires you to be logged in recently,
-                  <Link href={ROUTES.LOG_IN}>
-                    <span className="hover:text-light-black hover:font-bold font-medium text-login-blue">
+                  <Link href={ROUTES.LOG_IN} >
+                    <span style={{cursor: "pointer"}} className="hover:text-light-black hover:font-bold font-medium text-login-blue">
                       {" "}
                       Log In Again.
                     </span>

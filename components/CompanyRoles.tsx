@@ -53,9 +53,8 @@ export default function CompanyRoles(props) {
         {roles &&
           roles.map((value, index) => {
             return (
-              <div>
+              <div key={index}>
                 <div
-                  key={index}
                   className="flex flex-grow flex-row mx-4 pb-2"
                 >
                   <div className="flex flex-grow my-2 mx-2">
