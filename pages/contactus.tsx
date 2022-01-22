@@ -31,14 +31,7 @@ export default function ConatctUs() {
       event.preventDefault();
       const finalSubject =
         subject !== "" ? subject : `New message from ${firstName} ${lastName}`;
-      // init(EMAILJS_USER_ID);
-      // send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
-      //   from_name: `${firstName} ${lastName}`,
-      //   subject: finalSubject,
-      //   message: message,
-      //   reply_to: authUser ? authUser.email : email,
-      // });
-      setAfterSuccess(true);
+        setAfterSuccess(true);
     }
   };
 
