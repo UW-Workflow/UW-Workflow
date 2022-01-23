@@ -82,7 +82,6 @@ export default function AddReview() {
       for (let email of emailObjects) {
         emails.push(email.email);
       }
-      console.log(emails.join(","));
       await axios.post("/api/bookmarks/sendBookmarkEmail", {
         name: company.name,
         role: role ? role.value : newRoleName,

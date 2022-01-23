@@ -196,7 +196,7 @@ export default function (req, res) {
               
         <div style="color: #444444; line-height: 200%; text-align: center; word-wrap: break-word;">
           <p style="line-height: 200%; font-size: 14px;"><span style="font-size: 22px; line-height: 44px;">Hi,</span><br /><span style="font-size: 16px; line-height: 32px;">You are getting this email because you have bookmarked <strong>${review.role}</strong> for <strong>${review.name}.</strong></span></p>
-      <p style="line-height: 200%; font-size: 14px;"><span style="font-size: 16px; line-height: 32px;"><strong>Interview Experience: </strong>It was a nice company I loved it<br /><strong>Work Experience:</strong> Really love the culture<br /><strong>Salary:</strong>&nbsp;4/hr</span></p>
+      <p style="line-height: 200%; font-size: 14px;"><span style="font-size: 16px; line-height: 32px;"><strong>Interview Experience: </strong>${review.interview_experience}<br /><strong>Work Experience:</strong>${review.work_experience}<br /><strong>Salary:</strong>&nbsp;${review.salary}/hr</span></p>
         </div>
       
             </td>
