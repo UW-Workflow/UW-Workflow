@@ -9,4 +9,5 @@ export type Role = {
   avg_salary: number;
   company_name: string;
   total_reviews: number;
+  time_created: string;
 };

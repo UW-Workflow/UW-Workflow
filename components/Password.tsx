@@ -37,8 +37,8 @@ export default function Password() {
   };
   return (
     <div className="flex">
-      <div className="self-center bg-gradient-2 filter blur-huge px-20 py-16 mt-5 flex-grow"></div>
-      <div className="flex flex-col flex-grow rounded-lg bg-white my-5 shadow bg-white">
+      <div className="self-center bg-gradient-2 filter blur-huge px-20 py-16 mt-5 flex-grow hidden sm:block"></div>
+      <div className="flex flex-col flex-grow rounded-lg bg-white my-5 shadow bg-white mx-16 sm:mx-0">
         <div className="flex flex-col flex-grow rounded-lg bg-light-grey m-5">
           <div className="flex flex-col flex-grow m-5">
             {passwordChanged ? (
@@ -63,8 +63,8 @@ export default function Password() {
                 </div>
                 <p className="ml-2 font-cabinet-grotesk text-sm text-center self-center">
                   This action requires you to be logged in recently,
-                  <Link href={ROUTES.LOG_IN}>
-                    <span className="hover:text-light-black hover:font-bold font-medium text-login-blue">
+                  <Link href={ROUTES.LOG_IN} >
+                    <span style={{cursor: "pointer"}} className="hover:text-light-black hover:font-bold font-medium text-login-blue">
                       {" "}
                       Log In Again.
                     </span>
@@ -101,7 +101,7 @@ export default function Password() {
           </div>
         </div>
       </div>
-      <div className="self-center bg-gradient-3 filter blur-huge px-20 py-10 mt-5 flex-grow"></div>
+      <div className="self-center bg-gradient-3 filter blur-huge px-20 py-10 mt-5 flex-grow hidden sm:block"></div>
     </div>
   );
 }

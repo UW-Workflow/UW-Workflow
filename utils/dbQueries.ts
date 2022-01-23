@@ -238,6 +238,7 @@ export const GET_REVIEWS_BY_ROLES = gql`
       interview_experience_rating
       duration
       role_id
+      time_created
     }
   }
 `;

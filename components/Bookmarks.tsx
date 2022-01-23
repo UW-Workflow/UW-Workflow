@@ -50,14 +50,15 @@ export default function Bookmarks() {
 
   return (
     <div className="flex">
-      <div className="self-center bg-gradient-2 filter blur-huge px-20 py-16 mt-5 flex-grow"></div>
-      <div className="flex flex-col flex-grow rounded-lg bg-white my-5 shadow overflow-auto max-h-100">
+
+      <div className="self-center bg-gradient-2 filter blur-huge px-20 py-16 mt-5 flex-grow hidden sm:block"></div>
+      <div className="flex flex-col flex-grow rounded-lg bg-white my-5 shadow bg-white overflow-y-auto max-h-100 mx-16 sm:mx-0">
         {bookmarks &&
           bookmarks.map((value, index) => {
             return (
               <div
                 key={index}
-                className="flex flex-grow flex-row mx-4 my-4 border-b-2"
+                className={index < bookmarks.length - 1 ? "flex flex-grow flex-row mx-4 my-4 border-b-2" : "flex flex-grow flex-row mx-4 my-4"}
               >
                 <div className="flex flex-grow my-2 mx-2">
                   <div className="flex flex-col flex-grow">
@@ -66,23 +67,26 @@ export default function Bookmarks() {
                     </div>
                     <div className="text-sm">
                       <p>{value.company_name}</p>
-                      {value.avg_coop_rating && (
-                        <p>
-                          Average Coop Rating:{" "}
-                          {Number(value.avg_coop_rating).toFixed(2)}
-                        </p>
-                      )}
-                      {value.avg_interview_rating && (
-                        <p>
-                          Average Interview Rating:{" "}
-                          {Number(value.avg_interview_rating).toFixed(2)}
-                        </p>
-                      )}
-                      {value.avg_salary && (
-                        <p>
-                          Average Salary: {Number(value.avg_salary).toFixed(2)}
-                        </p>
-                      )}
+                      <div className="hidden sm:block">
+                        {value.avg_coop_rating && (
+                          <p>
+                            Average Coop Rating:{" "}
+                            {Number(value.avg_coop_rating).toFixed(2)}
+                          </p>
+                        )}
+                        {value.avg_interview_rating && (
+                          <p>
+                            Average Interview Rating:{" "}
+                            {Number(value.avg_interview_rating).toFixed(2)}
+                          </p>
+                        )}
+                        {value.avg_salary && (
+                          <p>
+                            Average Salary: {Number(value.avg_salary).toFixed(2)}
+                          </p>
+                        )}
+
+                      </div>
                     </div>
                   </div>
                   <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full text-blue-active">
@@ -104,11 +108,8 @@ export default function Bookmarks() {
               </div>
             );
           })}
-        <p className="text-xs mx-auto my-2 text-gray-300">
-          You have reached the end of the list
-        </p>
       </div>
-      <div className="self-center bg-gradient-3 filter blur-huge px-20 py-10 mt-5 flex-grow"></div>
+      <div className="self-center bg-gradient-3 filter blur-huge px-20 py-10 mt-5 flex-grow hidden sm:block"></div>
       <div>
         <ToastContainer
           toastStyle={{ backgroundColor: "#e74c3c", color: "black" }}
