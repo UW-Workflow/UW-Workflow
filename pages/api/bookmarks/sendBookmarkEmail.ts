@@ -16,6 +16,8 @@ export default function (req, res) {
         pass: process.env.GMAIL_PASSWORD,
       },
       secure: true,
+      logger: true,
+      debug: true,
     });
     const mailData = {
       from: "uwworkflow@gmail.com",
