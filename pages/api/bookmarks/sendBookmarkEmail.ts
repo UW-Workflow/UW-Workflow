@@ -4,7 +4,7 @@ import { apiResponse } from "../../../utils/apiResponse";
 export default function (req, res) {
   try {
     const review: any = req.body;
-    console.log(process.env.GMAIL_PASSWORD);
+    console.log("gmail", process.env.GMAIL_PASSWORD);
     const transporter = nodemailer.createTransport({
       port: 587,
       host: "smtp.gmail.com",
