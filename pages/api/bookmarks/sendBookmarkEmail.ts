@@ -7,15 +7,15 @@ export default function (req, res) {
       return apiResponse(res, 400, "The given method is not supported", true);
     }
     const review: any = req.body;
-
+    console.log(process.env.GMAIL_PASSWORD);
     const transporter = nodemailer.createTransport({
-      port: 465,
+      port: 587,
       host: "smtp.gmail.com",
       auth: {
         user: "uwworkflow@gmail.com",
         pass: process.env.GMAIL_PASSWORD,
       },
-      secure: true,
+      secure: false,
       logger: true,
       debug: true,
     });
