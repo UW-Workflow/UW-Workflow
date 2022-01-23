@@ -38,6 +38,9 @@ export default async function handler(
       description: company.description,
       logo: company.logo,
     });
+    if (!userResponse) {
+      return res.json({});
+    }
     return res.json(userResponse.insert_companies.returning[0]);
   } catch (error) {
     console.error(error);

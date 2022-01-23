@@ -11,7 +11,7 @@ export default function YourAccount() {
   }
   return (
     <MainContainer>
-      <div className="mt-2 pl-20 w-1">
+      <div className="mt-2 pl-20">
         <div>
           <p className="mb-4 text-lg font-bold">Your Account</p>
         </div>

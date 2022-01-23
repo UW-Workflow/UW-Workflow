@@ -124,33 +124,35 @@ export default function Comments({ roleID }) {
               <p className="mt-2 mx-14 font-bold text-base">
                 {comment.replies_object.length} Answers
               </p>
-              {comment.replies_object.map((reply, key) => {
-                return (
-                <div key={key} className="ml-16">
-                  <div className="flex flex-col p-2 max-h-100 bg-gray-50 rounded-lg">
-                    <div className="flex flex-row space-x-4 mb-2">
-                      <div className="flex flex-row flex-grow space-x-4 my-auto">
-                        <div>
-                          <a href="#" className="text-blue-400">
-                            {reply.author_object.username}
-                          </a>
+              <div className="max-h-2 overflow-y-scroll">
+                {comment.replies_object.map((reply, key) => {
+                  return (
+                    <div key={key} className="ml-16">
+                      <div className="flex flex-col p-2 max-h-100 bg-gray-50 rounded-lg">
+                        <div className="flex flex-row space-x-4 mb-2">
+                          <div className="flex flex-row flex-grow space-x-4 my-auto">
+                            <div>
+                              <a href="#" className="text-blue-400">
+                                {reply.author_object.username}
+                              </a>
+                            </div>
+                            <div>
+                              <p className="text-gray-300">
+                                {moment.parseZone(reply.created_time).fromNow()}
+                              </p>
+                            </div>
+                          </div>
                         </div>
                         <div>
-                          <p className="text-gray-300">
-                            {moment.parseZone(reply.created_time).fromNow()}
-                          </p>
+                          <div className="flex flex-shrink">
+                            <p>{reply.content}</p>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div>
-                      <div className="flex flex-shrink">
-                        <p>{reply.content}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                )
-              })}
+                  );
+                })}
+              </div>
             </div>
           )}
         </div>

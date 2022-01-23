@@ -68,9 +68,7 @@ export const INSERT_COMPANY = gql`
         website: $website
       }
     ) {
-      returning {
-        id
-      }
+      affected_rows
     }
   }
 `;
@@ -98,7 +96,10 @@ export const INSERT_REVIEW = gql`
         work_experience_rating: $work_experience_rating
       }
     ) {
-      affected_rows
+      returning {
+        id
+        role_id
+      }
     }
   }
 `;
@@ -220,6 +221,7 @@ export const GET_ROLE = gql`
       avg_interview_rating
       avg_salary
       company_name
+      total_reviews
     }
   }
 `;
@@ -236,6 +238,7 @@ export const GET_REVIEWS_BY_ROLES = gql`
       interview_experience_rating
       duration
       role_id
+      time_created
     }
   }
 `;
@@ -267,11 +270,29 @@ export const ADD_USER_BOOKMARK = gql`
   }
 `;
 
+export const ADD_BOOKMARK_USER = gql`
+  mutation ADD_BOOKMARK_USER($email: String, $role_id: Int) {
+    insert_bookmarks(objects: { email: $email, role_id: $role_id }) {
+      affected_rows
+    }
+  }
+`;
+
 export const REMOVE_USER_BOOKMARK = gql`
   mutation remove_user_bookmark($email: String, $role_id: String) {
     update_users(
       where: { email: { _eq: $email } }
       _delete_key: { role_bookmarks: $role_id }
+    ) {
+      affected_rows
+    }
+  }
+`;
+
+export const REMOVE_BOOKMARK_EMAIL = gql`
+  mutation REMOVE_BOOKMARK_EMAIL($email: String, $role_id: Int) {
+    delete_bookmarks(
+      where: { email: { _eq: $email }, _and: { role_id: { _eq: $role_id } } }
     ) {
       affected_rows
     }
@@ -294,6 +315,13 @@ export const GET_USER_BOOKMARKS = gql`
   }
 `;
 
+export const GET_BOOKMARKS_EMAIL = gql`
+  query GET_BOOKMARKS_EMAIL($role_id: Int) {
+    bookmarks(where: { role_id: { _eq: $role_id } }) {
+      email
+    }
+  }
+`;
 export const CHECK_USER_BOOKMARKS = gql`
   query get_user_bookmarks($email: String, $role_id: jsonb) {
     users(

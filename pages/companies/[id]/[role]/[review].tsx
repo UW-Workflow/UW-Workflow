@@ -89,13 +89,14 @@ export default function Roles() {
     <MainContainer>
       {company && role && (
         <div className="flex flex-col flex-grow">
-          <div className="flex flex-row flex-grow mx-20">
-            <div className="flex flex-row flex-grow my-2 space-x-4">
+          <div className="flex flex-col sm:flex-row flex-grow mx-5 sm:mx-20">
+            <div className="flex flex-col sm:flex-row flex-grow my-2 space-x-4">
               <img
-                src={company.logo === "" ? "default_company.svg" : company.logo}
+                className="flex ml-5 sm:ml-0 mr-56 sm:mr-0 mt-3 sm:mt-0"
+                src={company.logo === "" ? "/default_company.svg" : company.logo}
               ></img>
-              <div className="flex flex-col">
-                <div className="flex flex-row space-x-2">
+              <div className="flex flex-col mt-2.5 sm:mt-0">
+                <div className="flex flex-row space-x-2 ">
                   <p className="text-xl font-bold">{company.name}</p>
                   <a
                     href={
@@ -115,17 +116,28 @@ export default function Roles() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-row space-x-4 my-auto">
-              <div className="bg-button-blue text-white rounded-xl flex items-center space-x-2 p-4">
-                <div className="bg-white text-button-blue rounded-md">
-                  <img src="/plus.svg"></img>
+            <div className="flex space-x-4  sm:my-auto my-5 ml-5">
+              <div className="flex flex-row space-x-1 my-auto">
+                <div
+                  style={{ cursor: "pointer" }}
+                  onClick={() => {
+                    router.push({
+                      pathname: "/addReview",
+                      query: { company_id: company.id, role_id: role.id },
+                    });
+                  }}
+                  className="bg-button-blue text-white rounded-xl flex items-center space-x-2 sm:p-4 px-20 py-4"
+                >
+                  <div className="bg-white text-button-blue rounded-md">
+                    <img src="/plus.svg"></img>
+                  </div>
+                  <span>Add a review</span>
                 </div>
-                <span>Add a review</span>
               </div>
             </div>
           </div>
 
-          <div className="mx-20">
+          <div className="sm:mx-20 mx-5">
             <ReviewDetails
               companyId={companyID}
               roleId={roleID}

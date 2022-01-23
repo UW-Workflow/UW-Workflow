@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 import BadgeCheckIcon from "@heroicons/react/solid/BadgeCheckIcon";
 import { defaultRoleOptions, durationOptions } from "../constants/contants";
 import { Company } from "../models/interfaces/types/Company";
-
+import nodemailer from "nodemailer";
 export default function AddReview() {
   const router = useRouter();
   const { company_id, role_id } = router.query;
@@ -67,6 +67,33 @@ export default function AddReview() {
     }
   }
 
+  async function sendEmail() {
+    try {
+      const emailResponse = await axios.get(
+        "/api/bookmarks/getUserEmailsByBookmark",
+        {
+          params: {
+            role_id: roleId,
+          },
+        }
+      );
+      const emailObjects = emailResponse.data.bookmarks;
+      const emails = [];
+      for (let email of emailObjects) {
+        emails.push(email.email);
+      }
+      await axios.post("/api/bookmarks/sendBookmarkEmail", {
+        name: company.name,
+        role: role ? role.value : newRoleName,
+        work_experience: coopReview,
+        interview_experience: interviewReview,
+        salary: salary,
+        emails: emails.join(","),
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
   useEffect(() => {
     if (company_id && (!company || company_id !== company.id.toString())) {
       getCompany();
@@ -90,7 +117,7 @@ export default function AddReview() {
 
   async function addReview() {
     try {
-      const reviewResponse = await axios.post("/api/review/addReview", {
+      const review = await axios.post("/api/review/addReview", {
         year_worked: yearJoined.value,
         role_id: roleId,
         salary: parseFloat(salary),
@@ -100,10 +127,8 @@ export default function AddReview() {
         interview_experience: interviewReview,
         interview_experience_rating: interviewRating,
       });
-
-      if (reviewResponse.status === 200) {
-        setStep(5);
-      }
+      sendEmail();
+      setStep(5);
     } catch (error) {
       toast("Error in adding the review. " + error);
     }
