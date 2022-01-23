@@ -9,13 +9,14 @@ export default function (req, res) {
     const review: any = req.body;
     console.error("password", process.env.GMAIL_PASSWORD);
     const transporter = nodemailer.createTransport({
-      port: 465,
+      port: 587,
+      ignoreTLS: false,
+      secure: false,
       host: "smtp.gmail.com",
       auth: {
         user: "uwworkflow@gmail.com",
         pass: process.env.GMAIL_PASSWORD,
       },
-      secure: true,
       logger: true,
       debug: true,
     });
