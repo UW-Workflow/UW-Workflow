@@ -221,6 +221,7 @@ export const GET_ROLE = gql`
       avg_interview_rating
       avg_salary
       company_name
+      total_reviews
     }
   }
 `;
