@@ -10,25 +10,7 @@ export default function Bookmarks() {
   const { authUser, loading } = useAuth();
   const [bookmarks, setBookmarks] = useState<Role[]>([]);
   const [update, setUpdate] = useState(false);
-  const [removingRoleID, setRemovingRoleID] = useState();
-  // get company name
-  async function getCompanyName(companyID: number) {
-    try {
-      const response = await axios.get(`/api/company/getCompanyName`, {
-        params: {
-          id: companyID,
-        },
-      });
-      if (response.data.companies.length > 0 && response.data.companies[0]) {
-        return response.data.companies[0].name;
-      }
-      return null;
-    } catch (error) {
-      toast(
-        "Error in getting company name for bookmarks for account page. " + error
-      );
-    }
-  }
+
   async function removeBookmark(roleID: number) {
     try {
       const response = await axios.get(`/api/roles/removeRoleBookmarkByUser`, {
@@ -68,6 +50,7 @@ export default function Bookmarks() {
 
   return (
     <div className="flex">
+
       <div className="self-center bg-gradient-2 filter blur-huge px-20 py-16 mt-5 flex-grow hidden sm:block"></div>
       <div className="flex flex-col flex-grow rounded-lg bg-white my-5 shadow bg-white overflow-y-auto max-h-100 mx-16 sm:mx-0">
         {bookmarks &&

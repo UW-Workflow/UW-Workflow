@@ -1,6 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { apiResponse } from "../../../utils/apiResponse";
-import { REMOVE_USER_BOOKMARK } from "../../../utils/dbQueries";
+import {
+  REMOVE_BOOKMARK_EMAIL,
+  REMOVE_USER_BOOKMARK,
+} from "../../../utils/dbQueries";
 import { dbQuery } from "../../../utils/dbQuery";
 
 export default async function handler(
@@ -20,6 +23,10 @@ export default async function handler(
   }
   try {
     const roles = await dbQuery(REMOVE_USER_BOOKMARK, {
+      email: email,
+      role_id: role_id,
+    });
+    await dbQuery(REMOVE_BOOKMARK_EMAIL, {
       email: email,
       role_id: role_id,
     });
