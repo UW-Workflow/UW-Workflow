@@ -1,15 +1,17 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Role } from "../models/interfaces/types/Role";
 import { useAuth } from "../utils/AuthUserContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Link from "next/link";
 
 export default function Bookmarks() {
-  const [companyNames, setCompanyNames] = useState<String[]>([]);
   const { authUser, loading } = useAuth();
   const [bookmarks, setBookmarks] = useState<Role[]>([]);
   const [update, setUpdate] = useState(false);
+  const [removingRoleID, setRemovingRoleID] = useState();
+  // get company name
   async function getCompanyName(companyID: number) {
     try {
       const response = await axios.get(`/api/company/getCompanyName`, {
@@ -59,7 +61,9 @@ export default function Bookmarks() {
         toast("Error in getting bookmarks for account page. " + error);
       }
     }
-    getRoles();
+    if (authUser) {
+      getRoles();
+    }
   }, [authUser, update]);
 
   return (
@@ -79,29 +83,45 @@ export default function Bookmarks() {
                       <p className="text-base font-bold">{value.title_name}</p>
                     </div>
                     <div className="text-sm">
+                      <p>{value.company_name}</p>
                       {/* {value.reviews != 1 ? (
                       <p>{value.reviews} Reviews</p>
                     ) : (
                       <p>{value.reviews} Review</p>
                     )} */}
                       {value.avg_coop_rating && (
-                        <p>Average Coop Rating: {value.avg_coop_rating}</p>
+                        <p>
+                          Average Coop Rating:{" "}
+                          {Number(value.avg_coop_rating).toFixed(2)}
+                        </p>
                       )}
                       {value.avg_interview_rating && (
                         <p>
-                          Average Interview Rating: {value.avg_interview_rating}
+                          Average Interview Rating:{" "}
+                          {Number(value.avg_interview_rating).toFixed(2)}
                         </p>
                       )}
                       {value.avg_salary && (
-                        <p>Average Salary: {value.avg_salary}</p>
+                        <p>
+                          Average Salary: {Number(value.avg_salary).toFixed(2)}
+                        </p>
                       )}
                     </div>
                   </div>
-                  <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full">
-                    <p className="text-blue-active">View</p>
+                  <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full text-blue-active">
+                    <Link
+                      href="/companies/[id]/[role]"
+                      as={`/companies/${value.company_id}/${value.id}`}
+                    >
+                      View
+                    </Link>
                   </div>
                   <div className="flex items-center my-auto">
-                    <img src={"bookmark_selected.svg"}></img>
+                    <img
+                      onClick={() => removeBookmark(value.id)}
+                      src={"/bookmark_selected.svg"}
+                      style={{ cursor: "pointer" }}
+                    ></img>
                   </div>
                 </div>
               </div>

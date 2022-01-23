@@ -32,16 +32,13 @@ const SignUp = () => {
         if (passwordOne === passwordTwo)
           createUserWithEmailAndPassword(email, passwordOne)
             .then(async (authUser) => {
-              console.log("Success. The user is created in Firebase");
               const userResponse = await axios.post("/api/user/insertUser", {
                 email: email,
                 is_verified: false,
                 username: usernameGen.generateUsername(8, false),
               });
-              console.log(userResponse);
               sendVerificationEmail()
                 .then(() => {
-                  console.log("Email Verification sent!");
                   router.push("/loggedIn");
                 })
                 .catch((error) => {

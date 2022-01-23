@@ -34,28 +34,10 @@ export default function Profile() {
                 Account Information
               </p>
             </div>
-            {/* <p className="ml-10">First Name</p>
-            <input
-              type="input"
-              placeholder="John"
-              className="p-3 rounded-lg drop-shadow-md border-2 mx-10 my-2"
-            ></input>
-            <p className="ml-10">Last Name</p>
-            <input
-              type="input"
-              placeholder="Doe"
-              className="p-3 rounded-lg drop-shadow-md border-2 mx-10 my-2"
-            ></input> */}
             <p className="ml-10">Email</p>
             <p className="p-3 rounded-lg drop-shadow-md mx-10 my-2">
               {authUser.email}
             </p>
-
-            {/* <div className="flex flex-row-reverse">
-              <div className="bg-button-blue text-white rounded-xl p-3 flex items-center space-x-2 mx-10 my-4">
-                <p className="font-bold">Save Changes</p>
-              </div>
-            </div> */}
           </div>
         )}
       </div>

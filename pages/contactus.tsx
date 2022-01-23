@@ -54,7 +54,7 @@ export default function ConatctUs() {
           className="flex bg-contact-us-gradient bg-opacity-60"
         >
           <div style={{ width: "100%" }} className="flex mt-3 mb-20">
-            <img width="150px" height="auto" src="contact-us-left.svg" />
+            <img width="150px" height="auto" src="/contact-us-left.svg" />
             <div
               style={{ width: "100%" }}
               className="flex flex-col mt-6 ml-32 mr-32 items-center"
@@ -69,7 +69,7 @@ export default function ConatctUs() {
                 We’d love to hear from you.
               </h4>
             </div>
-            <img width="150px" height="auto" src="contact-us-right.svg" />
+            <img width="150px" height="auto" src="/contact-us-right.svg" />
           </div>
         </div>
         <div className="flex items-center -mt-20 bg-white rounded-3xl shadow-lg">
@@ -78,8 +78,8 @@ export default function ConatctUs() {
             height="auto"
             src={
               afterSuceess
-                ? "contact-success-image.svg"
-                : "contact-form-image.svg"
+                ? "/contact-success-image.svg"
+                : "/contact-form-image.svg"
             }
           />
           {afterSuceess ? (
@@ -90,7 +90,7 @@ export default function ConatctUs() {
                 (!authUser && !afterSuceess ? "ml-12 -mr-12" : "ml-14 -mr-14")
               }
             >
-              <img width="150px" className="mb-2" src="email-sent-image.svg" />
+              <img width="150px" className="mb-2" src="/email-sent-image.svg" />
               <p className="font-extrabold text-base mb-1">
                 Thanks,&nbsp;{firstName}
               </p>

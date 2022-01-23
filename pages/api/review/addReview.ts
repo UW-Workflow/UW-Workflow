@@ -28,6 +28,12 @@ export default async function handler(
   if (!review.interview_experience_rating) {
     return apiResponse(res, 400, "Missing interview experience rating", true);
   }
+  if (!review.work_experience) {
+    return apiResponse(res, 400, "Missing work experience", true);
+  }
+  if (!review.interview_experience) {
+    return apiResponse(res, 400, "Missing interview experience", true);
+  }
   if (!review.duration) {
     return apiResponse(res, 400, "Missing duration", true);
   }

@@ -73,7 +73,7 @@ export const INSERT_COMPANY = gql`
   }
 `;
 
-export const INSERT_REVIEW= gql`
+export const INSERT_REVIEW = gql`
   mutation INSERT_REVIEW(
     $year_worked: Int
     $role_id: Int
@@ -111,20 +111,24 @@ export const GET_COMPANY = gql`
       city
       country
       logo
+      total_reviews
     }
   }
 `;
 
-
 export const QUERY_ROLE = gql`
   query query_role($company_id: Int, $title_name: String) {
-    roles(where: { company_id: { _eq: $company_id }, title_name: { _eq:  $title_name} }) {
+    roles(
+      where: {
+        company_id: { _eq: $company_id }
+        title_name: { _eq: $title_name }
+      }
+    ) {
       id
       title_name
     }
   }
 `;
-
 
 export const GET_COMMENTS = gql`
   query get_comments($role: Int, $parent_comment: Int) {
@@ -136,7 +140,7 @@ export const GET_COMMENTS = gql`
       content
       parent_comment
       created_time
-      replies_object(order_by: { created_time: desc }) {
+      replies_object(order_by: { created_time: asc }) {
         id
         content
         created_time
@@ -187,20 +191,15 @@ export const GET_ROLES_BY_COMPANY = gql`
       avg_coop_rating
       avg_interview_rating
       avg_salary
+      company_name
     }
   }
 `;
 
 export const INSERT_ROLE = gql`
-  mutation INSERT_ROLE(
-    $title_name: String
-    $company_id: Int
-  ) {
+  mutation INSERT_ROLE($title_name: String, $company_id: Int) {
     insert_roles(
-      objects: {
-        title_name: $title_name
-        company_id: $company_id
-      }
+      objects: { title_name: $title_name, company_id: $company_id }
     ) {
       returning {
         id
@@ -218,6 +217,7 @@ export const GET_ROLE = gql`
       avg_coop_rating
       avg_interview_rating
       avg_salary
+      company_name
     }
   }
 `;
@@ -232,7 +232,6 @@ export const GET_REVIEWS_BY_ROLES = gql`
       work_experience_rating
       interview_experience
       interview_experience_rating
-      user_id
       duration
       role_id
     }
@@ -249,7 +248,6 @@ export const GET_REVIEW = gql`
       work_experience_rating
       interview_experience
       interview_experience_rating
-      user_id
       duration
       role_id
     }
@@ -288,6 +286,7 @@ export const GET_USER_BOOKMARKS = gql`
         avg_coop_rating
         avg_interview_rating
         avg_salary
+        company_name
       }
     }
   }

@@ -13,8 +13,6 @@ export default function useFirebaseAuth() {
   const [loading, setLoading] = useState(true);
 
   const authStateChanged = async (authState) => {
-    console.log("user: ", firebase.auth().currentUser);
-    console.log("auth State", authState);
     if (!authState) {
       setAuthUser(null);
       setLoading(false);

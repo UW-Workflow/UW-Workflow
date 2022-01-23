@@ -10,16 +10,22 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function Companies() {
   const router = useRouter();
-  const companyID = router.query.id;
+  const [companyID, setcompanyID] = useState<String>();
+  // const companyID = router.query.id;
   const [company, setCompany] = useState<Company>();
 
   useEffect(() => {
+    if (router && router.query) {
+      setcompanyID(router.query.id as string);
+    }
     if (!companyID) {
-      router.push(ROUTES.FOUR_ZERO_FOUR);
       return;
     }
     async function getCompany() {
       try {
+        if (!parseInt(companyID as string)) {
+          router.push(ROUTES.FOUR_ZERO_FOUR);
+        }
         const response = await axios.get(`/api/company/getCompany`, {
           params: {
             id: companyID,
@@ -34,8 +40,9 @@ export default function Companies() {
         toast("Error in get company for company page. " + error);
       }
     }
+    setCompany(null);
     getCompany();
-  }, [companyID]);
+  }, [companyID, router]);
 
   return (
     <MainContainer>
@@ -44,21 +51,45 @@ export default function Companies() {
           <div className="flex flex-row flex-grow border-b-2 mx-20">
             <div className="flex flex-row flex-grow my-2 space-x-4">
               <img
-                src={company.logo === "" ? "default_company.svg" : company.logo}
+                src={
+                  company.logo === "" ? "/default_company.svg" : company.logo
+                }
               ></img>
               <div className="flex flex-col">
                 <div className="flex flex-row space-x-2">
                   <p className="text-xl font-bold">{company.name}</p>
-                  <p>🔗 {company.website}</p>
+                  <a
+                    href={
+                      company.website.indexOf("http://") == 0 ||
+                      company.website.indexOf("https://") == 0
+                        ? company.website
+                        : "https://" + company.website
+                    }
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    🔗 {company.website}
+                  </a>
                 </div>
-                <div>
-                  <p>
-                    {company.city}, {company.country}
-                  </p>
-                </div>
-                <div>
-                  <p>{company.description}</p>
-                </div>
+                {company.city != "N/A" && company.country != "N/A" && (
+                  <div>
+                    <p>
+                      {company.city},{company.country}
+                    </p>
+                  </div>
+                )}{" "}
+                {company.description != "N/A" && (
+                  <div>
+                    <p>{company.description}</p>
+                  </div>
+                )}
+                {company.total_reviews != null && (
+                  <div>
+                    <p className="text-xs pt-1">
+                      {company.total_reviews} reviews
+                    </p>
+                  </div>
+                )}
               </div>
             </div>
             <div className="flex flex-row space-x-4 my-auto">
@@ -71,11 +102,20 @@ export default function Companies() {
                 <p className="underline">{company.total_reviews} reviews</p>
               </div> */}
               </div>
-              <div className="bg-button-blue text-white rounded-xl flex items-center space-x-2 p-4">
+              <div
+                style={{ cursor: "pointer" }}
+                onClick={() => {
+                  router.push({
+                    pathname: "/addReview",
+                    query: { company_id: company.id },
+                  });
+                }}
+                className="bg-button-blue text-white rounded-xl flex items-center space-x-2 p-4"
+              >
                 <div className="bg-white text-button-blue rounded-md">
                   <img src="/plus.svg"></img>
                 </div>
-                <span>Add a company</span>
+                <span>Add a review</span>
               </div>
             </div>
           </div>

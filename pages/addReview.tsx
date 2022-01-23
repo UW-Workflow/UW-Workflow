@@ -1,22 +1,26 @@
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "reactstrap";
 import { MainContainer } from "../components/MainContainer";
 import Select from "react-select";
 import StarRatings from "react-star-ratings";
 import axios from "axios";
-import { useAuth } from "../utils/AuthUserContext";
 import { generateArrayOfYears } from "../utils/helpers";
 import CurrencyInput from "react-currency-input-field";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BadgeCheckIcon from "@heroicons/react/solid/BadgeCheckIcon";
 import { defaultRoleOptions, durationOptions } from "../constants/contants";
+import { Company } from "../models/interfaces/types/Company";
 
 export default function AddReview() {
-  const [step, setStep] = useState<number>(1);
   const router = useRouter();
+  const { company_id, role_id } = router.query;
+  const [step, setStep] = useState<number>(
+    company_id && role_id ? 3 : company_id ? 2 : 1
+  );
   const [role, setRole] = useState<{ value: string; label: string }>();
+  const [company, setCompany] = useState<Company>();
   const [newRoleName, setNewRoleName] = useState<string>();
   const [salary, setSalary] = useState<string>("0.0");
   const [yearJoined, setYearJoined] = useState<{
@@ -25,10 +29,52 @@ export default function AddReview() {
   }>();
   const [duration, setDuration] = useState<{ value: number; label: string }>();
   const [interviewRating, setInterviewRating] = useState<number>(0.0);
-  const [interviewReview, setInterviewReview] = useState<string>(" ");
+  const [interviewReview, setInterviewReview] = useState<string>("");
   const [coopRating, setCoopRating] = useState<number>(0.0);
-  const [coopReview, setCoopReview] = useState<string>(" ");
+  const [coopReview, setCoopReview] = useState<string>("");
   const [roleId, setRoleId] = useState<number>();
+  async function getCompany() {
+    try {
+      const response = await axios.get(`/api/company/getCompany`, {
+        params: {
+          id: company_id,
+        },
+      });
+      if (response.data.companies.length > 0 && response.data.companies[0]) {
+        setCompany(response.data.companies[0]);
+      }
+    } catch (error) {
+      toast("Error in get company for company page. " + error);
+    }
+  }
+
+  async function getRole() {
+    try {
+      const roleResponse = await axios.get("/api/roles/getRole", {
+        params: {
+          id: parseInt(role_id as string),
+        },
+      });
+      if (roleResponse.data.roles && roleResponse.data.roles.length > 0) {
+        setRoleId(roleResponse.data.roles[0].id);
+        setRole({
+          value: roleResponse.data.roles[0].title_name,
+          label: roleResponse.data.roles[0].title_name,
+        });
+      }
+    } catch (error) {
+      toast("Error in get company for Add review page. " + error);
+    }
+  }
+
+  useEffect(() => {
+    if (company_id && (!company || company_id !== company.id.toString())) {
+      getCompany();
+    }
+    if (role_id) {
+      getRole();
+    }
+  }, [company_id, role_id, company]);
 
   const stepTitle = () => {
     if (step === 1) {
@@ -78,7 +124,7 @@ export default function AddReview() {
       const roleResponse = await axios.get("/api/role/getRole", {
         params: {
           title_name: roleName,
-          company_id: 4,
+          company_id: company.id,
         },
       });
       if (roleResponse.data.roles && roleResponse.data.roles.length > 0) {
@@ -143,7 +189,7 @@ export default function AddReview() {
             </div>
             <button
               className="bg-button-blue text-white text-xs lg:text-base  rounded-xl p-2 mx-auto mt-5"
-              onClick={() => router.push("/roles")}
+              onClick={() => router.push(`/companies/${company.id}/${roleId}`)}
             >
               Check your submitted review
             </button>
@@ -243,7 +289,7 @@ export default function AddReview() {
               />
               <div className="-ml-5 -mt-3 mb-2">
                 <p className="text-xs text-gray-400">
-                  Step&nbsp;{step > 3 ? 3 : step}/3
+                  Step&nbsp;{step > 4 ? 4 : step}/4
                 </p>
                 <p className="text-sm font-bold mt-2 mb-2">{stepTitle()}</p>
                 {step === 1 ? (
@@ -256,7 +302,7 @@ export default function AddReview() {
                       className="p-3 ml-3 mt-4 bg-gray-300 rounded-lg"
                     >
                       <img
-                        src="/default_company.svg"
+                        src={company ? company.logo : "/default_company.svg"}
                         width="60px"
                         height="60px"
                       />
@@ -266,17 +312,22 @@ export default function AddReview() {
                       className="flex flex-col space-x-2 mt-4 ml-3"
                     >
                       <p className="text-lg font-extrabold mb-4 ml-3 font-cabinet-grotesk">
-                        Company Name
+                        {company ? company.name : "Company Name"}
                       </p>
                       <p className="text-xs text-gray-600 mb-4 font-cabinet-grotesk">
-                        🔗 www.companyname.com
+                        🔗&nbsp;&nbsp;
+                        {company ? company.website : "www.companyname.com"}
                       </p>
                       <p className="text-xs text-gray-600 mb-4 font-cabinet-grotesk">
-                        📍 Company address goes here in 2 or 3 lines
+                        📍&nbsp;
+                        {company
+                          ? company.city + " " + company.country
+                          : "Company address goes here in 2 or 3 lines"}
                       </p>
                       <p className="text-gray-700 text-sm font-cabinet-grotesk">
-                        Company description goes comp desc goes here in
-                        preferrably 2 or 3 lines.
+                        {company
+                          ? company.description
+                          : "Company description goes comp desc goes here in preferrably 2 or 3 lines."}
                       </p>
                     </div>
                   </div>
@@ -318,7 +369,8 @@ export default function AddReview() {
                       style={{ width: "105%" }}
                     />
                     <p className="text-blue-600 text-xs font-bold font-cabinet-grotesk mb-3">
-                      {role ? role.label : newRoleName} &nbsp;@ Company Name
+                      {role ? role.label : newRoleName} &nbsp;@{" "}
+                      {company ? company.name : "Company Name"}
                     </p>
                     <div className="flex justify-evenly mb-2 -ml-3">
                       <div className="flex flex-col mt-1">
@@ -371,7 +423,7 @@ export default function AddReview() {
                         style={{ width: "105%" }}
                       />
                       <p className="text-blue-600 text-xs font-bold font-cabinet-grotesk mb-3">
-                        {role ? role.label : newRoleName} &nbsp;@ Company Name
+                        {role ? role.label : newRoleName} &nbsp;@ {company.name}
                       </p>
                       <div className="flex-column mb-3 -ml-3">
                         <div className="flex justify-between">
@@ -401,7 +453,9 @@ export default function AddReview() {
                             width: "90%",
                             borderColor: "rgba(229, 231, 235)",
                           }}
-                          placeholder="Please describe your experience at Company Name."
+                          placeholder={`Please describe your experience at ${
+                            company ? company.name : "Company Name"
+                          }.`}
                           className="p-2 rounded-lg drop-shadow-md border-2 text-sm mx-4 my-2 font-cabinet-grotesk"
                           required
                         />
@@ -433,7 +487,9 @@ export default function AddReview() {
                               width: "90%",
                               borderColor: "rgba(229, 231, 235)",
                             }}
-                            placeholder="Please describe your experience at Company Name."
+                            placeholder={`Please describe your experience at ${
+                              company ? company.name : "Company Name"
+                            }.`}
                             className="p-2 rounded-lg drop-shadow-md border-2 text-sm mx-4 my-2 font-cabinet-grotesk"
                             required
                           />
@@ -476,13 +532,29 @@ export default function AddReview() {
                     <Button
                       style={{
                         width: 130,
-                        cursor: formValidations() ? "not-allowed" : "pointer",
+                        cursor:
+                          interviewRating === 0.0 ||
+                          coopRating === 0.0 ||
+                          interviewReview === "" ||
+                          coopReview === ""
+                            ? "not-allowed"
+                            : "pointer",
                       }}
                       className={` border text-xs text-white font-extrabold py-2 mt-4 cursor-pointer rounded-lg ${
-                        formValidations() ? "bg-gray-500" : "bg-blue-600"
+                        interviewRating === 0.0 ||
+                        coopRating === 0.0 ||
+                        interviewReview === "" ||
+                        coopReview === ""
+                          ? "bg-gray-500"
+                          : "bg-blue-600"
                       }`}
                       onClick={addReview}
-                      disabled={interviewRating === 0.0 || coopRating === 0.0}
+                      disabled={
+                        interviewRating === 0.0 ||
+                        coopRating === 0.0 ||
+                        interviewReview === "" ||
+                        coopReview === ""
+                      }
                     >
                       Submit
                     </Button>
