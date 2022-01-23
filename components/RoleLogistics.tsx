@@ -24,7 +24,6 @@ export default function RoleLogistics(props) {
 
   useEffect(() => {
     async function getReviews() {
-      console.log(props.roleId);
       try {
         const response = await axios.get(`/api/reviews/getReviewsByRole`, {
           params: {

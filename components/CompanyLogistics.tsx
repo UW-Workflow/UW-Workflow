@@ -14,7 +14,6 @@ export default function CompanyLogistics(props) {
   const [coopRatingData, setCoopRatingData] = useState<
     { name: string; average_work_rating: number }[]
   >();
-  console.log(salaryData);
 
   useEffect(() => {
     async function getRoles() {
