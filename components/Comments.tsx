@@ -96,11 +96,11 @@ export default function Comments({ roleID }) {
                 <div className="flex">
                   <img
                     src={blockies
-                      .create({ seed: authUser.username })
+                      .create({ seed: comment.author_object.username })
                       .toDataURL()}
                     className="rounded-xl mr-2"
                   />
-                  <a href="#" className="text-blue-400">
+                  <a href="#" className="text-blue-400  self-center">
                     {comment.author_object.username}
                   </a>
                 </div>
@@ -137,8 +137,14 @@ export default function Comments({ roleID }) {
                     <div className="flex flex-col p-2 max-h-100 bg-gray-50 rounded-lg">
                       <div className="flex flex-row space-x-4 mb-2">
                         <div className="flex flex-row flex-grow space-x-4 my-auto">
-                          <div>
-                            <a href="#" className="text-blue-400">
+                          <div className="flex">
+                            <img
+                              src={blockies
+                                .create({ seed: reply.author_object.username })
+                                .toDataURL()}
+                              className="rounded-xl mr-2"
+                            />
+                            <a href="#" className="text-blue-400 self-center">
                               {reply.author_object.username}
                             </a>
                           </div>
