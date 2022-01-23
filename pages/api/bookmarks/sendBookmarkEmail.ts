@@ -7,7 +7,6 @@ export default function (req, res) {
       return apiResponse(res, 400, "The given method is not supported", true);
     }
     const review: any = req.body;
-    console.error("password", process.env.GMAIL_PASSWORD);
     const transporter = nodemailer.createTransport({
       port: 587,
       ignoreTLS: false,
