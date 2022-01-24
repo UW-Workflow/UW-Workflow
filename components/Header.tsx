@@ -45,7 +45,7 @@ export const Header: React.FC = () => {
       } else if (authUser && authUser.verified && !loading) {
         return (
           <div>
-            <div className="group inline-block relative justify-self-end">
+            <div className="group inline-block relative justify-self-end sm:mb-0 mb-16">
               <button className="min-w-200 text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center ">
                 <img
                   src={blockies.create({ seed: authUser.username }).toDataURL()}
@@ -64,11 +64,11 @@ export const Header: React.FC = () => {
               </button>
               <ul className="absolute hidden text-gray-700 pt-1 group-hover:block min-w-200">
                 <li className="">
-                  <a className="rounded-t bg-gray-200 hover:bg-gray-400 p-4 block whitespace-no-wrap  min-w-200">
+                  <a className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap  min-w-200">
                     <Link href={ROUTES.PROFILE}>Profile</Link>
                   </a>
                 </li>
-                <li className="rounded-b bg-gray-200 hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                <li className="rounded-b bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
                   <a className="">
                     <button onClick={onSignOut}>Sign Out</button>
                   </a>

@@ -38,7 +38,10 @@ export default async function handler(
       description: company.description,
       logo: company.logo,
     });
-    return res.json(userResponse);
+    if (!userResponse) {
+      return res.json({});
+    }
+    return res.json(userResponse.insert_companies.returning[0]);
   } catch (error) {
     console.error(error);
     return apiResponse(res, 500, `Error logging: ${error.message}`, true);
