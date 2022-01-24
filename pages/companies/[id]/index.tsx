@@ -6,6 +6,7 @@ import { ROUTES } from "../../../constants/routes";
 import { Company } from "../../../models/interfaces/types/Company";
 import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
+import CompanyLogistics from "../../../components/CompanyLogistics";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function Companies() {
@@ -13,6 +14,7 @@ export default function Companies() {
   const [companyID, setcompanyID] = useState<String>();
   //const companyID = router.query.id;
   const [company, setCompany] = useState<Company>();
+  const [chosenWindow, setChosenWindow] = useState("roles");
 
   useEffect(() => {
     if (router && router.query) {
@@ -129,8 +131,46 @@ export default function Companies() {
               </div>
             </div>
           </div>
+          <div className="mb-4 ml-20">
+            <div className="flex">
+              <ul className="flex">
+                <li
+                  className={
+                    chosenWindow === "roles"
+                      ? "p-4 border-b-2 border-transparent border-blue-active text-gray-500"
+                      : "p-4 border-b-2 border-transparent hover:border-blue-active hover:text-gray-500"
+                  }
+                  onClick={() => {
+                    setChosenWindow("roles");
+                  }}
+                >
+                  <a className="font-medium text-black-500 " href="#">
+                    Roles
+                  </a>
+                </li>
+                <li
+                  className={
+                    chosenWindow === "logistics"
+                      ? "p-4 border-b-2 border-transparent border-blue-active text-gray-500"
+                      : "p-4 border-b-2 border-transparent hover:border-blue-active hover:text-gray-500"
+                  }
+                  onClick={() => {
+                    setChosenWindow("logistics");
+                  }}
+                >
+                  <a className="font-medium text-black-500 " href="#">
+                    Logistics
+                  </a>
+                </li>
+              </ul>
+            </div>
+            <hr className="mr-20" />
+          </div>
           <div className="sm:mx-20 mx-5">
-            <CompanyRoles companyId={companyID} />
+            {chosenWindow == "roles" && <CompanyRoles companyId={companyID} />}
+            {chosenWindow == "logistics" && (
+              <CompanyLogistics companyId={companyID} />
+            )}
           </div>
         </div>
       )}
