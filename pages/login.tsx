@@ -27,7 +27,7 @@ const Login = () => {
       .then(() => {
         if (!loading && authUser) {
           if (authUser.verified) {
-            router.push("/");
+            router.back();
           } else {
             setLoginError("Please verify your email address!");
           }
