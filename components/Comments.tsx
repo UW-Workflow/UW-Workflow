@@ -1,5 +1,6 @@
 import Image from "next/image";
 import moment from "moment";
+import * as blockies from "blockies-ts";
 import { useState, useEffect } from "react";
 import { useAuth } from "../utils/AuthUserContext";
 import axios from "axios";
@@ -95,8 +96,14 @@ export default function Comments({ roleID }) {
           <div className="flex flex-col mt-4 p-2 max-h-100 bg-gray-50 rounded-lg ml-12">
             <div className="flex flex-row space-x-4 mb-2">
               <div className="flex flex-row flex-grow space-x-4 my-auto">
-                <div>
-                  <a href="#" className="text-blue-400">
+                <div className="flex">
+                  <img
+                    src={blockies
+                      .create({ seed: comment.author_object.username })
+                      .toDataURL()}
+                    className="rounded-xl mr-2"
+                  />
+                  <a href="#" className="text-blue-400  self-center">
                     {comment.author_object.username}
                   </a>
                 </div>
@@ -135,6 +142,14 @@ export default function Comments({ roleID }) {
                         <div className="flex flex-row space-x-4 mb-2">
                           <div className="flex flex-row flex-grow space-x-4 my-auto">
                             <div>
+                              <img
+                                src={blockies
+                                  .create({
+                                    seed: reply.author_object.username,
+                                  })
+                                  .toDataURL()}
+                                className="rounded-xl mr-2"
+                              />
                               <a href="#" className="text-blue-400">
                                 {reply.author_object.username}
                               </a>
