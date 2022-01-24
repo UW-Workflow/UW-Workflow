@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -16,7 +16,11 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const { signInWithEmailAndPassword, authUser, loading } = useAuth();
-
+  useEffect(()=>{
+    if (authUser){
+      router.back();
+    }
+  },[authUser])
   const onSubmit = (event) => {
     setLoginError(null);
     signInWithEmailAndPassword(email, password)
@@ -48,7 +52,7 @@ const Login = () => {
 
   return (
     <MainContainer>
-      <Modal>
+      {!authUser && <Modal>
         <div>
           <div>
             <button onClick={onClose} className="float-right">
@@ -149,7 +153,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-      </Modal>
+      </Modal>}
     </MainContainer>
   );
 };
