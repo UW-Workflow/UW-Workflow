@@ -5,10 +5,11 @@ import "react-toastify/dist/ReactToastify.css";
 import {
   XAxis,
   YAxis,
-  CartesianGrid,
   Tooltip,
-  ScatterChart,
-  Scatter,
+  ResponsiveContainer,
+  AreaChart,
+  Legend,
+  Area,
 } from "recharts";
 
 export default function RoleLogistics(props) {
@@ -73,66 +74,100 @@ export default function RoleLogistics(props) {
   }, [props.roleId]);
 
   return (
-    <div className="flex flex-col flex-grow rounded-lg  my-5 shadow bg-white overflow-auto max-h-100">
-      <div className="p-3 backdrop-opacity-25" style={{ width: "70%" }}>
-        <h1 className=" ml-16 mb-6 text-lg">Reveiewed Salary by Year</h1>
-        <ScatterChart
-          width={1250}
-          height={400}
-          data={salaryData}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 5,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid />
-          <XAxis dataKey="year" />
-          <YAxis dataKey="salary" unit="$" />
-          <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-          <Scatter data={salaryData} fill="rgba(50, 107, 255, 0.7)" />
-        </ScatterChart>
+    <div className="lg:flex-row xl:flex-row sm:flex-col md:flex-col flex flex-col -ml-6 rounded-lg my-5 overflow-y-scroll bg-white  max-h-100">
+      <div
+        className="backdrop-opacity-25"
+        style={{ width: "100%", height: 300 }}
+      >
+        <ResponsiveContainer>
+          <AreaChart
+            data={salaryData}
+            margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
+          >
+            <defs>
+              <linearGradient id="colorSalary" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <XAxis dataKey="year" fontSize={12} />
+            <YAxis tick={false} />
+            <Tooltip formatter={(v) => `$${v}`} />
+            <Legend iconType="circle" iconSize={8} wrapperStyle={{ left: 0 }} />
+            <Area
+              type="monotone"
+              dataKey="salary"
+              name="Salary"
+              stroke="#8884d8"
+              fillOpacity={1}
+              fill="url(#colorSalary)"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
       </div>
-      <div className="p-3 backdrop-opacity-25">
-        <h1 className=" ml-16 mb-6 text-lg">
-          Reviewed Interview Rating by Year
-        </h1>
-        <ScatterChart
-          width={1250}
-          height={400}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 5,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid />
-          <XAxis dataKey="year" />
-          <YAxis dataKey="interview_rating" />
-          <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-          <Scatter data={interviewData} fill="rgba(50, 107, 255, 0.7)" />
-        </ScatterChart>
+      <div
+        className="backdrop-opacity-25"
+        style={{ width: "100%", height: 275 }}
+      >
+        <ResponsiveContainer>
+          <AreaChart
+            data={interviewData}
+            margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
+          >
+            <defs>
+              <linearGradient id="colorInterview" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <XAxis dataKey="year" fontSize={12} />
+            <YAxis tick={false} />
+            <Tooltip />
+            <Legend
+              iconType="star"
+              fontSize={10}
+              wrapperStyle={{ left: 0, bottom: -25 }}
+            />
+            <Area
+              type="monotone"
+              dataKey="interview_rating"
+              name="Interview Rating"
+              stroke="#82ca9d"
+              fillOpacity={1}
+              fill="url(#colorInterview)"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
       </div>
-      <div className="p-3 backdrop-opacity-25">
-        <h1 className=" ml-16 mb-6 text-lg">Reviewed Work Rating by Role</h1>
-        <ScatterChart
-          width={1250}
-          height={400}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 5,
-            bottom: 5,
-          }}
-        >
-          <CartesianGrid />
-          <XAxis dataKey="year" />
-          <YAxis dataKey="work_rating" />
-          <Tooltip cursor={{ strokeDasharray: "3 3" }} />
-          <Scatter data={coopRatingData} fill="rgba(50, 107, 255, 0.7)" />
-        </ScatterChart>
+      <div
+        className="backdrop-opacity-25"
+        style={{ width: "100%", height: 300 }}
+      >
+        <ResponsiveContainer>
+          <AreaChart
+            data={coopRatingData}
+            margin={{ top: 10, right: 0, left: 0, bottom: 0 }}
+          >
+            <defs>
+              <linearGradient id="colorCoop" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="5%" stopColor="#ffc658" stopOpacity={0.8} />
+                <stop offset="95%" stopColor="#ffc658" stopOpacity={0} />
+              </linearGradient>
+            </defs>
+            <XAxis dataKey="year" fontSize={12} />
+            <YAxis tick={false} />
+            <Tooltip />
+            <Legend iconType="star" fontSize={10} wrapperStyle={{ left: 0 }} />
+            <Area
+              type="monotone"
+              dataKey="work_rating"
+              name="Work Rating"
+              stroke="#ffc658"
+              fillOpacity={1}
+              fill="url(#colorCoop)"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
       </div>
     </div>
   );
