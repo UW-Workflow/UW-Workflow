@@ -10,5 +10,6 @@ export const ROUTES = Object.freeze({
   ROLES: "/roles",
   PROFILE:"/account",
   RESET_PASSWORD: "/resetPassword",
-  ADD_REVIEW: "/addReview"
+  ADD_REVIEW: "/addReview",
+  ADD_COMPANY: "/addcompany",
 });

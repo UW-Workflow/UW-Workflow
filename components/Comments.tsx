@@ -5,9 +5,12 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../utils/AuthUserContext";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
+import { useRouter } from "next/router";
+import {ROUTES} from "../constants/routes"
 import "react-toastify/dist/ReactToastify.css";
 export default function Comments({ roleID }) {
   const { authUser } = useAuth();
+  const router = useRouter();
   const [trigger, setTrigger] = useState(0);
   const [comments, setComments] = useState([]);
   useEffect(() => {
@@ -123,7 +126,7 @@ export default function Comments({ roleID }) {
               AddComment(e, comment.id);
             }}
             placeholder="Write a reply"
-            className="rounded-lg w-11/12 border-gray-400 border-0 placeholder:text-gray-500 ml-12 text-sm mb-4 bg-gray-100"
+            className="rounded-lg w-5/6 sm:w-11/12 border-gray-400 border-0 placeholder:text-gray-500 ml-12 text-sm mb-4 bg-gray-100"
           ></input>
           {comment.replies_object.length > 0 && (
             <div className="mb-4">
@@ -218,8 +221,8 @@ export default function Comments({ roleID }) {
         </div>
         <div className="m-auto my-8">
           <p className="text-lg">
-            Please <span className="text-blue-400">login</span> or{" "}
-            <span className="text-blue-400">sign up</span> to add a comment
+            Please <span style={{"cursor":"pointer"}} onClick={()=>{router.push(ROUTES.LOG_IN);}} className="text-blue-400">login</span> or{" "}
+            <span className="text-blue-400" style={{"cursor":"pointer"}} onClick={()=>{router.push(ROUTES.SIGN_UP);}}>sign up</span> to add a comment
           </p>
         </div>
       </div>

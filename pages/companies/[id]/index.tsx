@@ -68,7 +68,7 @@ export default function Companies() {
                 }
               ></img>
               <div className="flex flex-col mt-2.5 sm:mt-0 ">
-                <div className="flex flex-row space-x-2">
+                <div className="flex flex-col">
                   <p className="text-xl font-bold">{company.name}</p>
                   <a
                     href={
@@ -79,25 +79,14 @@ export default function Companies() {
                     }
                     target="_blank"
                     rel="noreferrer"
+                    className="mt-2"
                   >
                     🔗 {company.website}
                   </a>
                 </div>
-                {company.city != "N/A" && company.country != "N/A" && (
-                  <div>
-                    <p>
-                      {company.city},{company.country}
-                    </p>
-                  </div>
-                )}{" "}
-                {company.description != "N/A" && (
-                  <div>
-                    <p>{company.description}</p>
-                  </div>
-                )}
                 {company.total_reviews != null && (
-                  <div>
-                    <p className="text-xs pt-1">
+                  <div className="font-light">
+                    <p className="text-sm pt-1">
                       {company.total_reviews} reviews
                     </p>
                   </div>
