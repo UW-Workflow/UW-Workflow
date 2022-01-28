@@ -199,7 +199,7 @@ export const Header: React.FC = () => {
       {state === "signup" && (
         <Modal>
           <div>
-            <div className="min-w-400">
+            <div>
               <button onClick={(e) => setState("home")} className="float-right">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
