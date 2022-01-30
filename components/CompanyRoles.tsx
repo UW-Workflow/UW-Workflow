@@ -5,6 +5,8 @@ import { Role } from "../models/interfaces/types/Role";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router, { useRouter } from "next/router";
+import { SORT } from "../constants/sort";
+import { responsePathAsArray } from "graphql";
 
 export default function CompanyRoles(props) {
   let [roles, setRoles] = useState<Role[]>([]);
@@ -31,11 +33,36 @@ export default function CompanyRoles(props) {
   useEffect(() => {
     async function getRoles() {
       try {
-        const response = await axios.get(`/api/roles/getRolesByCompany`, {
-          params: {
-            companyId: props.companyId,
-          },
-        });
+        let response;
+        console.log(props.sortBy);
+        if (props.sortBy === SORT.SALARY) {
+          response = await axios.get(
+            `/api/roles/getRoles/getRolesByCompanySalary`,
+            {
+              params: {
+                companyId: props.companyId,
+              },
+            }
+          );
+        } else if (props.sortBy === SORT.INTERVIEW) {
+          response = await axios.get(
+            `/api/roles/getRoles/getRolesByCompanyInterview`,
+            {
+              params: {
+                companyId: props.companyId,
+              },
+            }
+          );
+        } else {
+          response = await axios.get(
+            `/api/roles/getRoles/getRolesByCompanyCoop`,
+            {
+              params: {
+                companyId: props.companyId,
+              },
+            }
+          );
+        }
         if (response.data.roles.length > 0) {
           setRoles(response.data.roles);
         } else setRoles([]);
@@ -45,7 +72,7 @@ export default function CompanyRoles(props) {
     }
     setRoles([]);
     getRoles();
-  }, [props.companyId]);
+  }, [props.companyId, props.sortBy]);
 
   return (
     <div className="flex">
@@ -54,9 +81,7 @@ export default function CompanyRoles(props) {
           roles.map((value, index) => {
             return (
               <div key={index}>
-                <div
-                  className="flex flex-grow flex-row mx-4 pb-2"
-                >
+                <div className="flex flex-grow flex-row mx-4 pb-2">
                   <div className="flex flex-grow my-2 mx-2">
                     <div className="flex flex-col flex-grow justify-center">
                       <div>
@@ -132,10 +157,9 @@ export default function CompanyRoles(props) {
                   </div> */}
                   </div>
                 </div>
-                {
-                  index != roles.length - 1 && <div className="border-b-2 mx-4 mb-2 flex flex-grow">
-                </div>
-                }
+                {index != roles.length - 1 && (
+                  <div className="border-b-2 mx-4 mb-2 flex flex-grow"></div>
+                )}
               </div>
             );
           })}

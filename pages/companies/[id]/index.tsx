@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { ToastContainer, toast } from "react-toastify";
 import CompanyLogistics from "../../../components/CompanyLogistics";
 import "react-toastify/dist/ReactToastify.css";
+import { SORT } from "../../../constants/sort";
 
 export default function Companies() {
   const router = useRouter();
@@ -15,6 +16,8 @@ export default function Companies() {
   //const companyID = router.query.id;
   const [company, setCompany] = useState<Company>();
   const [chosenWindow, setChosenWindow] = useState("roles");
+  const [sort, setSort] = useState(SORT.COOP);
+  const [showSortBy, setShowSortBy] = useState(false);
 
   useEffect(() => {
     if (router && router.query) {
@@ -53,13 +56,13 @@ export default function Companies() {
         getCompany();
       }
     }
-  }, [companyID, router]);
+  }, [companyID, router, sort]);
 
   return (
     <MainContainer>
       {company && (
         <div className="flex flex-col flex-grow">
-          <div className="flex flex-col sm:flex-row flex-grow border-b-2 mx-5 sm:mx-20">
+          <div className="flex flex-col sm:flex-row flex-grow mx-5 sm:mx-20">
             <div className="flex flex-col sm:flex-row flex-grow my-2 space-x-4">
               <img
                 className="flex ml-5 sm:ml-0 mr-56 sm:mr-0 mt-3 sm:mt-0"
@@ -131,9 +134,9 @@ export default function Companies() {
               </div>
             </div>
           </div>
-          <div className="mb-4 ml-20">
-            <div className="flex">
-              <ul className="flex">
+          <div className="flex flex-row mb-4 mx-10 sm:mx-20 space-x-2">
+            <div className="flex flex-row flex-grow">
+              <ul className="flex flex-grow">
                 <li
                   className={
                     chosenWindow === "roles"
@@ -164,10 +167,69 @@ export default function Companies() {
                 </li>
               </ul>
             </div>
+            <div className="flex">
+              <div>
+                <div className="p-2 group inline-block relative justify-self-end sm:mb-0">
+                  <button
+                    onClick={() => {
+                      setShowSortBy(!showSortBy);
+                    }}
+                    className="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center ml-10"
+                  >
+                    <span className="mr-1 ml-2 min-w-max">Sort By</span>
+                    <svg
+                      className=" max-h-4 w-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                  </button>
+                  {showSortBy ? (
+                    <ul className="absolute text-gray-700 pt-1 sm:min-w-200 sm:mr-10">
+                      <li className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                        <button
+                          onClick={() => {
+                            setSort(SORT.INTERVIEW);
+                            setShowSortBy(false);
+                          }}
+                        >
+                          <a className=" ">Avg Interview rating High to Low</a>
+                        </button>
+                      </li>
+                      <li className="rounded-b bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                        <button
+                          onClick={() => {
+                            setSort(SORT.COOP);
+                            setShowSortBy(false);
+                          }}
+                        >
+                          <a className="">Avg Co-op rating High to Low</a>
+                        </button>
+                      </li>
+                      <li className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                        <button
+                          onClick={() => {
+                            setSort(SORT.SALARY);
+                            setShowSortBy(false);
+                          }}
+                        >
+                          <a className="">Salary High to Low</a>
+                        </button>
+                      </li>
+                    </ul>
+                  ) : (
+                    <ul></ul>
+                  )}
+                </div>
+              </div>
+            </div>
             <hr className="mr-20" />
           </div>
           <div className="sm:mx-20 mx-5">
-            {chosenWindow == "roles" && <CompanyRoles companyId={companyID} />}
+            {chosenWindow == "roles" && (
+              <CompanyRoles companyId={companyID} sortBy={sort} />
+            )}
             {chosenWindow == "logistics" && (
               <CompanyLogistics companyId={companyID} />
             )}

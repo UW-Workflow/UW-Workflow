@@ -334,3 +334,54 @@ export const CHECK_USER_BOOKMARKS = gql`
     }
   }
 `;
+
+export const GET_ROLES_BY_COMPANY_SORT_SALARY_H_TO_L = gql`
+  query get_roles_by_company($company_id: Int) {
+    roles(
+      where: { company_id: { _eq: $company_id } }
+      order_by: { avg_salary: desc_nulls_last }
+    ) {
+      id
+      title_name
+      company_id
+      avg_coop_rating
+      avg_interview_rating
+      avg_salary
+      company_name
+    }
+  }
+`;
+
+export const GET_ROLES_BY_COMPANY_SORT_COOP_RATING_H_TO_L = gql`
+  query get_roles_by_company($company_id: Int) {
+    roles(
+      where: { company_id: { _eq: $company_id } }
+      order_by: { avg_coop_rating: desc_nulls_last }
+    ) {
+      id
+      title_name
+      company_id
+      avg_coop_rating
+      avg_interview_rating
+      avg_salary
+      company_name
+    }
+  }
+`;
+
+export const GET_ROLES_BY_COMPANY_SORT_INT_RATING_H_TO_L = gql`
+  query get_roles_by_company($company_id: Int) {
+    roles(
+      where: { company_id: { _eq: $company_id } }
+      order_by: { avg_interview_rating: desc_nulls_last }
+    ) {
+      id
+      title_name
+      company_id
+      avg_coop_rating
+      avg_interview_rating
+      avg_salary
+      company_name
+    }
+  }
+`;
