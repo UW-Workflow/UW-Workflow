@@ -385,3 +385,83 @@ export const GET_ROLES_BY_COMPANY_SORT_INT_RATING_H_TO_L = gql`
     }
   }
 `;
+
+export const GET_REVIEWS_BY_ROLES_SORT_INT_RATING_H_TO_L = gql`
+  query get_reviews_by_roles($role_id: Int) {
+    reviews(
+      where: { role_id: { _eq: $role_id } }
+      order_by: { interview_experience_rating: desc_nulls_last }
+    ) {
+      id
+      year_worked
+      salary
+      work_experience
+      work_experience_rating
+      interview_experience
+      interview_experience_rating
+      duration
+      role_id
+      time_created
+    }
+  }
+`;
+
+export const GET_REVIEWS_BY_ROLES_SORT_SALARY_RATING_H_TO_L = gql`
+  query get_reviews_by_roles($role_id: Int) {
+    reviews(
+      where: { role_id: { _eq: $role_id } }
+      order_by: { salary: desc_nulls_last }
+    ) {
+      id
+      year_worked
+      salary
+      work_experience
+      work_experience_rating
+      interview_experience
+      interview_experience_rating
+      duration
+      role_id
+      time_created
+    }
+  }
+`;
+
+export const GET_REVIEWS_BY_ROLES_SORT_WORK_RATING_H_TO_L = gql`
+  query get_reviews_by_roles($role_id: Int) {
+    reviews(
+      where: { role_id: { _eq: $role_id } }
+      order_by: { work_experience_rating: desc_nulls_last }
+    ) {
+      id
+      year_worked
+      salary
+      work_experience
+      work_experience_rating
+      interview_experience
+      interview_experience_rating
+      duration
+      role_id
+      time_created
+    }
+  }
+`;
+
+export const GET_REVIEWS_BY_ROLES_SORT_TIME_LATEST = gql`
+  query get_reviews_by_roles($role_id: Int) {
+    reviews(
+      where: { role_id: { _eq: $role_id } }
+      order_by: { time_created: desc }
+    ) {
+      id
+      year_worked
+      salary
+      work_experience
+      work_experience_rating
+      interview_experience
+      interview_experience_rating
+      duration
+      role_id
+      time_created
+    }
+  }
+`;

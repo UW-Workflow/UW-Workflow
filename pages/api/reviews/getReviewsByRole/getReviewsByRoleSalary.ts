@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { apiResponse } from "../../../utils/apiResponse";
-import { GET_REVIEWS_BY_ROLES } from "../../../utils/dbQueries";
-import { dbQuery } from "../../../utils/dbQuery";
+import { apiResponse } from "../../../../utils/apiResponse";
+import { GET_REVIEWS_BY_ROLES_SORT_SALARY_RATING_H_TO_L } from "../../../../utils/dbQueries";
+import { dbQuery } from "../../../../utils/dbQuery";
 
 export default async function handler(
   req: NextApiRequest,
@@ -15,9 +15,12 @@ export default async function handler(
     return apiResponse(res, 400, " Missing role id", true);
   }
   try {
-    const reviews = await dbQuery(GET_REVIEWS_BY_ROLES, {
-      role_id: roleId,
-    });
+    const reviews = await dbQuery(
+      GET_REVIEWS_BY_ROLES_SORT_SALARY_RATING_H_TO_L,
+      {
+        role_id: roleId,
+      }
+    );
     return res.json(reviews);
   } catch (error) {
     console.error(error);
