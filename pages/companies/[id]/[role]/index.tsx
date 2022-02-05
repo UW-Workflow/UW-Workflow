@@ -228,7 +228,7 @@ export default function Roles(props) {
               </div>
             </div>
           </div>
-          <div className="mb-4 sm:mx-20 mx-5">
+          <div className="mb-4 sm:ml-16 mx-5">
             <div className="flex">
               <ul className="flex">
                 <li

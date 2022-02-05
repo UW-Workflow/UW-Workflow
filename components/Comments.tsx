@@ -1,7 +1,7 @@
 import Image from "next/image";
 import moment from "moment";
 import * as blockies from "blockies-ts";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useAuth } from "../utils/AuthUserContext";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -45,9 +45,28 @@ export default function Comments({ roleID }) {
     }
     return results;
   }
-  function AddComment(e, parent) {
-    if (e.key == "Enter") {
-      const addComment = async () => {
+  function AddComment(e) {
+    console.log(e)
+    const addComment = async () => {
+      try {
+        await axios.post("/api/comments/addComment", {
+          author: authUser.username,
+          content: e.current.value,
+          role: roleID,
+          parent_comment: -1,
+        });
+        setTrigger(trigger + 1);
+      } catch (err) {
+        toast("We couldn't add your comment!");
+      }
+    };
+    addComment();
+    e.current.value = ""
+  }
+  function AddReply(e,parent) {
+    if (e.key == "Enter"){
+      console.log(e.target.value)
+      const addReply = async () => {
         try {
           await axios.post("/api/comments/addComment", {
             author: authUser.username,
@@ -55,48 +74,23 @@ export default function Comments({ roleID }) {
             role: roleID,
             parent_comment: parent,
           });
-          e.target.value = "";
           setTrigger(trigger + 1);
         } catch (err) {
           toast("We couldn't add your comment!");
         }
       };
-      addComment();
+      addReply();
+      e.target.value = ""
     }
-  }
-  function getCommentBlock(comment) {
-    return (
-      <div className="flex flex-col mt-4 p-2 max-h-100 bg-gray-50 rounded-lg">
-        <div className="flex flex-row space-x-4 mb-4">
-          <div className="flex flex-row flex-grow space-x-4 my-auto">
-            <div>
-              <a href="#" className="text-blue-400">
-                {comment.author_object.username}
-              </a>
-            </div>
-            <div>
-              <p className="text-gray-300">
-                {moment.parseZone(comment.created_time).fromNow()}
-              </p>
-            </div>
-          </div>
-        </div>
-        <div>
-          <div className="flex flex-shrink">
-            <p>{comment.content}</p>
-          </div>
-        </div>
-      </div>
-    );
   }
   function createCommentStructure(comments_input) {
     return comments_input.map((comment, index) => {
       return (
         <div key={index} className="bg-light-grey my-4 rounded-lg">
-          <div className="flex flex-col mt-4 p-2 max-h-100 bg-gray-50 rounded-lg mx-5 sm:ml-12">
+          <div className="flex flex-col mt-4 p-2 max-h-100 bg-gray-50 rounded-lg mx-5 sm:ml-4">
             <div className="flex flex-row space-x-4 mb-2">
               <div className="flex flex-row flex-grow space-x-4 my-auto">
-                <div className="flex">
+                <div className="flex flex-row">
                   <img
                     src={blockies
                       .create({ seed: comment.author_object.username })
@@ -123,25 +117,26 @@ export default function Comments({ roleID }) {
           <input
             type="text"
             onKeyPress={(e) => {
-              AddComment(e, comment.id);
+              AddReply(e, comment.id);
             }}
             placeholder="Write a reply"
-            className="rounded-lg w-5/6 sm:w-11/12 border-gray-400 border-0 placeholder:text-gray-500 mx-5  sm:ml-12 text-sm mb-4 bg-gray-100"
+            className="rounded-lg w-5/6 sm:w-11/12 border-gray-400 border-0 placeholder:text-gray-500 mx-5  sm:ml-4 text-sm mb-4 bg-gray-100"
           ></input>
+
           {comment.replies_object.length > 0 && (
             <div className="mb-4">
               <hr className="w-11/12 mx-auto"></hr>
               <p className="mt-2 mx-14 font-bold text-base">
                 {comment.replies_object.length} Answers
               </p>
-              <div className="max-h-2 overflow-y-scroll">
+              <div className="border-l-2 ml-10">
                 {comment.replies_object.map((reply, key) => {
                   return (
-                    <div key={key} className="ml-16">
+                    <div key={key} className="ml-4">
                       <div className="flex flex-col p-2 max-h-100 bg-gray-50 rounded-lg">
                         <div className="flex flex-row space-x-4 mb-2">
                           <div className="flex flex-row flex-grow space-x-4 my-auto">
-                            <div>
+                            <div className="flex flex-row">
                               <img
                                 src={blockies
                                   .create({
@@ -178,19 +173,32 @@ export default function Comments({ roleID }) {
     });
   }
   function isAuthenticated() {
+    const questionInput = useRef(null);
     return (
       <div className="flex flex-col mb-4">
         <div className="flex flex-row flex-grow space-x-8 mb-2">
           <div className="flex flex-grow">
+            <img
+              src={blockies.create({ seed: authUser.username }).toDataURL()}
+              className="rounded-xl mr-2 my-auto"
+            />
             <input
               type="text"
-              className="rounded-lg full-input border-gray-400 border-0.5 placeholder:text-gray-500
+              style={{ width: "95%" }}
+              className="rounded-lg border-gray-400 border-0.5 placeholder:text-gray-500
               no-outline text-sm"
-              onKeyPress={(e) => {
-                AddComment(e, -1);
-              }} // use -1 to indicate root comments
               placeholder="Ask a question"
+              ref={questionInput}
             ></input>
+            <div
+              onClick={() => {
+                AddComment(questionInput);
+              }} // use -1 to indicate root comments
+              style={{ cursor: "pointer" }}
+              className="font-bold text-button-blue px-7 flex items-center space-x-2 ml-7 border-2 rounded-full border-button-blue"
+            >
+              Submit
+            </div>
           </div>
         </div>
         {comments.length == 0 && (
