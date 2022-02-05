@@ -34,7 +34,6 @@ export default function CompanyRoles(props) {
     async function getRoles() {
       try {
         let response;
-        console.log(props.sortBy);
         if (props.sortBy === SORT.SALARY) {
           response = await axios.get(
             `/api/roles/getRoles/getRolesByCompanySalary`,
