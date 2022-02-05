@@ -258,8 +258,14 @@ export default function Roles(props) {
                     handleClick("comments");
                   }}
                 >
-                  <a className="font-medium text-black-500 " href="#">
+                  <a
+                    className="font-medium text-black-500 hidden sm:block"
+                    href="#"
+                  >
                     Questions and Answers
+                  </a>
+                  <a className="font-medium text-black-500 sm:hidden" href="#">
+                    Q&amp;A
                   </a>
                 </li>
                 <li
@@ -285,7 +291,7 @@ export default function Roles(props) {
                     onClick={() => {
                       setShowSortBy(!showSortBy);
                     }}
-                    className="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center ml-10"
+                    className="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center sm:ml-10"
                   >
                     <span className="mr-1 ml-2 min-w-max">Sort By</span>
                     <svg
@@ -297,7 +303,7 @@ export default function Roles(props) {
                     </svg>
                   </button>
                   {showSortBy ? (
-                    <ul className="absolute text-gray-700 pt-1 sm:min-w-200 sm:mr-10">
+                    <ul className="absolute text-gray-700 pt-1 sm:min-w-200 mr-10 overflow-auto">
                       <li className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
                         <button
                           onClick={() => {

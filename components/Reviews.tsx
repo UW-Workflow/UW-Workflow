@@ -121,8 +121,8 @@ export default function Reviews(props) {
                       </p>
                     </div>
                   </div>
-                  <div className="flex sm:flex-row-reverse my-4">
-                    <div className="flex flex-col">
+                  <div className="flex sm:flex-row-reverse my-2">
+                    <div className="flex flex-col text-xs">
                       <div className="flex flex-row">
                         <div className="mr-4">
                           <p>Interview experience</p>
@@ -137,6 +137,15 @@ export default function Reviews(props) {
                         </div>
                         <div className="flex flex-row ml-5">
                           {setStars(value.work_experience_rating)}
+                        </div>
+                      </div>
+                      <div className="flex flex-row">
+                        <div className="mr-4">
+                          <p>
+                            Salary:{" $"}
+                            {Number(value.salary).toFixed(2)}
+                            /hr
+                          </p>
                         </div>
                       </div>
                     </div>
