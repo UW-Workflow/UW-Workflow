@@ -68,7 +68,7 @@ export default function Companies() {
                 }
               ></img>
               <div className="flex flex-col mt-2.5 sm:mt-0 ">
-                <div className="flex flex-col">
+                <div className="flex flex-col sm:flex-row">
                   <p className="text-xl font-bold">{company.name}</p>
                   <a
                     href={
@@ -79,7 +79,7 @@ export default function Companies() {
                     }
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-2"
+                    className="mt-2 sm:mt-0 sm:ml-2"
                   >
                     🔗 {company.website}
                   </a>
@@ -120,7 +120,7 @@ export default function Companies() {
               </div>
             </div>
           </div>
-          <div className="mb-4 ml-20">
+          <div className="mb-4 sm:ml-20 ml-10">
             <div className="flex">
               <ul className="flex">
                 <li

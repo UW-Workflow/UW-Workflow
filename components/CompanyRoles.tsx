@@ -54,9 +54,7 @@ export default function CompanyRoles(props) {
           roles.map((value, index) => {
             return (
               <div key={index}>
-                <div
-                  className="flex flex-grow flex-row mx-4 pb-2"
-                >
+                <div className="flex flex-grow flex-row mx-4 pb-2">
                   <div className="flex flex-grow my-2 mx-2">
                     <div className="flex flex-col flex-grow justify-center">
                       <div>
@@ -105,7 +103,7 @@ export default function CompanyRoles(props) {
 
                         {value.avg_salary && (
                           <p>
-                            Average Salary:{" "}
+                            Average Salary:{" $"}
                             {Number(value.avg_salary).toFixed(2)}
                             /hr
                           </p>
@@ -132,10 +130,9 @@ export default function CompanyRoles(props) {
                   </div> */}
                   </div>
                 </div>
-                {
-                  index != roles.length - 1 && <div className="border-b-2 mx-4 mb-2 flex flex-grow">
-                </div>
-                }
+                {index != roles.length - 1 && (
+                  <div className="border-b-2 mx-4 mb-2 flex flex-grow"></div>
+                )}
               </div>
             );
           })}

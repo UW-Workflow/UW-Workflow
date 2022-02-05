@@ -168,9 +168,7 @@ export default function AddCompany() {
           Add a company
         </h1>
         <h4 className="font-cabinet-grotesk mt-0 text-gray-500 text-lg">
-          Please fill out the details below to add the
-          <br />
-          company
+          Please fill out the details below to add the company
         </h4>
       </div>
       {modelStage === 2 ? (
