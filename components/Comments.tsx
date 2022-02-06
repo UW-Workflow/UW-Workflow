@@ -46,7 +46,9 @@ export default function Comments({ roleID }) {
     return results;
   }
   function AddComment(e) {
-    console.log(e)
+    if (e.current.value == ""){
+      return
+    }
     const addComment = async () => {
       try {
         await axios.post("/api/comments/addComment", {
@@ -65,7 +67,9 @@ export default function Comments({ roleID }) {
   }
   function AddReply(e,parent) {
     if (e.key == "Enter"){
-      console.log(e.target.value)
+      if (e.target.value == ""){
+        return
+      }
       const addReply = async () => {
         try {
           await axios.post("/api/comments/addComment", {
@@ -177,7 +181,7 @@ export default function Comments({ roleID }) {
     return (
       <div className="flex flex-col mb-4">
         <div className="flex flex-row flex-grow space-x-8 mb-2">
-          <div className="flex flex-grow">
+          <div className="flex flex-row flex-grow">
             <img
               src={blockies.create({ seed: authUser.username }).toDataURL()}
               className="rounded-xl mr-2 my-auto"
