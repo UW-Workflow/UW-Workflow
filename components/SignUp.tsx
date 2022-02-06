@@ -165,14 +165,12 @@ const SignUp = (props) => {
                       }
                     />
                     <span className="ml-2">
-                      By signing up, you agree to our{" "}
-                      <a
-                        target="_blank"
-                        className="text-blue-text"
-                        href="/privacypolicy"
-                      >
-                        Privacy Policy
-                      </a>
+                      By signing up, you agree to our&nbsp;
+                      <Link href="/privacypolicy">
+                        <p className="text-blue-text cursor-pointer inline">
+                          Privacy Policy&nbsp;
+                        </p>
+                      </Link>
                     </span>
                   </label>
                 </div>

@@ -1,16 +1,6 @@
+import Link from "next/link";
 import React from "react";
-import ImageCard from "../components/ImageCard";
 import { MainContainer } from "../components/MainContainer";
-import {
-  AKSHAYA_GITHUB,
-  AKSHAYA_LINKEDIN,
-  DHVITI_GITHUB,
-  DHVITI_LINKEDIN,
-  SNEH_GITHUB,
-  SNEH_LINKEDIN,
-  TONY_GITHUB,
-  TONY_LINKEDIN,
-} from "../constants/contants";
 
 export default function PrivacyPolicy() {
   return (
@@ -21,19 +11,20 @@ export default function PrivacyPolicy() {
         </h1>
         <hr className="mt-5" />
         <p className="mt-14 font-cabinet-grotesk font-extralight text-gray-800 text-lg">
-          {" "}
-          We at{" "}
-          <a href="/" className="text-blue-text">
-            uwworkflow.com
-          </a>{" "}
+          We at&nbsp;
+          <Link href="/">
+            <p className="text-blue-text cursor-pointer inline">
+              uwworkflow.com&nbsp;
+            </p>
+          </Link>
           are committed to maintaining the accuracy, confidentiality, and
           security of your personally identifiable information. As part of this
           commitment, our privacy policy governs our actions as they relate to
           the collection, use and disclosure of Personal Information. Our
           privacy policy is based upon the values set by the Canadian Standards
-          Association's Model Code for the Protection of Personal Information
-          and Canada's Personal Information Protection and Electronic Documents
-          Act.
+          Association&apos;s Model Code for the Protection of Personal
+          Information and Canada&apos;s Personal Information Protection and
+          Electronic Documents Act.
         </p>
         <h1 className="lg:text-2xl md:text-xl sm:text-lg text-lg mt-8">
           Introduction
@@ -97,10 +88,12 @@ export default function PrivacyPolicy() {
         <p className="mt-6 font-cabinet-grotesk font-extralight text-gray-800 text-lg">
           You may direct any questions or enquiries with respect to our privacy
           policy or our practices by contacting us at uwworkflow@gmail.com or by
-          going to{" "}
-          <a href="/contactus" className="text-blue-text">
-            uwworkflow.com/contactus
-          </a>
+          going to &nbsp;
+          <Link href="/contactus">
+            <p className="text-blue-text cursor-pointer inline">
+              uwworkflow.com/contactus&nbsp;
+            </p>
+          </Link>
         </p>
         <h1 className="lg:text-2xl md:text-xl sm:text-lg text-lg mt-10">
           Additional Information
@@ -110,8 +103,8 @@ export default function PrivacyPolicy() {
         </h1>
         <p className="mt-6 font-cabinet-grotesk font-extralight text-gray-800 text-lg">
           A cookie is a small computer file or piece of information that may be
-          stored in your computer's hard drive when you visit our websites. We
-          may use cookies to improve our website’s functionality and in some
+          stored in your computer&apos;s hard drive when you visit our websites.
+          We may use cookies to improve our website’s functionality and in some
           cases, to provide visitors with a customized online experience.
         </p>
         <p className="mt-4 font-cabinet-grotesk font-extralight text-gray-800 text-lg">
