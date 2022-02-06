@@ -178,7 +178,7 @@ export default function Comments({ roleID }) {
       );
     });
   }
-  function isAuthenticated() {
+  function IsAuthenticated() {
     const questionInput = useRef(null);
     return (
       <div className="flex flex-col mb-4">
@@ -227,5 +227,5 @@ export default function Comments({ roleID }) {
       </div>
     );
   }
-  return isAuthenticated()
+  return IsAuthenticated()
 }
