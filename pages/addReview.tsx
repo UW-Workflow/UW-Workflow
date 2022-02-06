@@ -499,7 +499,7 @@ export default function AddReview() {
                         <div>
                           <div className="flex justify-between">
                             <label className="text-s text-gray-600 ml-4 mt-1 mb-2 font-cabinet-grotesk">
-                              Co-op Experience
+                              Work Experience
                             </label>
                             <StarRatings
                               starDimension={25}
