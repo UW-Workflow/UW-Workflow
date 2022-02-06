@@ -6,7 +6,7 @@ import Select from "react-select";
 import StarRatings from "react-star-ratings";
 import axios from "axios";
 import { generateArrayOfYears } from "../utils/helpers";
-import CurrencyInput from "react-currency-input-field";
+import CurrencyInput from "react-currency-input";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BadgeCheckIcon from "@heroicons/react/solid/BadgeCheckIcon";
@@ -416,14 +416,13 @@ export default function AddReview() {
                           Salary /hr
                         </label>
                         <CurrencyInput
-                          id="input-example"
-                          name="input-currency"
                           allowDecimals={true}
                           decimalScale={2}
+                          decimalSeperator="."
                           placeholder="Please enter your salary"
                           decimalsLimit={2}
                           prefix="$"
-                          value={salary || "0.0"}
+                          value={salary || null}
                           className="p-2.5 text-xs text-gray-600 mb-8 rounded-md ml-1 mt-2 border-gray-300 font-cabinet-grotesk"
                           onValueChange={(v) => setSalary(v)}
                         />

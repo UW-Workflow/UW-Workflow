@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
@@ -16,14 +16,18 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const router = useRouter();
   const { signInWithEmailAndPassword, authUser, loading } = useAuth();
-
+  useEffect(()=>{
+    if (authUser){
+      router.back();
+    }
+  },[authUser])
   const onSubmit = (event) => {
     setLoginError(null);
     signInWithEmailAndPassword(email, password)
       .then(() => {
         if (!loading && authUser) {
           if (authUser.verified) {
-            router.push("/");
+            router.back();
           } else {
             setLoginError("Please verify your email address!");
           }
@@ -48,7 +52,7 @@ const Login = () => {
 
   return (
     <MainContainer>
-      <Modal>
+      {!authUser && <Modal>
         <div>
           <div>
             <button onClick={onClose} className="float-right">
@@ -149,7 +153,7 @@ const Login = () => {
             </div>
           </div>
         </div>
-      </Modal>
+      </Modal>}
     </MainContainer>
   );
 };

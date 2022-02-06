@@ -84,12 +84,6 @@ export default function AddCompany() {
       setError("Company name not set");
     } else if (!validURL(company.website)) {
       setError("Company website entered is incorrect");
-    } else if (company.city === "") {
-      setError("City is incorrect");
-    } else if (company.country === "") {
-      setError("Country is incorrect");
-    } else if (company.description === "") {
-      setError("Company description is incorrect");
     } else {
       setModelStage(modelStage + 1);
       forceUpdate();
@@ -174,9 +168,7 @@ export default function AddCompany() {
           Add a company
         </h1>
         <h4 className="font-cabinet-grotesk mt-0 text-gray-500 text-lg">
-          Please fill out the details below to add the
-          <br />
-          company
+          Please fill out the details below to add the company
         </h4>
       </div>
       {modelStage === 2 ? (
@@ -255,7 +247,7 @@ export default function AddCompany() {
                     className="rounded-lg placeholder-gray-900"
                   />
                 </div>
-                <div className="flex flex-col mt-4 space-y-1">
+                {/* <div className="flex flex-col mt-4 space-y-1">
                   <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
                     Company Description
                   </label>
@@ -269,8 +261,8 @@ export default function AddCompany() {
                     placeholder="Please write a short description about the company"
                     className="rounded-lg placeholder-gray-300 resize-none"
                   />
-                </div>
-                <div className="flex flex-col md:flex-row">
+                </div> */}
+                {/* <div className="flex flex-col md:flex-row">
                   <div className="flex flex-col mt-4 space-y-1">
                     <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
                       City
@@ -299,7 +291,7 @@ export default function AddCompany() {
                       className="rounded-lg placeholder-gray-300"
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
             ) : modelStage === 1 ? (
               <div>
@@ -316,17 +308,17 @@ export default function AddCompany() {
                 <div className="flex">
                   <img
                     src={company.logo ? company.logo : "samplecompany.png"}
-                    className="mt-4 w-40 h-40"
+                    className="m-4"
                   />
                   <div className="flex flex-col">
                     <h1 className=" text-sm md:text-xl font-cabinet-grotesk mt-5 ml-10">
                       {company.name}
                     </h1>
-                    <h1 className="text-sm text-gray-600 font-cabinet-grotesk mt-2 ml-10">
+                    {/* <h1 className="text-sm text-gray-600 font-cabinet-grotesk mt-2 ml-10">
                       {company.description.length > 20
                         ? company.description.substring(0, 20) + "..."
                         : company.description}
-                    </h1>
+                    </h1> */}
 
                     <a
                       href={
@@ -339,11 +331,11 @@ export default function AddCompany() {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      Website
+                      {company.website}
                     </a>
                   </div>
                 </div>
-                <div className="flex flex-col mt-4 space-y-1">
+                {/* <div className="flex flex-col mt-4 space-y-1">
                   <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
                     Location
                   </label>
@@ -353,7 +345,7 @@ export default function AddCompany() {
                     disabled={true}
                     className="rounded-lg placeholder-gray-400"
                   />
-                </div>
+                </div> */}
               </div>
             ) : null}
             {error !== "" ? (
