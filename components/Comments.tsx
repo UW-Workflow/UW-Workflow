@@ -118,15 +118,17 @@ export default function Comments({ roleID }) {
               </div>
             </div>
           </div>
-          <input
-            type="text"
-            onKeyPress={(e) => {
-              AddReply(e, comment.id);
-            }}
-            placeholder="Write a reply"
-            className="rounded-lg w-5/6 sm:w-11/12 border-gray-400 border-0 placeholder:text-gray-500 mx-5  sm:ml-4 text-sm mb-4 bg-gray-100"
-          ></input>
-
+          {authUser &&
+            <input
+              type="text"
+              onKeyPress={(e) => {
+                AddReply(e, comment.id);
+              }}
+              placeholder="Write a reply"
+              className="rounded-lg w-5/6 sm:w-11/12 border-gray-400 border-0 placeholder:text-gray-500 mx-5  sm:ml-4 text-sm mb-4 bg-gray-100"
+            ></input>
+          }
+          {authUser && <div className="py-3 mb-4"></div>}
           {comment.replies_object.length > 0 && (
             <div className="mb-4">
               <hr className="w-11/12 mx-auto"></hr>
@@ -180,31 +182,33 @@ export default function Comments({ roleID }) {
     const questionInput = useRef(null);
     return (
       <div className="flex flex-col mb-4">
-        <div className="flex flex-row flex-grow space-x-8 mb-2">
-          <div className="flex flex-row flex-grow">
-            <img
-              src={blockies.create({ seed: authUser.username }).toDataURL()}
-              className="rounded-xl mr-2 my-auto"
-            />
-            <input
-              type="text"
-              style={{ width: "95%" }}
-              className="rounded-lg border-gray-400 border-0.5 placeholder:text-gray-500
-              no-outline text-sm"
-              placeholder="Ask a question"
-              ref={questionInput}
-            ></input>
-            <div
-              onClick={() => {
-                AddComment(questionInput);
-              }} // use -1 to indicate root comments
-              style={{ cursor: "pointer" }}
-              className="font-bold text-button-blue px-7 flex items-center space-x-2 ml-7 border-2 rounded-full border-button-blue"
-            >
-              Submit
+        {authUser &&
+          <div className="flex flex-row flex-grow space-x-8 mb-2">
+            <div className="flex flex-row flex-grow">
+              <img
+                src={blockies.create({ seed: authUser.username }).toDataURL()}
+                className="rounded-xl mr-2 my-auto"
+              />
+              <input
+                type="text"
+                style={{ width: "95%" }}
+                className="rounded-lg border-gray-400 border-0.5 placeholder:text-gray-500
+                no-outline text-sm"
+                placeholder="Ask a question"
+                ref={questionInput}
+              ></input>
+              <div
+                onClick={() => {
+                  AddComment(questionInput);
+                }} // use -1 to indicate root comments
+                style={{ cursor: "pointer" }}
+                className="font-bold text-button-blue px-7 flex items-center space-x-2 ml-7 border-2 rounded-full border-button-blue"
+              >
+                Submit
+              </div>
             </div>
           </div>
-        </div>
+        }
         {comments.length == 0 && (
           <div className="flex items-center flex-grow bg-light-grey rounded-lg shadow py-24">
             <div className="mx-auto my-auto">
@@ -223,40 +227,5 @@ export default function Comments({ roleID }) {
       </div>
     );
   }
-  if (authUser) {
-    return isAuthenticated();
-  } else {
-    return (
-      <div className="flex flex-col shadow bg-gray-50 mt-2">
-        <div className="m-auto mt-10">
-          <img src="/loginNeededIcon.svg"></img>
-        </div>
-        <div className="m-auto my-8">
-          <p className="text-lg">
-            Please{" "}
-            <span
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                router.push(ROUTES.LOG_IN);
-              }}
-              className="text-blue-400"
-            >
-              login
-            </span>{" "}
-            or{" "}
-            <span
-              className="text-blue-400"
-              style={{ cursor: "pointer" }}
-              onClick={() => {
-                router.push(ROUTES.SIGN_UP);
-              }}
-            >
-              sign up
-            </span>{" "}
-            to add a comment
-          </p>
-        </div>
-      </div>
-    );
-  }
+  return isAuthenticated()
 }
