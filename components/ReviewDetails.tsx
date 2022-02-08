@@ -51,7 +51,7 @@ export default function ReviewDetails(props) {
               <div className="flex flex-col flex-grow">
                 <div className="flex flex-row">
                   <div>
-                    <p className="font-bold text-base mr-0.5">
+                    <p className="font-bold text-base mr-0.5 font-cabinet-grotesk">
                       Interview Experience
                     </p>
                   </div>
@@ -61,7 +61,9 @@ export default function ReviewDetails(props) {
                 </div>
 
                 <div className="text-sm text-gray-500 my-auto">
-                  <p>{review.interview_experience}</p>
+                  <p className=" font-cabinet-grotesk">
+                    {review.interview_experience}
+                  </p>
                 </div>
               </div>
             </div>
@@ -73,18 +75,37 @@ export default function ReviewDetails(props) {
               <div className="flex flex-col flex-grow">
                 <div className="flex flex-row">
                   <div>
-                    <p className="text-base font-bold  mr-1">Coop Experience</p>
+                    <p className="text-base font-bold  mr-1 font-cabinet-grotesk">
+                      Work Experience
+                    </p>
                   </div>
                   <div className="flex flex-row">
                     {setStars(review.work_experience_rating)}
                   </div>
                 </div>
                 <div className="text-sm text-gray-500 my-auto">
-                  <p>{review.work_experience}</p>
+                  <p className=" font-cabinet-grotesk">
+                    {review.work_experience}
+                  </p>
                 </div>
               </div>
             </div>
           </div>
+        )}
+        {review && (
+          <div className="flex">
+            <p className="text-base font-bold  ml-6 mt-5 font-cabinet-grotesk">
+              Salary&nbsp; -&nbsp; &nbsp;
+            </p>
+            <p className="text-green-600 mt-5 font-bold font-cabinet-grotesk">
+              ${review.salary.toFixed(2)} / hr
+            </p>
+          </div>
+        )}
+        {review && (
+          <p className="text-base font-bold  ml-6 mt-5 mb-5 font-cabinet-grotesk">
+            Duration&nbsp; -&nbsp; &nbsp;{review.duration} months
+          </p>
         )}
       </div>
       <div>

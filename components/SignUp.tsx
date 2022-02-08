@@ -7,7 +7,7 @@ import { validateEmail } from "../utils/authUtils";
 import axios from "axios";
 import Login from "./Login";
 import Successful from "./Successful";
-import { toast } from "react-toastify";
+import Link from "next/link";
 const usernameGen = require("username-gen");
 
 const SignUp = (props) => {
@@ -165,7 +165,12 @@ const SignUp = (props) => {
                       }
                     />
                     <span className="ml-2">
-                      By signing up, you agree to our Terms and Conditions
+                      By signing up, you agree to our&nbsp;
+                      <Link href="/privacypolicy">
+                        <p className="text-blue-text cursor-pointer inline">
+                          Privacy Policy&nbsp;
+                        </p>
+                      </Link>
                     </span>
                   </label>
                 </div>

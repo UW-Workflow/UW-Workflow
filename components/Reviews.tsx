@@ -133,7 +133,7 @@ export default function Reviews(props) {
                       </div>
                       <div className="flex flex-row">
                         <div className="mr-4">
-                          <p>Co-op experience</p>
+                          <p>Work experience</p>
                         </div>
                         <div className="flex flex-row ml-5">
                           {setStars(value.work_experience_rating)}

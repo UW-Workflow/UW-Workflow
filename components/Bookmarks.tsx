@@ -76,7 +76,7 @@ export default function Bookmarks() {
                         <div className="hidden sm:block">
                           {value.avg_coop_rating && (
                             <p>
-                              Average Coop Rating:{" "}
+                              Average Work Rating:{" "}
                               {Number(value.avg_coop_rating).toFixed(2)}
                             </p>
                           )}
@@ -116,7 +116,11 @@ export default function Bookmarks() {
             })}
         </div>
       )}
-      {bookmarks.length == 0 && <div className="text-gray-500 my-auto mx-auto">No bookmarks selected</div>}
+      {bookmarks.length == 0 && (
+        <div className="text-gray-500 my-auto mx-auto">
+          No bookmarks selected
+        </div>
+      )}
       <div className="self-center bg-gradient-3 filter blur-huge px-20 py-10 mt-5 flex-grow hidden sm:block"></div>
       <div>
         <ToastContainer
