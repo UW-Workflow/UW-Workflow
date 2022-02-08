@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
 import { useRouter } from "next/router";
+import { SORT } from "../constants/sort";
 
 export default function Reviews(props) {
   let [reviews, setReviews] = useState<Review[]>([]);
@@ -13,20 +14,53 @@ export default function Reviews(props) {
   useEffect(() => {
     async function getReviews() {
       try {
-        const response = await axios.get(`/api/reviews/getReviewsByRole`, {
-          params: {
-            roleId: props.roleId,
-          },
-        });
+        let response;
+        if (props.sortBy === SORT.SALARY) {
+          response = await axios.get(
+            `/api/reviews/getReviewsByRole/getReviewsByRoleSalary`,
+            {
+              params: {
+                roleId: props.roleId,
+              },
+            }
+          );
+        } else if (props.sortBy === SORT.INTERVIEW) {
+          response = await axios.get(
+            `/api/reviews/getReviewsByRole/getReviewsByRoleInterview`,
+            {
+              params: {
+                roleId: props.roleId,
+              },
+            }
+          );
+        } else if (props.sortBy === SORT.TIME) {
+          response = await axios.get(
+            `/api/reviews/getReviewsByRole/getReviewsByRoleTime`,
+            {
+              params: {
+                roleId: props.roleId,
+              },
+            }
+          );
+        } else {
+          response = await axios.get(
+            `/api/reviews/getReviewsByRole/getReviewsByRoleCoop`,
+            {
+              params: {
+                roleId: props.roleId,
+              },
+            }
+          );
+        }
         if (response.data.reviews && response.data.reviews.length > 0) {
           setReviews(response.data.reviews);
-        }
+        } else setReviews([]);
       } catch (error) {
         toast("Error in getting reviews by role for role page. " + error);
       }
     }
     getReviews();
-  }, [props.roleId]);
+  }, [props.roleId, props.sortBy]);
   function setStars(num) {
     const TOTAL_STARS = 5;
     var stars = [];
@@ -87,8 +121,8 @@ export default function Reviews(props) {
                       </p>
                     </div>
                   </div>
-                  <div className="flex sm:flex-row-reverse my-4">
-                    <div className="flex flex-col">
+                  <div className="flex sm:flex-row-reverse my-2">
+                    <div className="flex flex-col text-xs">
                       <div className="flex flex-row">
                         <div className="mr-4">
                           <p>Interview experience</p>
@@ -103,6 +137,15 @@ export default function Reviews(props) {
                         </div>
                         <div className="flex flex-row ml-5">
                           {setStars(value.work_experience_rating)}
+                        </div>
+                      </div>
+                      <div className="flex flex-row">
+                        <div className="mr-4">
+                          <p>
+                            Salary:{" $"}
+                            {Number(value.salary).toFixed(2)}
+                            /hr
+                          </p>
                         </div>
                       </div>
                     </div>

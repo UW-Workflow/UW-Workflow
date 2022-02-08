@@ -5,6 +5,8 @@ import { Role } from "../models/interfaces/types/Role";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import router, { useRouter } from "next/router";
+import { SORT } from "../constants/sort";
+import { responsePathAsArray } from "graphql";
 
 export default function CompanyRoles(props) {
   let [roles, setRoles] = useState<Role[]>([]);
@@ -31,11 +33,35 @@ export default function CompanyRoles(props) {
   useEffect(() => {
     async function getRoles() {
       try {
-        const response = await axios.get(`/api/roles/getRolesByCompany`, {
-          params: {
-            companyId: props.companyId,
-          },
-        });
+        let response;
+        if (props.sortBy === SORT.SALARY) {
+          response = await axios.get(
+            `/api/roles/getRoles/getRolesByCompanySalary`,
+            {
+              params: {
+                companyId: props.companyId,
+              },
+            }
+          );
+        } else if (props.sortBy === SORT.INTERVIEW) {
+          response = await axios.get(
+            `/api/roles/getRoles/getRolesByCompanyInterview`,
+            {
+              params: {
+                companyId: props.companyId,
+              },
+            }
+          );
+        } else {
+          response = await axios.get(
+            `/api/roles/getRoles/getRolesByCompanyCoop`,
+            {
+              params: {
+                companyId: props.companyId,
+              },
+            }
+          );
+        }
         if (response.data.roles.length > 0) {
           setRoles(response.data.roles);
         } else setRoles([]);
@@ -45,16 +71,30 @@ export default function CompanyRoles(props) {
     }
     setRoles([]);
     getRoles();
-  }, [props.companyId]);
+  }, [props.companyId, props.sortBy]);
 
   return (
     <div className="flex">
-      <div className="flex flex-col flex-grow rounded-lg  my-5 shadow bg-white overflow-auto max-h-100">
+      <div className="flex flex-col flex-grow rounded-lg  my-5 shadow bg-white overflow-scroll max-h-100">
         {roles &&
           roles.map((value, index) => {
             return (
-              <div key={index}>
-                <div className="flex flex-grow flex-row mx-4 pb-2">
+              <div
+                style={{
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  router.push({
+                    pathname: "/companies/[id]/[role]",
+                    query: {
+                      id: props.companyId,
+                      role: value.id,
+                    },
+                  });
+                }}
+                key={index}
+              >
+                <div className="flex flex-grow flex-row mx-4 py-2">
                   <div className="flex flex-grow my-2 mx-2">
                     <div className="flex flex-col flex-grow justify-center">
                       <div>
@@ -62,7 +102,7 @@ export default function CompanyRoles(props) {
                           {value.title_name}
                         </p>
                       </div>
-                      <div className="hidden sm:block text-sm">
+                      <div className="hidden sm:block text-xs pt-2">
                         {/* {value.reviews != 1 ? (
                       <p>{value.reviews} Reviews</p>
                     ) : (
@@ -131,7 +171,7 @@ export default function CompanyRoles(props) {
                   </div>
                 </div>
                 {index != roles.length - 1 && (
-                  <div className="border-b-2 mx-4 mb-2 flex flex-grow"></div>
+                  <div className="border-b-2 mx-4 flex flex-grow"></div>
                 )}
               </div>
             );

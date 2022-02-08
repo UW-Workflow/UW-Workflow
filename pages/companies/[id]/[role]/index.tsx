@@ -11,6 +11,7 @@ import { useAuth } from "../../../../utils/AuthUserContext";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import RoleLogistics from "../../../../components/RoleLogistics";
+import { SORT } from "../../../../constants/sort";
 
 export default function Roles(props) {
   const { authUser, loading } = useAuth();
@@ -24,6 +25,8 @@ export default function Roles(props) {
   const [company, setCompany] = useState<Company>();
   const [role, setRole] = useState<Role>();
   const [bookmarked, setBookmarked] = useState(false);
+  const [sort, setSort] = useState(SORT.COOP);
+  const [showSortBy, setShowSortBy] = useState(false);
 
   async function addBookmark() {
     try {
@@ -161,7 +164,7 @@ export default function Roles(props) {
     if (authUser) {
       checkBookmark();
     }
-  }, [companyID, roleID, authUser, bookmarked, router]);
+  }, [companyID, roleID, authUser, bookmarked, router, sort]);
   return (
     <MainContainer>
       {company && role && (
@@ -228,9 +231,9 @@ export default function Roles(props) {
               </div>
             </div>
           </div>
-          <div className="mb-4 sm:ml-16 mx-5">
-            <div className="flex">
-              <ul className="flex">
+          <div className="flex flex-row mb-4 mx-10 sm:mx-20 space-x-2">
+            <div className="flex-row flex-grow">
+              <ul className="flex flex-grow">
                 <li
                   className={
                     chosenWindow === "reviews"
@@ -255,8 +258,14 @@ export default function Roles(props) {
                     handleClick("comments");
                   }}
                 >
-                  <a className="font-medium text-black-500 " href="#">
+                  <a
+                    className="font-medium text-black-500 hidden sm:block"
+                    href="#"
+                  >
                     Questions and Answers
+                  </a>
+                  <a className="font-medium text-black-500 sm:hidden" href="#">
+                    Q&amp;A
                   </a>
                 </li>
                 <li
@@ -275,11 +284,78 @@ export default function Roles(props) {
                 </li>
               </ul>
             </div>
+            <div className="flex">
+              <div>
+                <div className="p-2 group inline-block relative justify-self-end sm:mb-0">
+                  <button
+                    onClick={() => {
+                      setShowSortBy(!showSortBy);
+                    }}
+                    className="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center sm:ml-10"
+                  >
+                    <span className="mr-1 ml-2 min-w-max">Sort By</span>
+                    <svg
+                      className=" max-h-4 w-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                  </button>
+                  {showSortBy ? (
+                    <ul className="absolute text-gray-700 pt-1 sm:min-w-200 mr-10 overflow-auto">
+                      <li className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                        <button
+                          onClick={() => {
+                            setSort(SORT.INTERVIEW);
+                            setShowSortBy(false);
+                          }}
+                        >
+                          <a className=" ">Interview rating: High to Low</a>
+                        </button>
+                      </li>
+                      <li className="rounded-b bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                        <button
+                          onClick={() => {
+                            setSort(SORT.COOP);
+                            setShowSortBy(false);
+                          }}
+                        >
+                          <a className="">Co-op rating: High to Low</a>
+                        </button>
+                      </li>
+                      <li className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                        <button
+                          onClick={() => {
+                            setSort(SORT.SALARY);
+                            setShowSortBy(false);
+                          }}
+                        >
+                          <a className="">Salary: High to Low</a>
+                        </button>
+                      </li>
+                      <li className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                        <button
+                          onClick={() => {
+                            setSort(SORT.TIME);
+                            setShowSortBy(false);
+                          }}
+                        >
+                          <a className="">Time Added: Latest to Oldest</a>
+                        </button>
+                      </li>
+                    </ul>
+                  ) : (
+                    <ul></ul>
+                  )}
+                </div>
+              </div>
+            </div>
             <hr className="mr-20" />
           </div>
           <div className="sm:mx-20 mx-5">
             {chosenWindow == "reviews" && (
-              <Reviews companyId={companyID} roleId={roleID} />
+              <Reviews companyId={companyID} roleId={roleID} sortBy={sort} />
             )}
             {chosenWindow == "comments" && <Comments roleID={roleID} />}
             {chosenWindow == "logistics" && <RoleLogistics roleID={roleID} />}
