@@ -33,7 +33,6 @@ export default function AddReview() {
   const [coopRating, setCoopRating] = useState<number>(0.0);
   const [coopReview, setCoopReview] = useState<string>("");
   const [roleId, setRoleId] = useState<number>();
-  console.log(salary);
   async function getCompany() {
     try {
       const response = await axios.get(`/api/company/getCompany`, {
