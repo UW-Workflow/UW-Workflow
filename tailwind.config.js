@@ -29,6 +29,9 @@ module.exports = {
         "cabinet-grotesk": ['"Cabinet Grotesk"'],
         inter: ['"Inter"'],
       },
+      inset: {
+        11: "11%",
+      },
       colors: {
         "shadow-gray": "#23262F99",
         "divider-color": "#23262F1A",

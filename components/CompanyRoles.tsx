@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import router, { useRouter } from "next/router";
 import { SORT } from "../constants/sort";
 import { responsePathAsArray } from "graphql";
+import { FILTER } from "../constants/filter";
 
 export default function CompanyRoles(props) {
   let [roles, setRoles] = useState<Role[]>([]);
@@ -63,6 +64,21 @@ export default function CompanyRoles(props) {
           );
         }
         if (response.data.roles.length > 0) {
+          if (props.filterBy === FILTER.SALARY_GREATER_THAN_40) {
+            response.data.roles = response.data.roles.filter(
+              (r) => r.avg_salary > 40
+            );
+          }
+          if (props.filterBy === FILTER.INTERVIEW_RATING_GREATER_THAN_3) {
+            response.data.roles = response.data.roles.filter(
+              (r) => r.avg_interview_rating > 3
+            );
+          }
+          if (props.filterBy === FILTER.COOP_RATING_GREATER_THAN_3) {
+            response.data.roles = response.data.roles.filter(
+              (r) => r.avg_coop_rating > 3
+            );
+          }
           setRoles(response.data.roles);
         } else setRoles([]);
       } catch (error) {
@@ -71,7 +87,7 @@ export default function CompanyRoles(props) {
     }
     setRoles([]);
     getRoles();
-  }, [props.companyId, props.sortBy]);
+  }, [props.companyId, props.sortBy, props.filterBy]);
 
   return (
     <div className="flex">
