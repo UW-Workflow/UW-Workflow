@@ -12,6 +12,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import RoleLogistics from "../../../../components/RoleLogistics";
 import { SORT } from "../../../../constants/sort";
+import { FILTER } from "../../../../constants/filter";
 
 export default function Roles(props) {
   const { authUser, loading } = useAuth();
@@ -26,7 +27,9 @@ export default function Roles(props) {
   const [role, setRole] = useState<Role>();
   const [bookmarked, setBookmarked] = useState(false);
   const [sort, setSort] = useState(SORT.COOP);
+  const [filter, setFilter] = useState(null);
   const [showSortBy, setShowSortBy] = useState(false);
+  const [showFilterBy, setShowFilterBy] = useState(false);
 
   async function addBookmark() {
     try {
@@ -231,7 +234,7 @@ export default function Roles(props) {
               </div>
             </div>
           </div>
-          <div className="flex flex-row mb-4 mx-10 sm:mx-20 space-x-2">
+          <div className="flex flex-row mb-4  sm:mx-20 ">
             <div className="flex-row flex-grow">
               <ul className="flex flex-grow">
                 <li
@@ -286,12 +289,42 @@ export default function Roles(props) {
             </div>
             <div className="flex">
               <div>
-                <div className="p-2 group inline-block relative justify-self-end sm:mb-0">
+                <div className=" group inline-block  justify-self-end sm:mb-0">
+                  <button
+                    onClick={() => {
+                      setShowSortBy(false);
+                      setSort(SORT.COOP);
+                      setFilter(null);
+                      setShowFilterBy(false);
+                    }}
+                    className="text-gray-700 font-semibold py-2  rounded inline-flex items-center ml-10"
+                  >
+                    <span className="mr-1 ml-2 min-w-max">
+                      {"Clear Sort & Filter"}
+                    </span>
+                  </button>
+                  <button
+                    onClick={() => {
+                      setShowFilterBy(!showFilterBy);
+                      setShowSortBy(false);
+                    }}
+                    className="text-gray-700 font-semibold py-2  rounded inline-flex items-center ml-10"
+                  >
+                    <span className="mr-1 ml-2 min-w-max">Filter By</span>
+                    <svg
+                      className=" max-h-4 w-4"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 20 20"
+                    >
+                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                    </svg>
+                  </button>
                   <button
                     onClick={() => {
                       setShowSortBy(!showSortBy);
+                      setShowFilterBy(false);
                     }}
-                    className="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center sm:ml-10"
+                    className="text-gray-700 font-semibold py-2  rounded inline-flex items-center ml-10"
                   >
                     <span className="mr-1 ml-2 min-w-max">Sort By</span>
                     <svg
@@ -303,7 +336,7 @@ export default function Roles(props) {
                     </svg>
                   </button>
                   {showSortBy ? (
-                    <ul className="absolute text-gray-700 pt-1 sm:min-w-200 mr-10 overflow-auto">
+                    <ul className="absolute text-gray-700 pt-1 sm:min-w-100 sm:mr-10 sm:right-0">
                       <li className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
                         <button
                           onClick={() => {
@@ -348,14 +381,54 @@ export default function Roles(props) {
                   ) : (
                     <ul></ul>
                   )}
+                  {showFilterBy ? (
+                    <ul className="absolute text-gray-700 pt-1 sm:min-w-100   sm:right-11">
+                      <li className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                        <button
+                          onClick={() => {
+                            setFilter(FILTER.SALARY_GREATER_THAN_40);
+                            setShowFilterBy(false);
+                          }}
+                        >
+                          <a className=" ">{"Salary > 40"}</a>
+                        </button>
+                      </li>
+                      <li className="rounded-b bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                        <button
+                          onClick={() => {
+                            setFilter(FILTER.COOP_RATING_GREATER_THAN_3);
+                            setShowFilterBy(false);
+                          }}
+                        >
+                          <a className="">{"Coop Rating > 3"}</a>
+                        </button>
+                      </li>
+                      <li className="rounded-b bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                        <button
+                          onClick={() => {
+                            setFilter(FILTER.INTERVIEW_RATING_GREATER_THAN_3);
+                            setShowFilterBy(false);
+                          }}
+                        >
+                          <a className="">{"Interview Rating > 3"}</a>
+                        </button>
+                      </li>
+                    </ul>
+                  ) : (
+                    <ul></ul>
+                  )}
                 </div>
               </div>
             </div>
-            <hr className="mr-20" />
           </div>
-          <div className="sm:mx-20 mx-5">
+          <div className="sm:mx-20">
             {chosenWindow == "reviews" && (
-              <Reviews companyId={companyID} roleId={roleID} sortBy={sort} />
+              <Reviews
+                companyId={companyID}
+                roleId={roleID}
+                sortBy={sort}
+                filterBy={filter}
+              />
             )}
             {chosenWindow == "comments" && <Comments roleID={roleID} />}
             {chosenWindow == "logistics" && <RoleLogistics roleID={roleID} />}

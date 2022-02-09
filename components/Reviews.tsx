@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
 import { useRouter } from "next/router";
 import { SORT } from "../constants/sort";
+import { FILTER } from "../constants/filter";
 
 export default function Reviews(props) {
   let [reviews, setReviews] = useState<Review[]>([]);
@@ -52,7 +53,23 @@ export default function Reviews(props) {
             }
           );
         }
+
         if (response.data.reviews && response.data.reviews.length > 0) {
+          if (props.filterBy === FILTER.SALARY_GREATER_THAN_40) {
+            response.data.reviews = response.data.reviews.filter(
+              (r) => r.salary > 40
+            );
+          }
+          if (props.filterBy === FILTER.INTERVIEW_RATING_GREATER_THAN_3) {
+            response.data.reviews = response.data.reviews.filter(
+              (r) => r.interview_experience_rating > 3
+            );
+          }
+          if (props.filterBy === FILTER.COOP_RATING_GREATER_THAN_3) {
+            response.data.reviews = response.data.reviews.filter(
+              (r) => r.work_experience_rating > 3
+            );
+          }
           setReviews(response.data.reviews);
         } else setReviews([]);
       } catch (error) {
@@ -60,7 +77,7 @@ export default function Reviews(props) {
       }
     }
     getReviews();
-  }, [props.roleId, props.sortBy]);
+  }, [props.roleId, props.sortBy, props.filterBy]);
   function setStars(num) {
     const TOTAL_STARS = 5;
     var stars = [];

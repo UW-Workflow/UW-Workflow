@@ -114,8 +114,8 @@ export default function Companies() {
               </div>
             </div>
           </div>
-          <div className="flex flex-row mb-4 mx-10 sm:mx-20 space-x-2">
-            <div className="flex flex-row flex-grow">
+          <div className="flex  mb-4  sm:mx-20">
+            <div className="flex  flex-grow">
               <ul className="flex flex-grow">
                 <li
                   className={
@@ -270,9 +270,8 @@ export default function Companies() {
                 </div>
               </div>
             </div>
-            <hr className="mr-20" />
           </div>
-          <div className="sm:mx-20 mx-5">
+          <div className="sm:mx-20">
             {chosenWindow == "roles" && (
               <CompanyRoles
                 companyId={companyID}
