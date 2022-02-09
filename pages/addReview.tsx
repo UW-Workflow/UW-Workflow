@@ -22,7 +22,7 @@ export default function AddReview() {
   const [role, setRole] = useState<{ value: string; label: string }>();
   const [company, setCompany] = useState<Company>();
   const [newRoleName, setNewRoleName] = useState<string>();
-  const [salary, setSalary] = useState<string>("0.0");
+  const [salary, setSalary] = useState<number>(0.0);
   const [yearJoined, setYearJoined] = useState<{
     value: number;
     label: string;
@@ -33,6 +33,7 @@ export default function AddReview() {
   const [coopRating, setCoopRating] = useState<number>(0.0);
   const [coopReview, setCoopReview] = useState<string>("");
   const [roleId, setRoleId] = useState<number>();
+  console.log(salary);
   async function getCompany() {
     try {
       const response = await axios.get(`/api/company/getCompany`, {
@@ -98,10 +99,10 @@ export default function AddReview() {
     if (company_id && (!company || company_id !== company.id.toString())) {
       getCompany();
     }
-    if (role_id) {
+    if (role_id && (!role || role_id !== roleId.toString())) {
       getRole();
     }
-  }, [company_id, role_id, company]);
+  }, [company_id, role_id, company, role]);
 
   const stepTitle = () => {
     if (step === 1) {
@@ -120,7 +121,7 @@ export default function AddReview() {
       const review = await axios.post("/api/review/addReview", {
         year_worked: yearJoined.value,
         role_id: roleId,
-        salary: parseFloat(salary),
+        salary: salary,
         duration: duration.value,
         work_experience: coopReview,
         work_experience_rating: coopRating,
@@ -138,7 +139,7 @@ export default function AddReview() {
     if (step === 2) {
       return !role && !newRoleName;
     } else if (step === 3) {
-      return parseFloat(salary) <= 0.0 || !yearJoined || !duration;
+      return salary <= 0.0 || !yearJoined || !duration;
     }
     return false;
   };
@@ -419,12 +420,11 @@ export default function AddReview() {
                           allowDecimals={true}
                           decimalScale={2}
                           decimalSeperator="."
-                          placeholder="Please enter your salary"
                           decimalsLimit={2}
                           prefix="$"
-                          value={salary || null}
+                          value={salary}
                           className="p-2.5 text-xs text-gray-600 mb-8 rounded-md ml-1 mt-2 border-gray-300 font-cabinet-grotesk"
-                          onValueChange={(v) => setSalary(v)}
+                          onChangeEvent={(e, m, f) => setSalary(f)}
                         />
                       </div>
                       <div>

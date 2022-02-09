@@ -26,11 +26,14 @@ export default function RoleLogistics(props) {
   useEffect(() => {
     async function getReviews() {
       try {
-        const response = await axios.get(`/api/reviews/getReviewsByRole`, {
-          params: {
-            roleId: props.roleID,
-          },
-        });
+        const response = await axios.get(
+          `/api/reviews/getReviewsByRole/getReviewsByRoleId`,
+          {
+            params: {
+              roleId: props.roleID,
+            },
+          }
+        );
         if (response.data.reviews.length > 0) {
           const salaries = response.data.reviews.map((r) => {
             return {
