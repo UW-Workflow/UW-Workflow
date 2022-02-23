@@ -46,6 +46,7 @@ export default function Bookmarks() {
     if (authUser) {
       getRoles();
     }
+    if (update) setUpdate(false);
   }, [authUser, update]);
 
   return (

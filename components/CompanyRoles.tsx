@@ -109,6 +109,7 @@ export default function CompanyRoles(props) {
                   });
                 }}
                 key={index}
+                className="flex flex-grow flex-row mx-4 py-2"
               >
                 <div className="flex flex-grow flex-row mx-4 py-2">
                   <div className="flex flex-grow my-2 mx-2">
@@ -118,14 +119,14 @@ export default function CompanyRoles(props) {
                           {value.title_name}
                         </p>
                       </div>
-                      <div className="hidden sm:block text-xs pt-2">
+                      <div className="text-xs pt-2">
                         {/* {value.reviews != 1 ? (
-                      <p>{value.reviews} Reviews</p>
-                    ) : (
-                      <p>{value.reviews} Review</p>
-                    )} */}
+                        <p>{value.reviews} Reviews</p>
+                      ) : (
+                        <p>{value.reviews} Review</p>
+                      )} */}
 
-                        <div className="flex flex-row">
+                        <div className="flex flex-row invisible sm:visible">
                           <div>
                             <p>Average Co-op Rating </p>
                           </div>
@@ -136,11 +137,11 @@ export default function CompanyRoles(props) {
                               )}
                             </div>
                           ) : (
-                            <div className="flex flex-row  pl-1">--</div>
+                            <div className="ml-1">--</div>
                           )}
                         </div>
 
-                        <div className="flex flex-row">
+                        <div className="flex flex-row invisible sm:visible">
                           <div>
                             <p>Average Interview Rating </p>
                           </div>
@@ -153,17 +154,24 @@ export default function CompanyRoles(props) {
                               )}
                             </div>
                           ) : (
-                            <div className="flex flex-row pl-1">--</div>
+                            <div className="flex flex-row ml-1">--</div>
                           )}
                         </div>
 
-                        {value.avg_salary && (
-                          <p>
-                            Average Salary:{" $"}
-                            {Number(value.avg_salary).toFixed(2)}
-                            /hr
-                          </p>
-                        )}
+                        <div className="flex flex-row">
+                          <div>
+                            <p>Average Salary:</p>
+                          </div>
+                          {value.avg_salary ? (
+                            <div className="flex flex-row ml-2">
+                              {" $"}
+                              {Number(value.avg_salary).toFixed(2)}
+                              /hr
+                            </div>
+                          ) : (
+                            <div className="flex flex-row ml-2">--</div>
+                          )}
+                        </div>
                       </div>
                     </div>
                     <div
@@ -182,11 +190,11 @@ export default function CompanyRoles(props) {
                       <span>View</span>
                     </div>
                     {/* <div className="flex items-center my-auto">
-                    <img src={"/bookmark_selected.svg"}></img>
-                  </div> */}
+                      <img src={"/bookmark_selected.svg"}></img>
+                    </div> */}
                   </div>
                 </div>
-                {index != roles.length - 1 && (
+                {roles.length == 0 && (
                   <div className="border-b-2 mx-4 flex flex-grow"></div>
                 )}
               </div>
