@@ -234,7 +234,7 @@ export default function Roles(props) {
               </div>
             </div>
           </div>
-          <div className="flex flex-row mb-4  sm:mx-20 ">
+          <div className="flex flex-row mb-4 mx-5 sm:mx-20 ">
             <div className="flex-row flex-grow">
               <ul className="flex flex-grow">
                 <li
@@ -297,7 +297,7 @@ export default function Roles(props) {
                       setFilter(null);
                       setShowFilterBy(false);
                     }}
-                    className="text-gray-700 font-semibold py-2  rounded inline-flex items-center ml-10"
+                    className="text-gray-700 font-semibold py-2  rounded inline-flex items-center sm:ml-10 ml-5"
                   >
                     <span className="mr-1 ml-2 min-w-max">
                       {"Clear Sort & Filter"}
@@ -308,7 +308,7 @@ export default function Roles(props) {
                       setShowFilterBy(!showFilterBy);
                       setShowSortBy(false);
                     }}
-                    className="text-gray-700 font-semibold py-2  rounded inline-flex items-center ml-10"
+                    className="text-gray-700 font-semibold py-2  rounded inline-flex items-center sm:ml-10 ml-5"
                   >
                     <span className="mr-1 ml-2 min-w-max">Filter By</span>
                     <svg
@@ -421,7 +421,7 @@ export default function Roles(props) {
               </div>
             </div>
           </div>
-          <div className="sm:mx-20">
+          <div className="mx-5 sm:mx-20">
             {chosenWindow == "reviews" && (
               <Reviews
                 companyId={companyID}

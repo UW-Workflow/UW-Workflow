@@ -114,7 +114,7 @@ export default function Companies() {
               </div>
             </div>
           </div>
-          <div className="flex  mb-4  sm:mx-20">
+          <div className="flex  mb-4  mx-5 sm:mx-20">
             <div className="flex  flex-grow">
               <ul className="flex flex-grow">
                 <li
@@ -271,7 +271,7 @@ export default function Companies() {
               </div>
             </div>
           </div>
-          <div className="sm:mx-20">
+          <div className="sm:mx-20 mx-5">
             {chosenWindow == "roles" && (
               <CompanyRoles
                 companyId={companyID}
