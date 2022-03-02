@@ -28,13 +28,18 @@ export default function AddCompany() {
 
   const addCompany = async () => {
     try {
-      await axios.post("/api/company/addCompany", {
+      const companyResponse = await axios.post("/api/company/addCompany", {
         name: company.name,
         city: company.city,
         country: company.country,
         website: company.website,
         description: company.description,
         logo: company.logo,
+      });
+      setCompany((prev) => {
+        const prevCompany = prev;
+        prevCompany.id = companyResponse.data.id;
+        return prevCompany;
       });
       setModelStage(modelStage + 1);
     } catch (err) {
@@ -79,12 +84,6 @@ export default function AddCompany() {
       setError("Company name not set");
     } else if (!validURL(company.website)) {
       setError("Company website entered is incorrect");
-    } else if (company.city === "") {
-      setError("City is incorrect");
-    } else if (company.country === "") {
-      setError("Country is incorrect");
-    } else if (company.description === "") {
-      setError("Company description is incorrect");
     } else {
       setModelStage(modelStage + 1);
       forceUpdate();
@@ -130,7 +129,16 @@ export default function AddCompany() {
           way in helping others learn about co-op experiences at different
           companies.
         </div>
-        <button className="bg-button-blue text-white text-xs lg:text-base  rounded-xl p-2 mx-auto mt-5">
+        <button
+          className="bg-button-blue text-white text-xs lg:text-base  rounded-xl p-2 mx-auto mt-5"
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            router.push({
+              pathname: "/addReview",
+              query: { company_id: company.id },
+            });
+          }}
+        >
           Add a review for added Company
         </button>
         <button
@@ -160,9 +168,7 @@ export default function AddCompany() {
           Add a company
         </h1>
         <h4 className="font-cabinet-grotesk mt-0 text-gray-500 text-lg">
-          Please fill out the details below to add the
-          <br />
-          company
+          Please fill out the details below to add the company
         </h4>
       </div>
       {modelStage === 2 ? (
@@ -241,7 +247,7 @@ export default function AddCompany() {
                     className="rounded-lg placeholder-gray-900"
                   />
                 </div>
-                <div className="flex flex-col mt-4 space-y-1">
+                {/* <div className="flex flex-col mt-4 space-y-1">
                   <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
                     Company Description
                   </label>
@@ -255,8 +261,8 @@ export default function AddCompany() {
                     placeholder="Please write a short description about the company"
                     className="rounded-lg placeholder-gray-300 resize-none"
                   />
-                </div>
-                <div className="flex flex-col md:flex-row">
+                </div> */}
+                {/* <div className="flex flex-col md:flex-row">
                   <div className="flex flex-col mt-4 space-y-1">
                     <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
                       City
@@ -285,7 +291,7 @@ export default function AddCompany() {
                       className="rounded-lg placeholder-gray-300"
                     />
                   </div>
-                </div>
+                </div> */}
               </div>
             ) : modelStage === 1 ? (
               <div>
@@ -302,17 +308,17 @@ export default function AddCompany() {
                 <div className="flex">
                   <img
                     src={company.logo ? company.logo : "samplecompany.png"}
-                    className="mt-4 w-40 h-40"
+                    className="m-4"
                   />
                   <div className="flex flex-col">
                     <h1 className=" text-sm md:text-xl font-cabinet-grotesk mt-5 ml-10">
                       {company.name}
                     </h1>
-                    <h1 className="text-sm text-gray-600 font-cabinet-grotesk mt-2 ml-10">
+                    {/* <h1 className="text-sm text-gray-600 font-cabinet-grotesk mt-2 ml-10">
                       {company.description.length > 20
                         ? company.description.substring(0, 20) + "..."
                         : company.description}
-                    </h1>
+                    </h1> */}
 
                     <a
                       href={
@@ -325,11 +331,11 @@ export default function AddCompany() {
                       target="_blank"
                       rel="noreferrer"
                     >
-                      Website
+                      {company.website}
                     </a>
                   </div>
                 </div>
-                <div className="flex flex-col mt-4 space-y-1">
+                {/* <div className="flex flex-col mt-4 space-y-1">
                   <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
                     Location
                   </label>
@@ -339,7 +345,7 @@ export default function AddCompany() {
                     disabled={true}
                     className="rounded-lg placeholder-gray-400"
                   />
-                </div>
+                </div> */}
               </div>
             ) : null}
             {error !== "" ? (

@@ -6,13 +6,13 @@ import Select from "react-select";
 import StarRatings from "react-star-ratings";
 import axios from "axios";
 import { generateArrayOfYears } from "../utils/helpers";
-import CurrencyInput from "react-currency-input-field";
+import CurrencyInput from "react-currency-input";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import BadgeCheckIcon from "@heroicons/react/solid/BadgeCheckIcon";
 import { defaultRoleOptions, durationOptions } from "../constants/contants";
 import { Company } from "../models/interfaces/types/Company";
-
+import nodemailer from "nodemailer";
 export default function AddReview() {
   const router = useRouter();
   const { company_id, role_id } = router.query;
@@ -22,7 +22,7 @@ export default function AddReview() {
   const [role, setRole] = useState<{ value: string; label: string }>();
   const [company, setCompany] = useState<Company>();
   const [newRoleName, setNewRoleName] = useState<string>();
-  const [salary, setSalary] = useState<string>("0.0");
+  const [salary, setSalary] = useState<number>(0.0);
   const [yearJoined, setYearJoined] = useState<{
     value: number;
     label: string;
@@ -67,14 +67,41 @@ export default function AddReview() {
     }
   }
 
+  async function sendEmail() {
+    try {
+      const emailResponse = await axios.get(
+        "/api/bookmarks/getUserEmailsByBookmark",
+        {
+          params: {
+            role_id: roleId,
+          },
+        }
+      );
+      const emailObjects = emailResponse.data.bookmarks;
+      const emails = [];
+      for (let email of emailObjects) {
+        emails.push(email.email);
+      }
+      await axios.post("/api/bookmarks/sendBookmarkEmail", {
+        name: company.name,
+        role: role ? role.value : newRoleName,
+        work_experience: coopReview,
+        interview_experience: interviewReview,
+        salary: salary,
+        emails: emails.join(","),
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
   useEffect(() => {
     if (company_id && (!company || company_id !== company.id.toString())) {
       getCompany();
     }
-    if (role_id) {
+    if (role_id && (!role || role_id !== roleId.toString())) {
       getRole();
     }
-  }, [company_id, role_id, company]);
+  }, [company_id, role_id, company, role]);
 
   const stepTitle = () => {
     if (step === 1) {
@@ -90,20 +117,18 @@ export default function AddReview() {
 
   async function addReview() {
     try {
-      const reviewResponse = await axios.post("/api/review/addReview", {
+      const review = await axios.post("/api/review/addReview", {
         year_worked: yearJoined.value,
         role_id: roleId,
-        salary: parseFloat(salary),
+        salary: salary,
         duration: duration.value,
         work_experience: coopReview,
         work_experience_rating: coopRating,
         interview_experience: interviewReview,
         interview_experience_rating: interviewRating,
       });
-
-      if (reviewResponse.status === 200) {
-        setStep(5);
-      }
+      sendEmail();
+      setStep(5);
     } catch (error) {
       toast("Error in adding the review. " + error);
     }
@@ -113,7 +138,7 @@ export default function AddReview() {
     if (step === 2) {
       return !role && !newRoleName;
     } else if (step === 3) {
-      return parseFloat(salary) <= 0.0 || !yearJoined || !duration;
+      return salary <= 0.0 || !yearJoined || !duration;
     }
     return false;
   };
@@ -133,7 +158,7 @@ export default function AddReview() {
         try {
           const addRoleResponse = await axios.post("/api/role/addRole", {
             title_name: roleName,
-            company_id: 4,
+            company_id: company.id,
           });
           if (addRoleResponse.status === 200 && addRoleResponse.data.id) {
             setRoleId(addRoleResponse.data.id);
@@ -149,32 +174,29 @@ export default function AddReview() {
 
   return (
     <MainContainer>
-      <div className="flex flex-col z-10 mx-16 mt-7 items-center">
+      <div className="flex flex-col z-10 lg:mx-16 md:mx-12 sm:mx-5 mt-7 items-center mb-2">
         <div
           style={{
-            width: "85%",
+            width: "90%",
             borderBottomLeftRadius: 100,
             borderBottomRightRadius: 100,
           }}
           className="flex pt-3 pb-20 bg-add-review-gradient bg-opacity-60"
         >
           <div
-            style={{ width: "100%" }}
-            className="flex flex-col mt-6 ml-32 mr-32 items-center"
+            style={{ width: "90%" }}
+            className="flex flex-col pl-4 text-center mt-6 md:mt-4 sm:mt-4 lg:ml-30 lg:mr-30 md:ml-12 md:mr-12 sm:ml-8 sm:mr-8 items-center"
           >
-            <h1 className="mb-3 text-5xl font-cabinet-grotesk font-extrabold">
+            <h1 className="lg:mb-3 md:mb-2 sm:mb-1.5 mb-1.5 lg:text-5xl md:text-4xl sm:text-3xl text-2xl font-cabinet-grotesk md:font-bold sm:font-bold lg:font-bold font-medium">
               Add a Review
             </h1>
-            <h4 className="font-cabinet-grotesk text-gray-500">
+            <h4 className="font-cabinet-grotesk pl-6 text-sm lg:text-sm md:text-sm sm:text-sm text-gray-500">
               Describe how your experience was working at the coop.
             </h4>
           </div>
         </div>
         {step === 5 ? (
-          <div
-            style={{ width: "45%" }}
-            className="flex flex-col justify-center items-center text-center bg-center bg-company-added bg-cover rounded-xl ml-10 mr-10 -mt-10 p-14"
-          >
+          <div className="flex flex-col justify-center items-center text-center bg-center bg-company-added bg-cover rounded-xl ml-10 mr-10 -mt-10 p-7 xl:p-14 md:p-14 sm:p-14 lg:p-14 w-4/5">
             <div className=" w-20 h-20 md:w-40 md:h-40">
               <BadgeCheckIcon color="#0ED00A" />
             </div>
@@ -202,10 +224,15 @@ export default function AddReview() {
           </div>
         ) : (
           <div className="flex items-center -mt-12 bg-white rounded-3xl shadow-lg">
-            <img width="43%" height="400px" src={`/add-review-${step}.svg`} />
+            <img
+              className="hidden sm:block md:block lg:block xl:block 2xl:block"
+              width="43%"
+              height="auto"
+              src={`/add-review-${step}.png`}
+            />
             <div
-              style={{ width: "300px" }}
-              className="flex flex-col ml-12 -mr-12"
+              style={{ width: "360px" }}
+              className="flex flex-col lg:pr-4 md:pr-4 sm:pr-16 xl:pr-4 p-9 lg:p-0 xl:p-0 md:p-0 sm:p-0 lg:pl-0.5 md:pl-0.5 sm:pl-0.5 xl:pl-0.5 lg:ml-12 xl:ml-12 md:ml-12 sm:ml-10 sm:-mr-10 lg:-mr-12 xl:-mr-12 md:-mr-12"
             >
               <div className="flex justify-evenly mb-20 -ml-4 text-xs text-center items-center">
                 <span
@@ -284,8 +311,8 @@ export default function AddReview() {
                 </p>
               </div>
               <hr
-                className="-mt-16 mb-8 border-solid border-1 border-gray-300 self-center"
-                style={{ width: "115%" }}
+                className="-mt-16 mb-8 mr-3 border-solid border-1 border-gray-300 self-center"
+                style={{ width: "100%" }}
               />
               <div className="-ml-5 -mt-3 mb-2">
                 <p className="text-xs text-gray-400">
@@ -293,16 +320,17 @@ export default function AddReview() {
                 </p>
                 <p className="text-sm font-bold mt-2 mb-2">{stepTitle()}</p>
                 {step === 1 ? (
-                  <div
-                    style={{ width: 350 }}
-                    className="flex bg-gray-100 rounded-lg pb-6"
-                  >
+                  <div className="flex bg-gray-100 rounded-lg pb-6">
                     <div
                       style={{ height: 82 }}
                       className="p-3 ml-3 mt-4 bg-gray-300 rounded-lg"
                     >
                       <img
-                        src={company ? company.logo : "/default_company.svg"}
+                        src={
+                          company && company.logo && company.logo.length > 0
+                            ? company.logo
+                            : "/default_company.svg"
+                        }
                         width="60px"
                         height="60px"
                       />
@@ -316,7 +344,17 @@ export default function AddReview() {
                       </p>
                       <p className="text-xs text-gray-600 mb-4 font-cabinet-grotesk">
                         🔗&nbsp;&nbsp;
-                        {company ? company.website : "www.companyname.com"}
+                        <a
+                          href={
+                            company
+                              ? company.website
+                              : "https://www.companyname.com"
+                          }
+                          target="_blank"
+                          rel="noreferrer"
+                        >
+                          {company ? company.website : "www.companyname.com"}
+                        </a>
                       </p>
                       <p className="text-xs text-gray-600 mb-4 font-cabinet-grotesk">
                         📍&nbsp;
@@ -378,16 +416,14 @@ export default function AddReview() {
                           Salary /hr
                         </label>
                         <CurrencyInput
-                          id="input-example"
-                          name="input-currency"
                           allowDecimals={true}
                           decimalScale={2}
-                          placeholder="Please enter your salary"
+                          decimalSeperator="."
                           decimalsLimit={2}
                           prefix="$"
-                          value={salary || "0.0"}
+                          value={salary}
                           className="p-2.5 text-xs text-gray-600 mb-8 rounded-md ml-1 mt-2 border-gray-300 font-cabinet-grotesk"
-                          onValueChange={(v) => setSalary(v)}
+                          onChangeEvent={(e, m, f) => setSalary(f)}
                         />
                       </div>
                       <div>
@@ -462,7 +498,7 @@ export default function AddReview() {
                         <div>
                           <div className="flex justify-between">
                             <label className="text-s text-gray-600 ml-4 mt-1 mb-2 font-cabinet-grotesk">
-                              Co-op Experience
+                              Work Experience
                             </label>
                             <StarRatings
                               starDimension={25}
@@ -498,10 +534,10 @@ export default function AddReview() {
                     </div>
                   )
                 )}
-                <div className="flex">
+                <div className="flex sm:flex-row md:flex-row lg:flex-row xl:flex-row flex-col">
                   {step > 1 && (
                     <Button
-                      style={{ width: 130 }}
+                      style={{ width: "100%" }}
                       className=" border border-gray-400 text-xs text-gray-500 font-extrabold py-2 mt-4 cursor-pointer rounded-lg mr-1.5"
                       onClick={() => setStep((prev) => prev - 1)}
                     >
@@ -511,7 +547,7 @@ export default function AddReview() {
                   {step < 4 && (
                     <Button
                       style={{
-                        width: 130,
+                        width: "100%",
                         cursor: formValidations() ? "not-allowed" : "pointer",
                       }}
                       className={` border text-xs text-white font-extrabold py-2 mt-4 cursor-pointer rounded-lg ${
@@ -531,7 +567,7 @@ export default function AddReview() {
                   {step === 4 && (
                     <Button
                       style={{
-                        width: 130,
+                        width: "100%",
                         cursor:
                           interviewRating === 0.0 ||
                           coopRating === 0.0 ||

@@ -10,25 +10,6 @@ export default function Bookmarks() {
   const { authUser, loading } = useAuth();
   const [bookmarks, setBookmarks] = useState<Role[]>([]);
   const [update, setUpdate] = useState(false);
-  const [removingRoleID, setRemovingRoleID] = useState();
-  // get company name
-  async function getCompanyName(companyID: number) {
-    try {
-      const response = await axios.get(`/api/company/getCompanyName`, {
-        params: {
-          id: companyID,
-        },
-      });
-      if (response.data.companies.length > 0 && response.data.companies[0]) {
-        return response.data.companies[0].name;
-      }
-      return null;
-    } catch (error) {
-      toast(
-        "Error in getting company name for bookmarks for account page. " + error
-      );
-    }
-  }
   async function removeBookmark(roleID: number) {
     try {
       const response = await axios.get(`/api/roles/removeRoleBookmarkByUser`, {
@@ -64,74 +45,83 @@ export default function Bookmarks() {
     if (authUser) {
       getRoles();
     }
+    if (update) setUpdate(false);
   }, [authUser, update]);
 
   return (
     <div className="flex">
-      <div className="self-center bg-gradient-2 filter blur-huge px-20 py-16 mt-5 flex-grow"></div>
-      <div className="flex flex-col flex-grow rounded-lg bg-white my-5 shadow bg-white overflow-auto max-h-100">
-        {bookmarks &&
-          bookmarks.map((value, index) => {
-            return (
-              <div
-                key={index}
-                className="flex flex-grow flex-row mx-4 my-4 border-b-2"
-              >
-                <div className="flex flex-grow my-2 mx-2">
-                  <div className="flex flex-col flex-grow">
-                    <div>
-                      <p className="text-base font-bold">{value.title_name}</p>
+      <div className="self-center bg-gradient-2 filter blur-huge px-20 py-16 mt-5 flex-grow hidden sm:block"></div>
+      {bookmarks.length > 0 && (
+        <div className="flex flex-col flex-grow rounded-lg  my-5 shadow bg-white overflow-y-auto max-h-100 mx-16 sm:mx-0">
+          {bookmarks &&
+            bookmarks.map((value, index) => {
+              return (
+                <div
+                  key={index}
+                  className={
+                    index < bookmarks.length - 1
+                      ? "flex flex-grow flex-row mx-4 my-4 border-b-2"
+                      : "flex flex-grow flex-row mx-4 my-4"
+                  }
+                >
+                  <div className="flex flex-grow my-2 mx-2">
+                    <div className="flex flex-col flex-grow">
+                      <div>
+                        <p className="text-base font-bold">
+                          {value.title_name}
+                        </p>
+                      </div>
+                      <div className="text-sm">
+                        <p>{value.company_name}</p>
+                        <div className="hidden sm:block">
+                          {value.avg_coop_rating && (
+                            <p>
+                              Average Work Rating:{" "}
+                              {Number(value.avg_coop_rating).toFixed(2)}
+                            </p>
+                          )}
+                          {value.avg_interview_rating && (
+                            <p>
+                              Average Interview Rating:{" "}
+                              {Number(value.avg_interview_rating).toFixed(2)}
+                            </p>
+                          )}
+                          {value.avg_salary && (
+                            <p>
+                              Average Salary:{" "}
+                              {Number(value.avg_salary).toFixed(2)}
+                            </p>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-sm">
-                      <p>{value.company_name}</p>
-                      {/* {value.reviews != 1 ? (
-                      <p>{value.reviews} Reviews</p>
-                    ) : (
-                      <p>{value.reviews} Review</p>
-                    )} */}
-                      {value.avg_coop_rating && (
-                        <p>
-                          Average Coop Rating:{" "}
-                          {Number(value.avg_coop_rating).toFixed(2)}
-                        </p>
-                      )}
-                      {value.avg_interview_rating && (
-                        <p>
-                          Average Interview Rating:{" "}
-                          {Number(value.avg_interview_rating).toFixed(2)}
-                        </p>
-                      )}
-                      {value.avg_salary && (
-                        <p>
-                          Average Salary: {Number(value.avg_salary).toFixed(2)}
-                        </p>
-                      )}
+                    <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full text-blue-active">
+                      <Link
+                        href="/companies/[id]/[role]"
+                        as={`/companies/${value.company_id}/${value.id}`}
+                      >
+                        View
+                      </Link>
                     </div>
-                  </div>
-                  <div className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full text-blue-active">
-                    <Link
-                      href="/companies/[id]/[role]"
-                      as={`/companies/${value.company_id}/${value.id}`}
-                    >
-                      View
-                    </Link>
-                  </div>
-                  <div className="flex items-center my-auto">
-                    <img
-                      onClick={() => removeBookmark(value.id)}
-                      src={"/bookmark_selected.svg"}
-                      style={{ cursor: "pointer" }}
-                    ></img>
+                    <div className="flex items-center my-auto">
+                      <img
+                        onClick={() => removeBookmark(value.id)}
+                        src={"/bookmark_selected.svg"}
+                        style={{ cursor: "pointer" }}
+                      ></img>
+                    </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
-        <p className="text-xs mx-auto my-2 text-gray-300">
-          You have reached the end of the list
-        </p>
-      </div>
-      <div className="self-center bg-gradient-3 filter blur-huge px-20 py-10 mt-5 flex-grow"></div>
+              );
+            })}
+        </div>
+      )}
+      {bookmarks.length == 0 && (
+        <div className="text-gray-500 my-auto mx-auto">
+          No bookmarks selected
+        </div>
+      )}
+      <div className="self-center bg-gradient-3 filter blur-huge px-20 py-10 mt-5 flex-grow hidden sm:block"></div>
       <div>
         <ToastContainer
           toastStyle={{ backgroundColor: "#e74c3c", color: "black" }}

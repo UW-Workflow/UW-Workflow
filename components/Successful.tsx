@@ -1,7 +1,7 @@
 const Successful = ({ header, message }) => {
   return (
     //Your logged in page
-    <div className="min-w-400">
+    <div className="sm:min-w-400 max-w-xs">
       <div className="mt-3 grid grid-cols-1 gap-2 justify-items-center">
         <img src="/Vector.svg" className="self-center" />
         <h2 className="text-xl font-bold text-center text-black">{header}</h2>

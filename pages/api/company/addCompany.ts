@@ -16,19 +16,11 @@ export default async function handler(
   if (company.name === "") {
     return apiResponse(res, 400, "Missing company's name", true);
   }
-  if (company.city === "") {
-    return apiResponse(res, 400, " Missing company's city", true);
-  }
 
-  if (company.country === "") {
-    return apiResponse(res, 400, " Missing company's country", true);
-  }
   if (company.website === "") {
     return apiResponse(res, 400, " Missing company's website", true);
   }
-  if (company.description === "") {
-    return apiResponse(res, 400, " Missing company's desciption", true);
-  }
+
   try {
     const userResponse = await dbQuery(INSERT_COMPANY, {
       name: company.name,
@@ -38,7 +30,10 @@ export default async function handler(
       description: company.description,
       logo: company.logo,
     });
-    return res.json(userResponse);
+    if (!userResponse) {
+      return res.json({});
+    }
+    return res.json(userResponse.insert_companies.returning[0]);
   } catch (error) {
     console.error(error);
     return apiResponse(res, 500, `Error logging: ${error.message}`, true);
