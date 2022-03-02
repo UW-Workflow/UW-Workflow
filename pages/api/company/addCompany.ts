@@ -16,7 +16,7 @@ export default async function handler(
   if (company.name === "") {
     return apiResponse(res, 400, "Missing company's name", true);
   }
-   
+
   if (company.website === "") {
     return apiResponse(res, 400, " Missing company's website", true);
   }

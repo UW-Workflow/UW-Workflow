@@ -31,7 +31,7 @@ export default function ConatctUs() {
       event.preventDefault();
       const finalSubject =
         subject !== "" ? subject : `New message from ${firstName} ${lastName}`;
-        setAfterSuccess(true);
+      setAfterSuccess(true);
     }
   };
 

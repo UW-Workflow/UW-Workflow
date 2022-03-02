@@ -46,8 +46,8 @@ export default function Comments({ roleID }) {
     return results;
   }
   function AddComment(e) {
-    if (e.current.value == ""){
-      return
+    if (e.current.value == "") {
+      return;
     }
     const addComment = async () => {
       try {
@@ -63,12 +63,12 @@ export default function Comments({ roleID }) {
       }
     };
     addComment();
-    e.current.value = ""
+    e.current.value = "";
   }
-  function AddReply(e,parent) {
-    if (e.key == "Enter"){
-      if (e.target.value == ""){
-        return
+  function AddReply(e, parent) {
+    if (e.key == "Enter") {
+      if (e.target.value == "") {
+        return;
       }
       const addReply = async () => {
         try {
@@ -84,7 +84,7 @@ export default function Comments({ roleID }) {
         }
       };
       addReply();
-      e.target.value = ""
+      e.target.value = "";
     }
   }
   function createCommentStructure(comments_input) {
@@ -118,7 +118,7 @@ export default function Comments({ roleID }) {
               </div>
             </div>
           </div>
-          {authUser &&
+          {authUser && (
             <input
               type="text"
               onKeyPress={(e) => {
@@ -127,7 +127,7 @@ export default function Comments({ roleID }) {
               placeholder="Write a reply"
               className="rounded-lg w-5/6 sm:w-11/12 border-gray-400 border-0 placeholder:text-gray-500 mx-5  sm:ml-4 text-sm mb-4 bg-gray-100"
             ></input>
-          }
+          )}
           {authUser && <div className="py-3 mb-4"></div>}
           {comment.replies_object.length > 0 && (
             <div className="mb-4">
@@ -182,7 +182,7 @@ export default function Comments({ roleID }) {
     const questionInput = useRef(null);
     return (
       <div className="flex flex-col mb-4">
-        {authUser &&
+        {authUser && (
           <div className="flex flex-row flex-grow space-x-8 mb-2">
             <div className="flex flex-row flex-grow">
               <img
@@ -208,7 +208,7 @@ export default function Comments({ roleID }) {
               </div>
             </div>
           </div>
-        }
+        )}
         {comments.length == 0 && (
           <div className="flex items-center flex-grow bg-light-grey rounded-lg shadow py-24">
             <div className="mx-auto my-auto">
@@ -227,5 +227,5 @@ export default function Comments({ roleID }) {
       </div>
     );
   }
-  return IsAuthenticated()
+  return IsAuthenticated();
 }

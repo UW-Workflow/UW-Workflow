@@ -10,7 +10,6 @@ export default function Bookmarks() {
   const { authUser, loading } = useAuth();
   const [bookmarks, setBookmarks] = useState<Role[]>([]);
   const [update, setUpdate] = useState(false);
-
   async function removeBookmark(roleID: number) {
     try {
       const response = await axios.get(`/api/roles/removeRoleBookmarkByUser`, {
@@ -53,7 +52,7 @@ export default function Bookmarks() {
     <div className="flex">
       <div className="self-center bg-gradient-2 filter blur-huge px-20 py-16 mt-5 flex-grow hidden sm:block"></div>
       {bookmarks.length > 0 && (
-        <div className="flex flex-col flex-grow rounded-lg bg-white my-5 shadow bg-white overflow-y-auto max-h-100 mx-16 sm:mx-0">
+        <div className="flex flex-col flex-grow rounded-lg  my-5 shadow bg-white overflow-y-auto max-h-100 mx-16 sm:mx-0">
           {bookmarks &&
             bookmarks.map((value, index) => {
               return (
