@@ -30,7 +30,7 @@ export default async function handler(
     if (!userResponse) {
       return res.json({});
     }
-    return res.json({});
+    return res.json(userResponse.insert_companies.returning[0]);
   } catch (error) {
     console.error(error);
     return apiResponse(res, 500, `Error logging: ${error.message}`, true);

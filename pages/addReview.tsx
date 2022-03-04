@@ -356,12 +356,6 @@ export default function AddReview() {
                           {company ? company.website : "www.companyname.com"}
                         </a>
                       </p>
-                      <p className="text-xs text-gray-600 mb-4 font-cabinet-grotesk">
-                        📍&nbsp;
-                        {company
-                          ? company.city + " " + company.country
-                          : "Company address goes here in 2 or 3 lines"}
-                      </p>
                       <p className="text-gray-700 text-sm font-cabinet-grotesk">
                         {company
                           ? company.description
