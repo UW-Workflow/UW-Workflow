@@ -50,24 +50,8 @@ export const GET_COMPANY_NAMES = gql`
 `;
 
 export const INSERT_COMPANY = gql`
-  mutation INSERT_COMPANY(
-    $name: String!
-    $website: String!
-    $city: String!
-    $country: String!
-    $description: String!
-    $logo: String!
-  ) {
-    insert_companies(
-      objects: {
-        city: $city
-        country: $country
-        description: $description
-        logo: $logo
-        name: $name
-        website: $website
-      }
-    ) {
+  mutation INSERT_COMPANY($name: String!, $website: String!, $logo: String!) {
+    insert_companies(objects: { logo: $logo, name: $name, website: $website }) {
       affected_rows
     }
   }
@@ -109,10 +93,7 @@ export const GET_COMPANY = gql`
     companies(where: { id: { _eq: $id } }) {
       id
       website
-      description
       name
-      city
-      country
       logo
       total_reviews
     }

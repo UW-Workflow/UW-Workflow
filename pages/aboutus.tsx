@@ -23,9 +23,10 @@ export default function AboutUs() {
             the right choice
           </h1>
           <h4 className="font-cabinet-grotesk mt-5">
-            The community driven, UWwork helps you sail through <br /> a sea of
-            reviews for multiple companies or list and review <br />a previously
-            unlisted company, talk with your peers about their experiences.
+            The community driven, UWworkflow helps you sail through <br /> a sea
+            of reviews for multiple companies or list and review <br />a
+            previously unlisted company, talk with your peers about their
+            experiences.
             <br /> All in one, making the decision to choose the right co-op 10x
             Easier.
           </h4>

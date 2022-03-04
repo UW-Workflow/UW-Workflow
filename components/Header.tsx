@@ -148,13 +148,13 @@ export const Header: React.FC = () => {
             </NavLink>
           </div>
           <div
-            className="flex self-end pr-10 lg:hidden"
+            className="flex self-end pr-10 lg:hidden cursor-pointer"
             onClick={() => setShow(!show)}
           >
             <MenuIcon height={40} width={30} />
           </div>
         </div>
-        <div className="flex self-center lg:hidden">
+        <div className="flex self-center lg:hidden cursor-pointer">
           {show ? <MobileNavMenu companies={companies} /> : null}
         </div>
         <div className="hidden lg:block lg:border-r-2 border-divider-color w-1 h-10"></div>

@@ -68,11 +68,22 @@ export default function AddCompany() {
 
   const getBase64 = (file) => {
     var reader = new FileReader();
+    const i = new Image();
     reader.readAsDataURL(file);
     reader.onload = function () {
-      company.logo = reader.result.toString();
-      setCompany(company);
-      forceUpdate();
+      var image = new Image();
+
+      image.src = reader.result.toString();
+      if (image.width !== image.height) {
+        setError("Add a square logo");
+        company.logo = null;
+        setCompany(company);
+      } else {
+        company.logo = reader.result.toString();
+        setError(null);
+        setCompany(company);
+        forceUpdate();
+      }
     };
     reader.onerror = function (error) {
       console.log("Error: ", error);
@@ -200,7 +211,10 @@ export default function AddCompany() {
                 >
                   <input {...getInputProps()} />
                   {isDragActive ? (
-                    <p>Drop the files here ...</p>
+                    <img
+                      src={company.logo ? company.logo : "/ImageUpload.svg"}
+                      className="max-h-40 max-w-l"
+                    />
                   ) : (
                     <img
                       src={company.logo ? company.logo : "/ImageUpload.svg"}
@@ -222,6 +236,12 @@ export default function AddCompany() {
                         company.name = value;
                         setCompany(company);
                       }}
+                      onClear={(value) => {
+                        company.website = "";
+                        company.logo = null;
+                        setCompany(company);
+                        forceUpdate();
+                      }}
                       placeholder={"Search for companies"}
                     />
                   </div>
@@ -239,59 +259,16 @@ export default function AddCompany() {
                         ? company.website
                         : "Please enter company website url"
                     }
+                    value={company.website ? company.website : ""}
                     type="text"
                     onChange={(e) => {
                       company.website = e.target.value;
                       setCompany(company);
+                      forceUpdate();
                     }}
-                    className="rounded-lg placeholder-gray-900"
+                    className="rounded-xl focus:pacity-50"
                   />
                 </div>
-                {/* <div className="flex flex-col mt-4 space-y-1">
-                  <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
-                    Company Description
-                  </label>
-                  <textarea
-                    rows={3}
-                    required
-                    onChange={(e) => {
-                      company.description = e.target.value;
-                      setCompany(company);
-                    }}
-                    placeholder="Please write a short description about the company"
-                    className="rounded-lg placeholder-gray-300 resize-none"
-                  />
-                </div> */}
-                {/* <div className="flex flex-col md:flex-row">
-                  <div className="flex flex-col mt-4 space-y-1">
-                    <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
-                      City
-                    </label>
-                    <input
-                      placeholder="Please enter a city"
-                      type="text"
-                      onChange={(e) => {
-                        company.city = e.target.value;
-                        setCompany(company);
-                      }}
-                      className="rounded-lg placeholder-gray-300"
-                    />
-                  </div>
-                  <div className="flex flex-col mt-4 space-y-1 space-x-2">
-                    <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm ml-2">
-                      Country
-                    </label>
-                    <input
-                      placeholder="Please enter a country"
-                      type="text"
-                      onChange={(e) => {
-                        company.country = e.target.value;
-                        setCompany(company);
-                      }}
-                      className="rounded-lg placeholder-gray-300"
-                    />
-                  </div>
-                </div> */}
               </div>
             ) : modelStage === 1 ? (
               <div>
@@ -308,17 +285,12 @@ export default function AddCompany() {
                 <div className="flex">
                   <img
                     src={company.logo ? company.logo : "samplecompany.png"}
-                    className="m-4"
+                    className="m-4 w-28 h-28"
                   />
                   <div className="flex flex-col">
                     <h1 className=" text-sm md:text-xl font-cabinet-grotesk mt-5 ml-10">
                       {company.name}
                     </h1>
-                    {/* <h1 className="text-sm text-gray-600 font-cabinet-grotesk mt-2 ml-10">
-                      {company.description.length > 20
-                        ? company.description.substring(0, 20) + "..."
-                        : company.description}
-                    </h1> */}
 
                     <a
                       href={
@@ -335,17 +307,6 @@ export default function AddCompany() {
                     </a>
                   </div>
                 </div>
-                {/* <div className="flex flex-col mt-4 space-y-1">
-                  <label className="font-cabinet-grotesk mt-2 text-gray-500 text-sm self-start">
-                    Location
-                  </label>
-                  <input
-                    placeholder={company.city + "," + company.country}
-                    type="text"
-                    disabled={true}
-                    className="rounded-lg placeholder-gray-400"
-                  />
-                </div> */}
               </div>
             ) : null}
             {error !== "" ? (
