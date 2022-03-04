@@ -234,7 +234,7 @@ export default function Roles(props) {
               </div>
             </div>
           </div>
-          <div className="flex-col md:flex-row mb-4 mx-5 sm:mx-20 ">
+          <div className="flex flex-col sm:flex-row mb-4 mx-10 sm:mx-10 ">
             <div className="flex-row flex-grow">
               <ul className="flex flex-grow">
                 <li
@@ -287,7 +287,7 @@ export default function Roles(props) {
                 </li>
               </ul>
             </div>
-            <div className="flex ">
+            <div className="flex mt-4">
               <div>
                 <div className=" group inline-block  justify-self-end sm:mb-0">
                   <button
@@ -297,7 +297,7 @@ export default function Roles(props) {
                       setFilter(null);
                       setShowFilterBy(false);
                     }}
-                    className="text-gray-700 font-semibold md:py-2  rounded inline-flex items-center sm:ml-10 md:ml-5"
+                    className="text-gray-700 font-semibold rounded inline-flex items-center  md:ml-5 md:py-2 "
                   >
                     <span className="mr-1 md:ml-2 min-w-max">
                       {"Clear Sort & Filter"}

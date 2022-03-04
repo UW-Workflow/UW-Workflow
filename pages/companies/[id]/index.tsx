@@ -114,7 +114,7 @@ export default function Companies() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row mb-4  mx-5 sm:mx-20">
+          <div className="flex flex-col md:flex-row mb-4  mx-5 lg:mx-20">
             <div className="flex  flex-grow">
               <ul className="flex flex-grow">
                 <li
@@ -148,7 +148,7 @@ export default function Companies() {
               </ul>
             </div>
             <div>
-              <div className="p-2 group relative md:justify-self-end sm:mb-0 inline-block">
+              <div className="p-2 group relative md:justify-self-end lg:mb-0 inline-block">
                 <button
                   onClick={() => {
                     setShowSortBy(false);
@@ -156,7 +156,7 @@ export default function Companies() {
                     setFilter(null);
                     setShowFilterBy(false);
                   }}
-                  className="text-gray-700 font-semibold py-2 md:px-4 rounded inline-flex items-center md:ml-10"
+                  className="text-gray-700 font-semibold py-2 lg:px-4 rounded inline-flex items-center lg:ml-10"
                 >
                   <span className="mr-1 ml-2 min-w-max">
                     {"Clear Sort & Filter"}
@@ -167,7 +167,7 @@ export default function Companies() {
                     setShowFilterBy(!showFilterBy);
                     setShowSortBy(false);
                   }}
-                  className="text-gray-700 font-semibold py-2 md:px-4 rounded inline-flex items-center md:ml-10"
+                  className="text-gray-700 font-semibold py-2 lg:px-4 rounded inline-flex items-center lg:ml-10"
                 >
                   <span className="mr-1 ml-2 min-w-max">Filter By</span>
                   <svg
@@ -183,7 +183,7 @@ export default function Companies() {
                     setShowSortBy(!showSortBy);
                     setShowFilterBy(false);
                   }}
-                  className="text-gray-700 font-semibold py-2 md:px-4 rounded inline-flex items-center md:ml-10"
+                  className="text-gray-700 font-semibold py-2 lg:px-4 rounded inline-flex items-center lg:ml-10"
                 >
                   <span className="mr-1 ml-2 min-w-max">Sort By</span>
                   <svg
