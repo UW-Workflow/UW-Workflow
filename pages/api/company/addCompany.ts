@@ -25,15 +25,12 @@ export default async function handler(
     const userResponse = await dbQuery(INSERT_COMPANY, {
       name: company.name,
       website: company.website,
-      city: company.city,
-      country: company.country,
-      description: company.description,
       logo: company.logo,
     });
     if (!userResponse) {
       return res.json({});
     }
-    return res.json(userResponse.insert_companies.returning[0]);
+    return res.json({});
   } catch (error) {
     console.error(error);
     return apiResponse(res, 500, `Error logging: ${error.message}`, true);

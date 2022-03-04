@@ -234,7 +234,7 @@ export default function Roles(props) {
               </div>
             </div>
           </div>
-          <div className="flex flex-row mb-4 mx-5 sm:mx-20 ">
+          <div className="flex-col md:flex-row mb-4 mx-5 sm:mx-20 ">
             <div className="flex-row flex-grow">
               <ul className="flex flex-grow">
                 <li
@@ -274,7 +274,7 @@ export default function Roles(props) {
                 <li
                   className={
                     chosenWindow === "logistics"
-                      ? "p-4 border-b-2 border-transparent border-blue-active text-gray-500"
+                      ? "p-4 border-b-2  border-blue-active text-gray-500"
                       : "p-4 border-b-2 border-transparent hover:border-blue-active hover:text-gray-500"
                   }
                   onClick={() => {
@@ -287,7 +287,7 @@ export default function Roles(props) {
                 </li>
               </ul>
             </div>
-            <div className="flex">
+            <div className="flex ">
               <div>
                 <div className=" group inline-block  justify-self-end sm:mb-0">
                   <button
@@ -297,9 +297,9 @@ export default function Roles(props) {
                       setFilter(null);
                       setShowFilterBy(false);
                     }}
-                    className="text-gray-700 font-semibold py-2  rounded inline-flex items-center sm:ml-10 ml-5"
+                    className="text-gray-700 font-semibold md:py-2  rounded inline-flex items-center sm:ml-10 md:ml-5"
                   >
-                    <span className="mr-1 ml-2 min-w-max">
+                    <span className="mr-1 md:ml-2 min-w-max">
                       {"Clear Sort & Filter"}
                     </span>
                   </button>
@@ -308,7 +308,7 @@ export default function Roles(props) {
                       setShowFilterBy(!showFilterBy);
                       setShowSortBy(false);
                     }}
-                    className="text-gray-700 font-semibold py-2  rounded inline-flex items-center sm:ml-10 ml-5"
+                    className="text-gray-700 font-semibold md:py-2  rounded inline-flex items-center sm:ml-10 md:ml-5"
                   >
                     <span className="mr-1 ml-2 min-w-max">Filter By</span>
                     <svg
@@ -324,7 +324,7 @@ export default function Roles(props) {
                       setShowSortBy(!showSortBy);
                       setShowFilterBy(false);
                     }}
-                    className="text-gray-700 font-semibold py-2  rounded inline-flex items-center ml-10"
+                    className="text-gray-700 font-semibold py-2  rounded inline-flex items-center md:ml-10"
                   >
                     <span className="mr-1 ml-2 min-w-max">Sort By</span>
                     <svg

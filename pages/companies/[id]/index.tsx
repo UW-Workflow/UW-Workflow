@@ -114,7 +114,7 @@ export default function Companies() {
               </div>
             </div>
           </div>
-          <div className="flex  mb-4  mx-5 sm:mx-20">
+          <div className="flex flex-col md:flex-row mb-4  mx-5 sm:mx-20">
             <div className="flex  flex-grow">
               <ul className="flex flex-grow">
                 <li
@@ -147,127 +147,125 @@ export default function Companies() {
                 </li>
               </ul>
             </div>
-            <div className="flex">
-              <div>
-                <div className="p-2 group inline-block relative justify-self-end sm:mb-0">
-                  <button
-                    onClick={() => {
-                      setShowSortBy(false);
-                      setSort(SORT.COOP);
-                      setFilter(null);
-                      setShowFilterBy(false);
-                    }}
-                    className="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center ml-10"
+            <div>
+              <div className="p-2 group relative md:justify-self-end sm:mb-0 inline-block">
+                <button
+                  onClick={() => {
+                    setShowSortBy(false);
+                    setSort(SORT.COOP);
+                    setFilter(null);
+                    setShowFilterBy(false);
+                  }}
+                  className="text-gray-700 font-semibold py-2 md:px-4 rounded inline-flex items-center md:ml-10"
+                >
+                  <span className="mr-1 ml-2 min-w-max">
+                    {"Clear Sort & Filter"}
+                  </span>
+                </button>
+                <button
+                  onClick={() => {
+                    setShowFilterBy(!showFilterBy);
+                    setShowSortBy(false);
+                  }}
+                  className="text-gray-700 font-semibold py-2 md:px-4 rounded inline-flex items-center md:ml-10"
+                >
+                  <span className="mr-1 ml-2 min-w-max">Filter By</span>
+                  <svg
+                    className=" max-h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
                   >
-                    <span className="mr-1 ml-2 min-w-max">
-                      {"Clear Sort & Filter"}
-                    </span>
-                  </button>
-                  <button
-                    onClick={() => {
-                      setShowFilterBy(!showFilterBy);
-                      setShowSortBy(false);
-                    }}
-                    className="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center ml-10"
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => {
+                    setShowSortBy(!showSortBy);
+                    setShowFilterBy(false);
+                  }}
+                  className="text-gray-700 font-semibold py-2 md:px-4 rounded inline-flex items-center md:ml-10"
+                >
+                  <span className="mr-1 ml-2 min-w-max">Sort By</span>
+                  <svg
+                    className=" max-h-4 w-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
                   >
-                    <span className="mr-1 ml-2 min-w-max">Filter By</span>
-                    <svg
-                      className=" max-h-4 w-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                    </svg>
-                  </button>
-                  <button
-                    onClick={() => {
-                      setShowSortBy(!showSortBy);
-                      setShowFilterBy(false);
-                    }}
-                    className="text-gray-700 font-semibold py-2 px-4 rounded inline-flex items-center ml-10"
-                  >
-                    <span className="mr-1 ml-2 min-w-max">Sort By</span>
-                    <svg
-                      className=" max-h-4 w-4"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
-                    </svg>
-                  </button>
-                  {showSortBy ? (
-                    <ul className="absolute text-gray-700 pt-1 sm:min-w-100 sm:mr-10 sm:right-0">
-                      <li className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
-                        <button
-                          onClick={() => {
-                            setSort(SORT.INTERVIEW);
-                            setShowSortBy(false);
-                          }}
-                        >
-                          <a className=" ">Avg Interview rating High to Low</a>
-                        </button>
-                      </li>
-                      <li className="rounded-b bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
-                        <button
-                          onClick={() => {
-                            setSort(SORT.COOP);
-                            setShowSortBy(false);
-                          }}
-                        >
-                          <a className="">Avg Co-op rating High to Low</a>
-                        </button>
-                      </li>
-                      <li className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
-                        <button
-                          onClick={() => {
-                            setSort(SORT.SALARY);
-                            setShowSortBy(false);
-                          }}
-                        >
-                          <a className="">Salary High to Low</a>
-                        </button>
-                      </li>
-                    </ul>
-                  ) : (
-                    <ul></ul>
-                  )}
-                  {showFilterBy ? (
-                    <ul className="absolute text-gray-700 pt-1 sm:min-w-100 sm:mr-2  sm:right-1/3">
-                      <li className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
-                        <button
-                          onClick={() => {
-                            setFilter(FILTER.SALARY_GREATER_THAN_40);
-                            setShowFilterBy(false);
-                          }}
-                        >
-                          <a className=" ">{"Salary > 40"}</a>
-                        </button>
-                      </li>
-                      <li className="rounded-b bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
-                        <button
-                          onClick={() => {
-                            setFilter(FILTER.COOP_RATING_GREATER_THAN_3);
-                            setShowFilterBy(false);
-                          }}
-                        >
-                          <a className="">{"Coop Rating > 3"}</a>
-                        </button>
-                      </li>
-                      <li className="rounded-b bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
-                        <button
-                          onClick={() => {
-                            setFilter(FILTER.INTERVIEW_RATING_GREATER_THAN_3);
-                            setShowFilterBy(false);
-                          }}
-                        >
-                          <a className="">{"Interview Rating > 3"}</a>
-                        </button>
-                      </li>
-                    </ul>
-                  ) : (
-                    <ul></ul>
-                  )}
-                </div>
+                    <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+                  </svg>
+                </button>
+                {showSortBy ? (
+                  <ul className="absolute text-gray-700 pt-1 sm:min-w-100 sm:mr-10 sm:right-0">
+                    <li className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                      <button
+                        onClick={() => {
+                          setSort(SORT.INTERVIEW);
+                          setShowSortBy(false);
+                        }}
+                      >
+                        <a className=" ">Avg Interview rating High to Low</a>
+                      </button>
+                    </li>
+                    <li className="rounded-b bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                      <button
+                        onClick={() => {
+                          setSort(SORT.COOP);
+                          setShowSortBy(false);
+                        }}
+                      >
+                        <a className="">Avg Co-op rating High to Low</a>
+                      </button>
+                    </li>
+                    <li className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                      <button
+                        onClick={() => {
+                          setSort(SORT.SALARY);
+                          setShowSortBy(false);
+                        }}
+                      >
+                        <a className="">Salary High to Low</a>
+                      </button>
+                    </li>
+                  </ul>
+                ) : (
+                  <ul></ul>
+                )}
+                {showFilterBy ? (
+                  <ul className="absolute text-gray-700 pt-1 sm:min-w-100 sm:mr-2  sm:right-1/3">
+                    <li className="rounded-t bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                      <button
+                        onClick={() => {
+                          setFilter(FILTER.SALARY_GREATER_THAN_40);
+                          setShowFilterBy(false);
+                        }}
+                      >
+                        <a className=" ">{"Salary > 40"}</a>
+                      </button>
+                    </li>
+                    <li className="rounded-b bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                      <button
+                        onClick={() => {
+                          setFilter(FILTER.COOP_RATING_GREATER_THAN_3);
+                          setShowFilterBy(false);
+                        }}
+                      >
+                        <a className="">{"Coop Rating > 3"}</a>
+                      </button>
+                    </li>
+                    <li className="rounded-b bg-gray-200 sm:hover:bg-gray-400 p-4 block whitespace-no-wrap">
+                      <button
+                        onClick={() => {
+                          setFilter(FILTER.INTERVIEW_RATING_GREATER_THAN_3);
+                          setShowFilterBy(false);
+                        }}
+                      >
+                        <a className="">{"Interview Rating > 3"}</a>
+                      </button>
+                    </li>
+                  </ul>
+                ) : (
+                  <ul></ul>
+                )}
               </div>
             </div>
           </div>
