@@ -90,7 +90,7 @@ export default function Password() {
                   </div>
                 )}
                 <div className="flex">
-                  <div className="bg-button-blue text-white rounded-xl p-3 flex items-center space-x-2 mx-auto my-4">
+                  <div className="bg-button-blue hover:bg-button-hover text-white rounded-xl p-3 flex items-center space-x-2 mx-auto my-4">
                     <button onClick={onSubmit} className="font-bold">
                       Save Password
                     </button>
