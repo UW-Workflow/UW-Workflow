@@ -35,6 +35,7 @@ module.exports = {
       colors: {
         "shadow-gray": "#23262F99",
         "divider-color": "#23262F1A",
+        "button-hover": "#608fe0",
         "light-black": "#23262F",
         "gradient-2": "#C9FFF5",
         "gradient-3": "rgba(255, 221, 160, 1)",

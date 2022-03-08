@@ -315,13 +315,13 @@ export default function AddCompany() {
               </p>
             ) : null}
             <button
-              className="bg-button-blue text-white rounded-xl p-3  mx-10 my-4"
+              className="bg-button-blue hover:bg-button-hover text-white rounded-xl p-3  mx-10 my-4"
               onClick={addModelStage}
             >
               {modelStage === 1 ? <b>Add Company</b> : <b>Continue</b>}
             </button>
             <button
-              className="rounded-xl p-2  mx-10 mt-0 mb-4 border-2 border-gray-300"
+              className="rounded-xl p-2 mx-10 mt-0 mb-4 border-2 border-gray-300"
               onClick={cancel}
             >
               {modelStage === 1 ? <b>Previous Page</b> : <b>Cancel</b>}

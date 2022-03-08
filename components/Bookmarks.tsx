@@ -52,7 +52,7 @@ export default function Bookmarks() {
     <div className="flex">
       <div className="self-center bg-gradient-2 filter blur-huge px-20 py-16 mt-5 flex-grow hidden sm:block"></div>
       {bookmarks.length > 0 && (
-        <div className="flex flex-col flex-grow rounded-lg  my-5 shadow bg-white overflow-y-auto max-h-100 mx-16 sm:mx-0">
+        <div className="flex flex-col flex-grow rounded-lg  my-5 shadow bg-white overflow-y-auto max-h-100 mx-2 sm:mx-0">
           {bookmarks &&
             bookmarks.map((value, index) => {
               return (
@@ -60,13 +60,13 @@ export default function Bookmarks() {
                   key={index}
                   className={
                     index < bookmarks.length - 1
-                      ? "flex flex-grow flex-row mx-4 my-4 border-b-2"
-                      : "flex flex-grow flex-row mx-4 my-4"
+                      ? "flex flex-grow mx-4 my-4 border-b-2"
+                      : "flex flex-grow mx-4 my-4"
                   }
                 >
                   <div className="flex flex-grow my-2 mx-2">
                     <div className="flex flex-col flex-grow">
-                      <div>
+                      <div className="">
                         <p className="text-base font-bold">
                           {value.title_name}
                         </p>
@@ -103,7 +103,7 @@ export default function Bookmarks() {
                         View
                       </Link>
                     </div>
-                    <div className="flex items-center my-auto">
+                    <div className="flex items-center">
                       <img
                         onClick={() => removeBookmark(value.id)}
                         src={"/bookmark_selected.svg"}

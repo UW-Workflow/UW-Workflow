@@ -31,6 +31,13 @@ export default function ConatctUs() {
       event.preventDefault();
       const finalSubject =
         subject !== "" ? subject : `New message from ${firstName} ${lastName}`;
+      init(EMAILJS_USER_ID);
+      send(EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, {
+        from_name: `${firstName} ${lastName}`,
+        subject: finalSubject,
+        message: message,
+        reply_to: authUser ? authUser.email : email,
+      });
       setAfterSuccess(true);
     }
   };
@@ -187,7 +194,7 @@ export default function ConatctUs() {
                 <input
                   type="submit"
                   value="Submit"
-                  className="p-2 ml-5 xl:ml-10 lg:ml-10 md:ml-10 sm:ml-10 mt-1 bg-blue-600 text-white rounded-md cursor-pointer"
+                  className="p-2 ml-5 xl:ml-10 lg:ml-10 md:ml-10 sm:ml-10 mt-1 hover:bg-button-hover bg-blue-600 text-white rounded-md cursor-pointer"
                   style={{ width: "90%" }}
                 />
                 {error && <p style={{ color: "red" }}>{error}</p>}
