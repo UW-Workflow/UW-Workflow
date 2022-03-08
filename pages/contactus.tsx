@@ -194,7 +194,7 @@ export default function ConatctUs() {
                 <input
                   type="submit"
                   value="Submit"
-                  className="p-2 ml-5 xl:ml-10 lg:ml-10 md:ml-10 sm:ml-10 mt-1 bg-blue-600 text-white rounded-md cursor-pointer"
+                  className="p-2 ml-5 xl:ml-10 lg:ml-10 md:ml-10 sm:ml-10 mt-1 hover:bg-button-hover bg-blue-600 text-white rounded-md cursor-pointer"
                   style={{ width: "90%" }}
                 />
                 {error && <p style={{ color: "red" }}>{error}</p>}

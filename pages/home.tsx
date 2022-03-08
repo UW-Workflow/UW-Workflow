@@ -49,7 +49,7 @@ export default function Home() {
             <div className="flex flex-col flex-wrap lg:flex-row items-center space-x-0 space-x-4 space-y-1">
               <AutoComplete items={companies} />
               <span>or</span>
-              <div className="bg-button-blue text-white rounded-xl p-3 flex items-center space-x-2">
+              <div className="bg-button-blue text-white rounded-xl p-3 flex items-center space-x-2 hover:bg-button-hover">
                 <div className="bg-white text-button-blue rounded-md">
                   <img src="/plus.svg" loading="lazy"></img>
                 </div>

@@ -105,9 +105,9 @@ export default function Companies() {
                     query: { company_id: company.id },
                   });
                 }}
-                className="bg-button-blue text-white rounded-xl flex items-center space-x-2 sm:p-4 px-20 py-4"
+                className="bg-button-blue hover:bg-button-hover text-white rounded-xl flex items-center space-x-2 sm:p-4 px-20 py-4"
               >
-                <div className="bg-white text-button-blue rounded-md">
+                <div className="bg-white text-button-blue rounded-md ">
                   <img src="/plus.svg"></img>
                 </div>
                 <span>Add a review</span>
