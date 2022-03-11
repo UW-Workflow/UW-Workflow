@@ -17,7 +17,6 @@ const Login = (props) => {
   const router = useRouter();
   const { signInWithEmailAndPassword, authUser, loading, signOut } = useAuth();
   const [state, setState] = useState("login");
-
   const onSubmit = (event) => {
     setLoginError(null);
     signInWithEmailAndPassword(email, password)
@@ -28,7 +27,7 @@ const Login = (props) => {
           return;
         } else {
           signOut();
-          setLoginError("Please verify your email address!");
+          setLoginError("Please verify your email address");
         }
       })
       .catch((error) => {
