@@ -91,7 +91,7 @@ export default function CompanyRoles(props) {
 
   return (
     <div className="flex">
-      <div className="flex flex-col flex-grow rounded-lg  my-5 shadow bg-white overflow-scroll max-h-100">
+      <div className="flex flex-col flex-grow rounded-lg  my-5 shadow bg-white overflow-auto max-h-100 p-0">
         {roles &&
           roles.map((value, index) => {
             return (
@@ -119,14 +119,27 @@ export default function CompanyRoles(props) {
                           {value.title_name}
                         </p>
                       </div>
-                      <div className="text-xs pt-2">
-                        {/* {value.reviews != 1 ? (
+                      {/* {value.reviews != 1 ? (
                         <p>{value.reviews} Reviews</p>
                       ) : (
                         <p>{value.reviews} Review</p>
                       )} */}
-
-                        <div className="flex flex-row invisible sm:visible">
+                      <div className="flex flex-row text-xs py-2">
+                        <div>
+                          <p>Average Salary:</p>
+                        </div>
+                        {value.avg_salary ? (
+                          <div className="flex flex-row ml-2">
+                            {" $"}
+                            {Number(value.avg_salary).toFixed(2)}
+                            /hr
+                          </div>
+                        ) : (
+                          <div className="flex flex-row ml-2">--</div>
+                        )}
+                      </div>
+                      <div className="hidden sm:block">
+                        <div className="flex flex-row text-xs">
                           <div>
                             <p>Average Co-op Rating </p>
                           </div>
@@ -141,7 +154,7 @@ export default function CompanyRoles(props) {
                           )}
                         </div>
 
-                        <div className="flex flex-row invisible sm:visible">
+                        <div className="flex flex-row text-xs">
                           <div>
                             <p>Average Interview Rating </p>
                           </div>
@@ -157,41 +170,27 @@ export default function CompanyRoles(props) {
                             <div className="flex flex-row ml-1">--</div>
                           )}
                         </div>
-
-                        <div className="flex flex-row">
-                          <div>
-                            <p>Average Salary:</p>
-                          </div>
-                          {value.avg_salary ? (
-                            <div className="flex flex-row ml-2">
-                              {" $"}
-                              {Number(value.avg_salary).toFixed(2)}
-                              /hr
-                            </div>
-                          ) : (
-                            <div className="flex flex-row ml-2">--</div>
-                          )}
-                        </div>
                       </div>
                     </div>
-                    <div
-                      style={{ cursor: "pointer" }}
-                      onClick={() => {
-                        router.push({
-                          pathname: "/companies/[id]/[role]",
-                          query: {
-                            id: props.companyId,
-                            role: value.id,
-                          },
-                        });
-                      }}
-                      className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full text-blue-active"
-                    >
-                      <span>View</span>
-                    </div>
+
                     {/* <div className="flex items-center my-auto">
                       <img src={"/bookmark_selected.svg"}></img>
                     </div> */}
+                  </div>
+                  <div
+                    style={{ cursor: "pointer" }}
+                    onClick={() => {
+                      router.push({
+                        pathname: "/companies/[id]/[role]",
+                        query: {
+                          id: props.companyId,
+                          role: value.id,
+                        },
+                      });
+                    }}
+                    className="flex items-center ml-auto mr-4 px-5 py-2 mx-2 my-auto border-2 border-blue-active rounded-full text-blue-active"
+                  >
+                    <span>View</span>
                   </div>
                 </div>
                 {roles.length == 0 && (

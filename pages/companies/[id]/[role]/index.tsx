@@ -182,7 +182,7 @@ export default function Roles(props) {
               ></img>
               <div className="flex flex-row">
                 <div className="flex flex-col mt-2.5 sm:mt-0">
-                  <div className="flex flex-row space-x-2">
+                  <div className="flex flex-col sm:flex-row space-x-2">
                     <p className="text-xl font-bold">{company.name}</p>
                     <a
                       href={
@@ -193,6 +193,7 @@ export default function Roles(props) {
                       }
                       target="_blank"
                       rel="noreferrer"
+                      className="mt-2 sm:mt-0 ml-0 sm:ml-2"
                     >
                       🔗 {company.website}
                     </a>
@@ -234,7 +235,7 @@ export default function Roles(props) {
               </div>
             </div>
           </div>
-          <div className="flex flex-col sm:flex-row mb-4 mx-10 sm:mx-10 ">
+          <div className="flex flex-col sm:flex-row mb-4 mx-10 sm:mx-20">
             <div className="flex-row flex-grow">
               <ul className="flex flex-grow">
                 <li

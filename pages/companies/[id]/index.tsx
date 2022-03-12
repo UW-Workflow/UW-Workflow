@@ -114,7 +114,7 @@ export default function Companies() {
               </div>
             </div>
           </div>
-          <div className="flex flex-col md:flex-row mb-4  mx-5 lg:mx-20">
+          <div className="flex flex-col md:flex-row mb-4  mx-10 lg:mx-20">
             <div className="flex  flex-grow">
               <ul className="flex flex-grow">
                 <li
