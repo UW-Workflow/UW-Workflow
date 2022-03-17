@@ -3,9 +3,6 @@ import { apiResponse } from "../../../utils/apiResponse";
 
 export default function (req, res) {
   try {
-    if (req.method !== "POST") {
-      return apiResponse(res, 400, "The given method is not supported", true);
-    }
     const review: any = req.body;
     const transporter = nodemailer.createTransport({
       port: 587,
